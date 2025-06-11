@@ -61,12 +61,35 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        padding: 0;
+      }
+      .nav-container {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto;
+        position: relative;
+      }
+      .nav-logo {
+        flex: 1;
+      }
+      .nav-toggle {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--white);
+        font-size: 2rem;
+        margin-left: 1rem;
+        cursor: pointer;
       }
       nav ul {
         display: flex;
         gap: 2rem;
         list-style: none;
         padding: 1.2rem 0;
+        margin: 0;
+        align-items: center;
       }
       nav a {
         color: var(--white);
@@ -82,6 +105,45 @@
         background: linear-gradient(90deg, var(--primary), var(--secondary));
         color: var(--bg);
         transform: translateY(-2px) scale(1.08);
+      }
+      @media (max-width: 700px) {
+        nav {
+          padding: 0 0.2rem;
+        }
+        .nav-container {
+          justify-content: flex-start;
+        }
+        .nav-toggle {
+          display: block;
+          z-index: 1101;
+        }
+        nav ul {
+          flex-direction: column;
+          gap: 0;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: #23263a;
+          width: 100vw;
+          padding: 0.7rem 0;
+          display: none;
+          z-index: 1100;
+          box-shadow: 0 2px 18px rgba(0, 0, 0, 0.2);
+        }
+        nav ul.open {
+          display: flex;
+        }
+        nav ul li {
+          width: 100%;
+          text-align: left;
+        }
+        nav a {
+          padding: 0.8rem 1.2rem;
+          display: block;
+          width: 100%;
+          font-size: 1.1rem;
+        }
       }
       header {
         text-align: center;
@@ -141,6 +203,38 @@
       }
       .contact-info a:hover {
         color: var(--white);
+      }
+      @media (max-width: 700px) {
+        header {
+          padding: 2rem 0.5rem 1rem 0.5rem;
+        }
+        .profile-img {
+          width: 90px;
+          height: 90px;
+          margin-bottom: 0.7rem;
+        }
+        .contact-info {
+          flex-direction: column;
+          align-items: center;
+          gap: 0.3rem;
+          padding: 0.7rem 0.3rem;
+          border-radius: 18px;
+          width: 100%;
+          margin: 0.8rem auto 0 auto;
+          font-size: 0.96rem;
+        }
+        .typewriter {
+          font-size: 1.13rem;
+        }
+      }
+      @media (max-width: 480px) {
+        .section-title {
+          font-size: 1.1rem;
+        }
+        .profile-img {
+          width: 70px;
+          height: 70px;
+        }
       }
       section {
         max-width: 1100px;
@@ -471,7 +565,6 @@
         border-radius: 12px;
         font-weight: 500;
       }
-      /* Responsive */
       @media (max-width: 900px) {
         .timeline-content {
           min-width: 220px;
@@ -488,12 +581,6 @@
         }
       }
       @media (max-width: 600px) {
-        nav ul {
-          gap: 0.7rem;
-        }
-        header {
-          padding: 3rem 1rem 1rem 1rem;
-        }
         .section-title {
           font-size: 1.4rem;
         }
@@ -518,36 +605,42 @@
   <body>
     <div id="particles-js"></div>
     <nav>
-      <ul>
-        <li>
-          <a href="#about" class="active"
-            ><i class="fa-solid fa-user"></i> About</a
-          >
-        </li>
-        <li>
-          <a href="#education"
-            ><i class="fa-solid fa-graduation-cap"></i> Education</a
-          >
-        </li>
-        <li>
-          <a href="#experience"
-            ><i class="fa-solid fa-briefcase"></i> Experience</a
-          >
-        </li>
-        <li>
-          <a href="#skills"><i class="fa-solid fa-code"></i> Skills</a>
-        </li>
-        <li>
-          <a href="#projects"
-            ><i class="fa-solid fa-diagram-project"></i> Projects</a
-          >
-        </li>
-        <li>
-          <a href="#achievements"
-            ><i class="fa-solid fa-award"></i> Achievements</a
-          >
-        </li>
-      </ul>
+      <div class="nav-container">
+        <div class="nav-logo"></div>
+        <button class="nav-toggle" aria-label="Open menu">
+          <i class="fa fa-bars"></i>
+        </button>
+        <ul>
+          <li>
+            <a href="#about" class="active"
+              ><i class="fa-solid fa-user"></i> About</a
+            >
+          </li>
+          <li>
+            <a href="#education"
+              ><i class="fa-solid fa-graduation-cap"></i> Education</a
+            >
+          </li>
+          <li>
+            <a href="#experience"
+              ><i class="fa-solid fa-briefcase"></i> Experience</a
+            >
+          </li>
+          <li>
+            <a href="#skills"><i class="fa-solid fa-code"></i> Skills</a>
+          </li>
+          <li>
+            <a href="#projects"
+              ><i class="fa-solid fa-diagram-project"></i> Projects</a
+            >
+          </li>
+          <li>
+            <a href="#achievements"
+              ><i class="fa-solid fa-award"></i> Achievements</a
+            >
+          </li>
+        </ul>
+      </div>
     </nav>
     <header>
       <img
@@ -583,19 +676,19 @@
           <a
             href="tel:+12602492495"
             download="Parth Samir Dalvi.vcf"
-            onclick="event.preventDefault(); 
-               const vcf = `BEGIN:VCARD
+            onclick="event.preventDefault();
+             const vcf = `BEGIN:VCARD
 VERSION:3.0
 FN:Parth Samir Dalvi
 TEL;TYPE=CELL:+1-260-249-2495
 END:VCARD`;
-               const blob = new Blob([vcf], {type: 'text/vcard'});
-               const link = document.createElement('a');
-               link.href = URL.createObjectURL(blob);
-               link.download = 'Parth Samir Dalvi.vcf';
-               document.body.appendChild(link);
-               link.click();
-               document.body.removeChild(link);"
+             const blob = new Blob([vcf], {type: 'text/vcard'});
+             const link = document.createElement('a');
+             link.href = URL.createObjectURL(blob);
+             link.download = 'Parth Samir Dalvi.vcf';
+             document.body.appendChild(link);
+             link.click();
+             document.body.removeChild(link);"
           >
             (260) 249-2495
           </a>
@@ -616,6 +709,7 @@ END:VCARD`;
         </span>
       </div>
     </header>
+    <!-- About -->
     <section id="about">
       <div class="section-title" data-aos="fade-down">
         <i class="fa-solid fa-user"></i> About Me
@@ -655,6 +749,7 @@ END:VCARD`;
         </p>
       </div>
     </section>
+    <!-- Education -->
     <section id="education">
       <div class="section-title">
         <i class="fas fa-graduation-cap"></i> Education
@@ -718,6 +813,7 @@ END:VCARD`;
         </div>
       </div>
     </section>
+    <!-- Experience -->
     <section id="experience">
       <div class="section-title">
         <i class="fas fa-briefcase"></i> Professional Experience
@@ -806,6 +902,7 @@ END:VCARD`;
         </div>
       </div>
     </section>
+    <!-- Skills -->
     <section id="skills">
       <div class="section-title">
         <i class="fas fa-code"></i> Technical Skills
@@ -897,6 +994,7 @@ END:VCARD`;
         </div>
       </div>
     </section>
+    <!-- Projects -->
     <section id="projects">
       <div class="section-title">
         <i class="fas fa-project-diagram"></i> Featured Projects
@@ -966,9 +1064,8 @@ END:VCARD`;
                 href="https://sih.gov.in/sih-2022-senior-final-result"
                 target="_blank"
                 style="color: var(--accent); text-decoration: underline"
+                >Smart India Hackathon 2022 Grand Finalist Result</a
               >
-                Smart India Hackathon 2022 Grand Finalist Result
-              </a>
             </p>
           </div>
         </div>
@@ -980,9 +1077,8 @@ END:VCARD`;
               href="https://indianairforce.nic.in/mehar-baba/"
               target="_blank"
               style="color: var(--accent); text-decoration: underline"
+              >Mehar Baba Swarm Drone Competition</a
             >
-              Mehar Baba Swarm Drone Competition
-            </a>
           </p>
           <div class="description">
             <p>
@@ -998,6 +1094,7 @@ END:VCARD`;
         </div>
       </div>
     </section>
+    <!-- Achievements -->
     <section id="achievements">
       <div class="section-title"><i class="fas fa-award"></i> Achievements</div>
       <div class="achievements-list">
@@ -1054,6 +1151,22 @@ END:VCARD`;
       </div>
     </section>
     <script>
+      // Hamburger menu for mobile
+      const navToggle = document.querySelector(".nav-toggle");
+      const navMenu = document.querySelector("nav ul");
+      navToggle.addEventListener("click", function () {
+        navMenu.classList.toggle("open");
+        navToggle.classList.toggle("active");
+        document.body.classList.toggle("nav-open");
+      });
+      document.querySelectorAll("nav ul li a").forEach((link) => {
+        link.addEventListener("click", function () {
+          navMenu.classList.remove("open");
+          navToggle.classList.remove("active");
+          document.body.classList.remove("nav-open");
+        });
+      });
+
       // Particles.js
       particlesJS("particles-js", {
         particles: {
