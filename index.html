@@ -1,633 +1,1167 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Parth Samir Dalvi | Portfolio</title>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
-  <style>
-    :root {
-      --primary: #6c63ff;
-      --secondary: #48c6ef;
-      --bg: #181a23;
-      --card-bg: #23263a;
-      --accent: #ffd86b;
-      --white: #fff;
-      --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: "Montserrat", Arial, sans-serif;
-      background: linear-gradient(120deg, var(--primary) 0%, var(--secondary) 100%);
-      color: var(--white);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-    #particles-js {
-      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
-    }
-    .icon-nav {
-      position: fixed;
-      top: 50%;
-      left: 0;
-      transform: translateY(-50%);
-      background: rgba(24, 26, 35, 0.98);
-      box-shadow: var(--shadow);
-      border-radius: 0 1.5rem 1.5rem 0;
-      z-index: 2000;
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      padding: 1.2rem 0.4rem;
-    }
-    .icon-nav a {
-      color: var(--white);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 0.7rem 0.6rem;
-      font-size: 1.5rem;
-      border-radius: 50%;
-      transition: background 0.3s, color 0.3s, transform 0.15s;
-      margin: 0 0.1rem;
-      position: relative;
-    }
-    .icon-nav a.active,
-    .icon-nav a:hover {
-      background: var(--accent);
-      color: var(--bg);
-      transform: scale(1.18);
-    }
-    .icon-nav a span {
-      font-size: 0.7rem;
-      color: #d6d6d6;
-      font-weight: 600;
-      margin-top: 0.2rem;
-      letter-spacing: 0.04em;
-      display: none;
-    }
-    @media (max-width: 650px) {
-      .icon-nav {
-        top: unset;
-        left: 0; right: 0; bottom: 0;
-        width: 100vw; height: auto;
-        flex-direction: row;
-        border-radius: 1.5rem 1.5rem 0 0;
-        justify-content: space-between;
-        padding: 0.3rem 0.8rem 0.25rem 0.8rem;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parth Samir Dalvi | Portfolio</title>
+    <!-- Fonts & Icons -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <style>
+      :root {
+        --primary: #6c63ff;
+        --secondary: #48c6ef;
+        --bg: #181a23;
+        --card-bg: #23263a;
+        --accent: #ffd86b;
+        --white: #fff;
+        --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
       }
-      .icon-nav a {
-        font-size: 1.2rem;
-        padding: 0.6rem 0.6rem 0.2rem 0.6rem;
+      * {
+        box-sizing: border-box;
         margin: 0;
+        padding: 0;
       }
-      .icon-nav a span { display: block; }
-    }
-    header {
-      text-align: center;
-      padding: 5rem 2rem 2rem 2rem;
-      position: relative;
-      background: none;
-    }
-    .profile-img {
-      width: 180px; height: 180px;
-      border-radius: 50%;
-      object-fit: cover;
-      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
-      margin-bottom: 1.5rem;
-      border: 6px solid var(--white);
-      transition: transform 0.3s;
-    }
-    .profile-img:hover { transform: scale(1.05) rotate(-3deg); }
-    .typewriter {
-      display: inline-block; font-size: 2rem; color: var(--accent);
-      font-weight: 700; margin-bottom: 1.2rem; min-height: 2.5rem; letter-spacing: 1px;
-    }
-    .subtitle { font-size: 1.2rem; color: #e0e0e0; margin-bottom: 2rem; font-weight: 400; }
-    .contact-info {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem;
-      margin: 1.5rem auto 0 auto; background: rgba(35, 38, 58, 0.7);
-      border-radius: 40px; padding: 1rem 2rem; box-shadow: var(--shadow);
-      font-size: 1.1rem;
-    }
-    .contact-info span { display: flex; align-items: center; gap: 0.5rem; }
-    .contact-info a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
-    .contact-info a:hover { color: var(--white); }
-    section {
-      max-width: 1100px; margin: 0 auto;
-      padding: 4rem 2rem 2rem 2rem;
-      position: relative; z-index: 1;
-    }
-    .section-title {
-      font-size: 2.3rem; font-weight: 800; text-align: center; margin-bottom: 2.5rem;
-      color: var(--accent); letter-spacing: 1px; position: relative;
-    }
-    .section-title::after {
-      content: ""; display: block; width: 80px; height: 4px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      margin: 1rem auto 0 auto; border-radius: 2px;
-    }
-    /* Terminal About */
-    .terminal-box {
-      background: var(--card-bg); color: #c0caf5;
-      padding: 2.5rem 2rem 2rem 2rem; border-radius: 18px;
-      font-family: "Fira Code", "Courier New", monospace;
-      box-shadow: var(--shadow); margin-bottom: 2rem;
-      position: relative; border: 1px solid rgba(255,255,255,0.08);
-      overflow: hidden;
-    }
-    .terminal-box .dots {
-      position: absolute; top: 18px; left: 18px; display: flex; gap: 8px;
-    }
-    .terminal-box .dots span {
-      width: 12px; height: 12px; border-radius: 50%; display: inline-block;
-    }
-    .red { background: #ff5f56; }
-    .yellow { background: #ffbd2e; }
-    .green { background: #27c93f; }
-    .terminal-box .command { color: var(--accent); font-weight: bold; margin-top: 1.5rem; margin-bottom: 0.5rem; font-size: 1.1rem; letter-spacing: 1px; }
-    .terminal-box p { margin: 0.5rem 0; line-height: 1.7; }
-    /* Timeline */
-    .timeline {
-      position: relative; margin: 0 auto; padding-left: 0.5rem;
-    }
-    .timeline::before {
-      content: ""; position: absolute; left: 50%; top: 0;
-      width: 4px; height: 100%;
-      background: linear-gradient(180deg, var(--primary), var(--secondary));
-      border-radius: 2px; transform: translateX(-50%); z-index: 0;
-    }
-    .timeline-item {
-      display: flex; justify-content: flex-start; align-items: flex-start;
-      margin: 2.5rem 0; position: relative; z-index: 1;
-    }
-    .timeline-item:nth-child(even) { flex-direction: row-reverse; }
-    .timeline-content {
-      background: var(--card-bg); color: var(--white); border-radius: 16px;
-      box-shadow: var(--shadow); padding: 2rem 2rem 1.5rem 2rem;
-      min-width: 320px; max-width: 480px; margin: 0 2rem;
-      border: 1px solid rgba(255,255,255,0.08); position: relative; z-index: 2; transition: transform 0.2s;
-    }
-    .timeline-content:hover { transform: scale(1.03); }
-    .timeline-content h3 {
-      font-size: 1.2rem; color: var(--accent); margin-bottom: 0.5rem;
-      font-weight: 700; display: flex; align-items: center; gap: 1rem;
-    }
-    .timeline-content .duration { font-style: italic; color: #b0b0b0; margin-bottom: 0.7rem; font-size: 1rem; }
-    .timeline-content .subtitle { font-weight: 600; color: var(--secondary); margin-bottom: 0.7rem; }
-    .timeline-content .description { color: #e0e0e0; font-size: 1rem; }
-    .timeline-item::before {
-      content: ""; position: absolute; left: 50%; top: 32px;
-      width: 22px; height: 22px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      border-radius: 50%; border: 4px solid var(--bg);
-      transform: translateX(-50%); z-index: 3;
-    }
-    /* Skills */
-    .skills-section { background: rgba(24,26,35,0.95); border-radius: 20px; box-shadow: var(--shadow); margin: 2rem 0; padding: 3rem 2rem; }
-    .skills-header { text-align: center; margin-bottom: 2.5rem; }
-    .skills-header h2 { color: var(--accent); }
-    .skills-showcase { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; }
-    .skill-card { background: var(--card-bg); border-radius: 18px; box-shadow: var(--shadow); padding: 2rem 1.5rem; text-align: center; border: 1px solid rgba(255,255,255,0.08); transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
-    .skill-card:hover { transform: translateY(-8px) scale(1.03); box-shadow: 0 16px 40px 0 rgba(31,38,135,0.25); }
-    .skill-icon { width: 60px; height: 60px; margin: 0 auto 1.2rem auto; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--white); background: linear-gradient(135deg, var(--primary), var(--secondary)); box-shadow: 0 2px 12px rgba(31,38,135,0.15); }
-    .skill-card h3 { color: var(--accent); font-size: 1.1rem; margin-bottom: 1rem; font-weight: 600; }
-    .skill-items { display: flex; flex-direction: column; align-items: flex-start; gap: 0.3rem; margin: 0 auto; }
-    .skill-item { background: rgba(255,255,255,0.08); color: var(--white); padding: 0.4rem 0.9rem; border-radius: 12px; font-size: 0.95rem; font-weight: 500; margin-bottom: 0.2rem; display: flex; align-items: center; gap: 0.5rem; transition: background 0.2s, transform 0.2s; }
-    .skill-item:hover { background: var(--accent); color: var(--bg); transform: scale(1.05); }
-    /* Projects */
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-top: 2rem; }
-    .project-card { background: var(--card-bg); border-radius: 16px; box-shadow: var(--shadow); padding: 2rem 1.5rem; border: 1px solid rgba(255,255,255,0.08); transition: transform 0.2s, box-shadow 0.2s; position: relative; }
-    .project-card:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 12px 32px 0 rgba(31,38,135,0.18); }
-    .project-card h3 { color: var(--accent); font-size: 1.1rem; margin-bottom: 0.7rem; display: flex; align-items: center; gap: 0.5rem; }
-    .project-card .duration { color: #b0b0b0; font-size: 0.98rem; margin-bottom: 0.7rem; }
-    .project-card .description { color: #e0e0e0; font-size: 1rem; }
-    /* Achievements */
-    .achievements-list { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; }
-    .achievement-card { background: var(--card-bg); display: flex; gap: 1.2rem; align-items: flex-start; padding: 1.5rem; border-radius: 18px; box-shadow: var(--shadow); border: 1px solid rgba(255,255,255,0.08); transition: transform 0.2s; }
-    .achievement-card:hover { transform: scale(1.03); }
-    .achievement-card .icon { font-size: 2rem; color: var(--primary); background: var(--white); padding: 1rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 4px 12px rgba(31,38,135,0.1); }
-    .achievement-card .content h3 { font-size: 1.1rem; margin: 0; font-weight: 600; color: var(--accent); }
-    .achievement-card .content p { margin: 0.3rem 0 0.8rem; color: #e0e0e0; font-size: 0.97rem; }
-    .achievement-card .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .achievement-card .tags span { background: rgba(255,255,255,0.12); color: var(--secondary); padding: 0.3rem 0.7rem; font-size: 0.8rem; border-radius: 12px; font-weight: 500; }
-    @media (max-width: 900px) {
-      .timeline-content { min-width: 220px; max-width: 100%; margin: 0 1rem; }
-      .timeline::before, .timeline-item::before { display: none; }
-      .timeline-item { flex-direction: column !important; align-items: center; }
-    }
-    @media (max-width: 600px) {
-      .section-title { font-size: 1.4rem; }
-      .skills-section, section { padding: 2rem 0.5rem; }
-      .skills-showcase, .projects-grid { grid-template-columns: 1fr; }
-      .contact-info { font-size: 1rem; padding: 0.7rem 1rem; }
-    }
-  </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-</head>
-<body>
-  <div id="particles-js"></div>
-  <!-- Always-visible Compact Icon Nav -->
-  <div class="icon-nav">
-    <a href="#about" class="active" title="About"><i class="fa-solid fa-user"></i><span>About</span></a>
-    <a href="#education" title="Education"><i class="fa-solid fa-graduation-cap"></i><span>Education</span></a>
-    <a href="#experience" title="Experience"><i class="fa-solid fa-briefcase"></i><span>Experience</span></a>
-    <a href="#skills" title="Skills"><i class="fa-solid fa-code"></i><span>Skills</span></a>
-    <a href="#projects" title="Projects"><i class="fa-solid fa-diagram-project"></i><span>Projects</span></a>
-    <a href="#achievements" title="Achievements"><i class="fa-solid fa-award"></i><span>Achievements</span></a>
-  </div>
-  <header>
-    <img src="photo4.jpg" alt="Parth Samir Dalvi" class="profile-img" data-aos="zoom-in"/>
-    <div class="typewriter" id="typewriter"></div>
-    <p class="subtitle" data-aos="fade-up" data-aos-delay="200">
-      Graduate Student at Purdue University | Full Time Googling error enthusiast
-    </p>
-    <div class="contact-info" data-aos="fade-up" data-aos-delay="400">
-      <span>
-        <i class="fa-brands fa-linkedin"></i>
-        <a href="https://www.linkedin.com/in/parthdalvi04/" target="_blank">LinkedIn</a>
-      </span>
-      <span>
-        <i class="fa-solid fa-envelope"></i>
-        <a href="mailto:parthsamirdalvi@gmail.com">parthsamirdalvi@gmail.com</a>
-      </span>
-      <span>
-        <i class="fa-brands fa-github"></i>
-        <a href="https://github.com/Parth04Dalvi" target="_blank">GitHub</a>
-      </span>
-      <span>
-        <i class="fas fa-phone"></i>
-        <a href="tel:+12602492495">(260) 249-2495</a>
-      </span>
-      <span>
-        <i class="fas fa-map-marker-alt"></i>
-        <a href="https://www.google.com/maps/place/Indiana,+USA" target="_blank">Indiana, USA</a>
-      </span>
-      <span>
-        <i class="fa-solid fa-file"></i>
-        <a href="1_Parth Samir Dalvi.pdf" target="_blank" rel="noopener">Resume</a>
-      </span>
-    </div>
-  </header>
-  <section id="about">
-    <div class="section-title" data-aos="fade-down">
-      <i class="fa-solid fa-user"></i> About Me
-    </div>
-    <div class="terminal-box" data-aos="fade-up">
-      <div class="dots">
-        <span class="red"></span>
-        <span class="yellow"></span>
-        <span class="green"></span>
-      </div>
-      <p class="command">$ WHO AM I</p>
-      <p>
-        I am a Computer Science graduate student at Purdue University with a strong background in data analysis, full-stack development, and machine learning. With experience in developing innovative solutions ranging from expense tracking applications to advanced object detection systems, I bring a unique blend of technical expertise and creative problem-solving skills. My work has been recognized by organizations including the Indian Air Force, and I've participated in prestigious hackathons and research initiatives.
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Montserrat", Arial, sans-serif;
+        background: linear-gradient(
+          120deg,
+          var(--primary) 0%,
+          var(--secondary) 100%
+        );
+        color: var(--white);
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+      #particles-js {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
+      }
+      nav {
+        width: 100%;
+        background: rgba(24, 26, 35, 0.95);
+        box-shadow: var(--shadow);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      nav ul {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+        padding: 1.2rem 0;
+      }
+      nav a {
+        color: var(--white);
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.1rem;
+        padding: 0.5rem 1.2rem;
+        border-radius: 30px;
+        transition: background 0.3s, color 0.3s, transform 0.2s;
+      }
+      nav a.active,
+      nav a:hover {
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        color: var(--bg);
+        transform: translateY(-2px) scale(1.08);
+      }
+      header {
+        text-align: center;
+        padding: 5rem 2rem 2rem 2rem;
+        position: relative;
+        background: none;
+      }
+      .profile-img {
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+        margin-bottom: 1.5rem;
+        border: 6px solid var(--white);
+        transition: transform 0.3s;
+      }
+      .profile-img:hover {
+        transform: scale(1.05) rotate(-3deg);
+      }
+      .typewriter {
+        display: inline-block;
+        font-size: 2rem;
+        color: var(--accent);
+        font-weight: 700;
+        margin-bottom: 1.2rem;
+        min-height: 2.5rem;
+        letter-spacing: 1px;
+      }
+      .subtitle {
+        font-size: 1.2rem;
+        color: #e0e0e0;
+        margin-bottom: 2rem;
+        font-weight: 400;
+      }
+      .contact-info {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5rem;
+        margin: 1.5rem auto 0 auto;
+        background: rgba(35, 38, 58, 0.7);
+        border-radius: 40px;
+        padding: 1rem 2rem;
+        box-shadow: var(--shadow);
+        font-size: 1.1rem;
+      }
+      .contact-info span {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .contact-info a {
+        color: var(--accent);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .contact-info a:hover {
+        color: var(--white);
+      }
+      section {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 4rem 2rem 2rem 2rem;
+        position: relative;
+        z-index: 1;
+      }
+      .section-title {
+        font-size: 2.3rem;
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 2.5rem;
+        color: var(--accent);
+        letter-spacing: 1px;
+        position: relative;
+      }
+      .section-title::after {
+        content: "";
+        display: block;
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        margin: 1rem auto 0 auto;
+        border-radius: 2px;
+      }
+      /* About Terminal */
+      .terminal-box {
+        background: var(--card-bg);
+        color: #c0caf5;
+        padding: 2.5rem 2rem 2rem 2rem;
+        border-radius: 18px;
+        font-family: "Fira Code", "Courier New", monospace;
+        box-shadow: var(--shadow);
+        margin-bottom: 2rem;
+        position: relative;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        overflow: hidden;
+      }
+      .terminal-box .dots {
+        position: absolute;
+        top: 18px;
+        left: 18px;
+        display: flex;
+        gap: 8px;
+      }
+      .terminal-box .dots span {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+      .red {
+        background: #ff5f56;
+      }
+      .yellow {
+        background: #ffbd2e;
+      }
+      .green {
+        background: #27c93f;
+      }
+      .terminal-box .command {
+        color: var(--accent);
+        font-weight: bold;
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+      }
+      .terminal-box p {
+        margin: 0.5rem 0;
+        line-height: 1.7;
+      }
+      /* Timeline */
+      .timeline {
+        position: relative;
+        margin: 0 auto;
+        padding-left: 0.5rem;
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 0;
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(180deg, var(--primary), var(--secondary));
+        border-radius: 2px;
+        transform: translateX(-50%);
+        z-index: 0;
+      }
+      .timeline-item {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin: 2.5rem 0;
+        position: relative;
+        z-index: 1;
+      }
+      .timeline-item:nth-child(even) {
+        flex-direction: row-reverse;
+      }
+      .timeline-content {
+        background: var(--card-bg);
+        color: var(--white);
+        border-radius: 16px;
+        box-shadow: var(--shadow);
+        padding: 2rem 2rem 1.5rem 2rem;
+        min-width: 320px;
+        max-width: 480px;
+        margin: 0 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        position: relative;
+        z-index: 2;
+        transition: transform 0.2s;
+      }
+      .timeline-content:hover {
+        transform: scale(1.03);
+      }
+      .timeline-content h3 {
+        font-size: 1.2rem;
+        color: var(--accent);
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      .timeline-content .duration {
+        font-style: italic;
+        color: #b0b0b0;
+        margin-bottom: 0.7rem;
+        font-size: 1rem;
+      }
+      .timeline-content .subtitle {
+        font-weight: 600;
+        color: var(--secondary);
+        margin-bottom: 0.7rem;
+      }
+      .timeline-content .description {
+        color: #e0e0e0;
+        font-size: 1rem;
+      }
+      /* Timeline dots */
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 32px;
+        width: 22px;
+        height: 22px;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        border-radius: 50%;
+        border: 4px solid var(--bg);
+        transform: translateX(-50%);
+        z-index: 3;
+      }
+      /* Skills */
+      .skills-section {
+        background: rgba(24, 26, 35, 0.95);
+        border-radius: 20px;
+        box-shadow: var(--shadow);
+        margin: 2rem 0;
+        padding: 3rem 2rem;
+      }
+      .skills-header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+      }
+      .skills-header h2 {
+        color: var(--accent);
+      }
+      .skills-showcase {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 2rem;
+      }
+      .skill-card {
+        background: var(--card-bg);
+        border-radius: 18px;
+        box-shadow: var(--shadow);
+        padding: 2rem 1.5rem;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition: transform 0.2s, box-shadow 0.2s;
+        position: relative;
+        overflow: hidden;
+      }
+      .skill-card:hover {
+        transform: translateY(-8px) scale(1.03);
+        box-shadow: 0 16px 40px 0 rgba(31, 38, 135, 0.25);
+      }
+      .skill-icon {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto 1.2rem auto;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: var(--white);
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        box-shadow: 0 2px 12px rgba(31, 38, 135, 0.15);
+      }
+      .skill-card h3 {
+        color: var(--accent);
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        font-weight: 600;
+      }
+      .skill-items {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+        margin: 0 auto;
+      }
+      .skill-item {
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--white);
+        padding: 0.4rem 0.9rem;
+        border-radius: 12px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        margin-bottom: 0.2rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: background 0.2s, transform 0.2s;
+      }
+      .skill-item:hover {
+        background: var(--accent);
+        color: var(--bg);
+        transform: scale(1.05);
+      }
+      /* Projects */
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+      .project-card {
+        background: var(--card-bg);
+        border-radius: 16px;
+        box-shadow: var(--shadow);
+        padding: 2rem 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition: transform 0.2s, box-shadow 0.2s;
+        position: relative;
+      }
+      .project-card:hover {
+        transform: translateY(-6px) scale(1.02);
+        box-shadow: 0 12px 32px 0 rgba(31, 38, 135, 0.18);
+      }
+      .project-card h3 {
+        color: var(--accent);
+        font-size: 1.1rem;
+        margin-bottom: 0.7rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .project-card .duration {
+        color: #b0b0b0;
+        font-size: 0.98rem;
+        margin-bottom: 0.7rem;
+      }
+      .project-card .description {
+        color: #e0e0e0;
+        font-size: 1rem;
+      }
+      /* Achievements */
+      .achievements-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+      .achievement-card {
+        background: var(--card-bg);
+        display: flex;
+        gap: 1.2rem;
+        align-items: flex-start;
+        padding: 1.5rem;
+        border-radius: 18px;
+        box-shadow: var(--shadow);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition: transform 0.2s;
+      }
+      .achievement-card:hover {
+        transform: scale(1.03);
+      }
+      .achievement-card .icon {
+        font-size: 2rem;
+        color: var(--primary);
+        background: var(--white);
+        padding: 1rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        box-shadow: 0 4px 12px rgba(31, 38, 135, 0.1);
+      }
+      .achievement-card .content h3 {
+        font-size: 1.1rem;
+        margin: 0;
+        font-weight: 600;
+        color: var(--accent);
+      }
+      .achievement-card .content p {
+        margin: 0.3rem 0 0.8rem;
+        color: #e0e0e0;
+        font-size: 0.97rem;
+      }
+      .achievement-card .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .achievement-card .tags span {
+        background: rgba(255, 255, 255, 0.12);
+        color: var(--secondary);
+        padding: 0.3rem 0.7rem;
+        font-size: 0.8rem;
+        border-radius: 12px;
+        font-weight: 500;
+      }
+      /* Responsive */
+      @media (max-width: 900px) {
+        .timeline-content {
+          min-width: 220px;
+          max-width: 100%;
+          margin: 0 1rem;
+        }
+        .timeline::before,
+        .timeline-item::before {
+          display: none;
+        }
+        .timeline-item {
+          flex-direction: column !important;
+          align-items: center;
+        }
+      }
+      @media (max-width: 600px) {
+        nav ul {
+          gap: 0.7rem;
+        }
+        header {
+          padding: 3rem 1rem 1rem 1rem;
+        }
+        .section-title {
+          font-size: 1.4rem;
+        }
+        .skills-section,
+        section {
+          padding: 2rem 0.5rem;
+        }
+        .skills-showcase,
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+        .contact-info {
+          font-size: 1rem;
+          padding: 0.7rem 1rem;
+        }
+      }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  </head>
+  <body>
+    <div id="particles-js"></div>
+    <nav>
+      <ul>
+        <li>
+          <a href="#about" class="active"
+            ><i class="fa-solid fa-user"></i> About</a
+          >
+        </li>
+        <li>
+          <a href="#education"
+            ><i class="fa-solid fa-graduation-cap"></i> Education</a
+          >
+        </li>
+        <li>
+          <a href="#experience"
+            ><i class="fa-solid fa-briefcase"></i> Experience</a
+          >
+        </li>
+        <li>
+          <a href="#skills"><i class="fa-solid fa-code"></i> Skills</a>
+        </li>
+        <li>
+          <a href="#projects"
+            ><i class="fa-solid fa-diagram-project"></i> Projects</a
+          >
+        </li>
+        <li>
+          <a href="#achievements"
+            ><i class="fa-solid fa-award"></i> Achievements</a
+          >
+        </li>
+      </ul>
+    </nav>
+    <header>
+      <img
+      src="photo2.png"
+      alt="Parth Samir Dalvi"
+      class="profile-img"
+      data-aos="zoom-in"
+      />
+      <div class="typewriter" id="typewriter"></div>
+      <p class="subtitle" data-aos="fade-up" data-aos-delay="200">
+      Graduate Student at Purdue University | Full Time Googling error
+      enthusiast
       </p>
-    </div>
-  </section>
-  <section id="education">
-    <div class="section-title">
-      <i class="fas fa-graduation-cap"></i> Education
-    </div>
-    <div class="timeline">
-      <div class="timeline-item" data-aos="fade-right">
-        <div class="timeline-content">
-          <h3>
-            <img src="Purdue.png" alt="Purdue University Logo" style="height: 2.5rem; border-radius: 6px; background: #fff; padding: 2px;"/>
-            Purdue University
-          </h3>
-          <p class="duration">August 2024 – August 2026</p>
-          <p class="subtitle">Master of Science in Computer Science</p>
-          <div class="description">
-            <p><strong>GPA:</strong> 3.83/4.0</p>
-            <p><strong>Current Coursework:</strong> Algorithm Design, Software Project Management, Machine Learning, Software Engineering, Full Stack Web Development, Human Computer Interaction, Natural Language Processing</p>
-          </div>
-        </div>
+      <div class="contact-info" data-aos="fade-up" data-aos-delay="400">
+        <span>
+          <i class="fa-brands fa-linkedin"></i>
+          <a href="https://www.linkedin.com/in/parthdalvi04/" target="_blank"
+            >LinkedIn</a
+          >
+        </span>
+        <span>
+          <i class="fa-solid fa-envelope"></i>
+          <a href="mailto:parthsamirdalvi@gmail.com"
+            >parthsamirdalvi@gmail.com</a
+          >
+        </span>
+        <span>
+          <i class="fa-brands fa-github"></i>
+          <a href="https://github.com/Parth04Dalvi" target="_blank">GitHub</a>
+        </span>
+        <span>
+          <i class="fas fa-phone"></i>
+          <a
+            href="tel:+12602492495"
+            download="Parth Samir Dalvi.vcf"
+            onclick="event.preventDefault(); 
+               const vcf = `BEGIN:VCARD
+VERSION:3.0
+FN:Parth Samir Dalvi
+TEL;TYPE=CELL:+1-260-249-2495
+END:VCARD`;
+               const blob = new Blob([vcf], {type: 'text/vcard'});
+               const link = document.createElement('a');
+               link.href = URL.createObjectURL(blob);
+               link.download = 'Parth Samir Dalvi.vcf';
+               document.body.appendChild(link);
+               link.click();
+               document.body.removeChild(link);"
+          >
+            (260) 249-2495
+          </a>
+        </span>
+        <span>
+          <i class="fas fa-map-marker-alt"></i>
+          <a
+            href="https://www.google.com/maps/place/Indiana,+USA"
+            target="_blank"
+            >Indiana, USA</a
+          >
+        </span>
+        <span>
+          <i class="fa-solid fa-file"></i>
+          <a href="1_Parth Samir Dalvi.pdf" target="_blank" rel="noopener"
+            >Resume</a
+          >
+        </span>
       </div>
-      <div class="timeline-item" data-aos="fade-left">
-        <div class="timeline-content">
-          <h3>
-            <img src="sppu.jpg" alt="Savitribai Phule Pune University Logo" style="height: 2rem; border-radius: 6px; background: #fff; padding: 2px;"/>
-            Savitribai Phule Pune University
-          </h3>
-          <p class="duration">August 2020 – July 2024</p>
-          <p class="subtitle">Bachelor of Engineering in Computer Science</p>
-          <div class="description">
-            <p><strong>GPA:</strong> 8.59/10.0</p>
-            <p><strong>Key Coursework:</strong> Data Structures and Algorithms, Database Management, Computer Networks and Security, Operating Systems, Artificial Intelligence, Machine Learning, Web Technology</p>
-          </div>
-        </div>
+    </header>
+    <section id="about">
+      <div class="section-title" data-aos="fade-down">
+        <i class="fa-solid fa-user"></i> About Me
       </div>
-    </div>
-  </section>
-  <section id="experience">
-    <div class="section-title">
-      <i class="fas fa-briefcase"></i> Professional Experience
-    </div>
-    <div class="timeline">
-      <div class="timeline-item" data-aos="fade-right">
-        <div class="timeline-content">
-          <h3>
-            <img src="weagile.jpg" alt="WeAgile Software Solutions Logo" style="height: 2.5rem; border-radius: 6px; background: #fff; padding: 2px;"/>
-            WeAgile Software Solutions
-          </h3>
-          <p class="duration">March 2024 – May 2024</p>
-          <p class="subtitle">Data Analyst</p>
-          <div class="description">
-            <ul>
-              <li>Developed data visualization pipelines to analyze large datasets, leading to a 15% improvement in operational decision making</li>
-              <li>Performed advanced data manipulation and cleansing to support accurate trend analysis and reporting</li>
-              <li>Conducted quality analysis using surveillance camera data to monitor visitor entry/exit metrics across multiple client properties</li>
-              <li>Created dashboards and visual reports to present key insights to stakeholders, enhancing transparency and performance tracking</li>
-            </ul>
-          </div>
+      <div class="terminal-box" data-aos="fade-up">
+        <div class="dots">
+          <span class="red"></span>
+          <span class="yellow"></span>
+          <span class="green"></span>
         </div>
-      </div>
-      <div class="timeline-item" data-aos="fade-left">
-        <div class="timeline-content">
-          <h3>
-            <img src="elite.jpg" alt="Elite Softwares Logo" style="height: 2.5rem; border-radius: 6px; background: #fff; padding: 2px;"/>
-            Elite Softwares
-          </h3>
-          <p class="duration">January 2023 – March 2023</p>
-          <p class="subtitle">Web Development Intern</p>
-          <div class="description">
-            <ul>
-              <li>Completed comprehensive training in Full Stack Web Development with Python and Django Framework</li>
-              <li>Designed and developed a scalable website using Python and Django for a product-based enterprise</li>
-              <li>Collaborated with clients to define requirements and ensure seamless integration with backend APIs</li>
-              <li>Successfully maintained website performance for 1000+ concurrent users</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="skills">
-    <div class="section-title">
-      <i class="fas fa-code"></i> Technical Skills
-    </div>
-    <div class="skills-section">
-      <div class="skills-header">
-        <h2>My expertise spans programming, web development, cloud, DevOps, and AI/ML.</h2>
-      </div>
-      <div class="skills-showcase">
-        <div class="skill-card" data-aos="fade-up">
-          <div class="skill-icon"><i class="fas fa-terminal"></i></div>
-          <h3>Programming Languages</h3>
-          <ul class="skill-items">
-            <li class="skill-item"><i class="fab fa-python"></i> Python</li>
-            <li class="skill-item"><i class="fab fa-js-square"></i> JavaScript</li>
-            <li class="skill-item"><i class="fab fa-java"></i> Java</li>
-            <li class="skill-item"><i class="fas fa-code"></i> C++</li>
-            <li class="skill-item"><i class="fas fa-hashtag"></i> C#</li>
-            <li class="skill-item"><i class="fas fa-database"></i> SQL</li>
-            <li class="skill-item"><i class="fas fa-terminal"></i> PowerShell</li>
-          </ul>
-        </div>
-        <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="skill-icon"><i class="fas fa-globe"></i></div>
-          <h3>Web & Database</h3>
-          <ul class="skill-items">
-            <li class="skill-item"><i class="fab fa-react"></i> React</li>
-            <li class="skill-item"><i class="fab fa-node-js"></i> Next.js</li>
-            <li class="skill-item"><i class="fas fa-server"></i> Express</li>
-            <li class="skill-item"><i class="fab fa-python"></i> Django</li>
-            <li class="skill-item"><i class="fab fa-html5"></i> HTML/CSS</li>
-            <li class="skill-item"><i class="fas fa-database"></i> MongoDB</li>
-            <li class="skill-item"><i class="fas fa-database"></i> PostgreSQL</li>
-          </ul>
-        </div>
-        <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
-          <div class="skill-icon"><i class="fas fa-brain"></i></div>
-          <h3>AI, ML & Data Science</h3>
-          <ul class="skill-items">
-            <li class="skill-item"><i class="fas fa-robot"></i> Machine Learning</li>
-            <li class="skill-item"><i class="fas fa-language"></i> NLP</li>
-            <li class="skill-item"><i class="fas fa-eye"></i> YOLOv5/v7/v8</li>
-            <li class="skill-item"><i class="fas fa-chart-bar"></i> Data Visualization</li>
-            <li class="skill-item"><i class="fab fa-python"></i> TensorFlow</li>
-            <li class="skill-item"><i class="fab fa-python"></i> PyTorch</li>
-            <li class="skill-item"><i class="fas fa-project-diagram"></i> OpenCV</li>
-          </ul>
-        </div>
-        <div class="skill-card" data-aos="fade-up" data-aos-delay="300">
-          <div class="skill-icon"><i class="fas fa-cogs"></i></div>
-          <h3>Cloud & DevOps</h3>
-          <ul class="skill-items">
-            <li class="skill-item"><i class="fab fa-aws"></i> AWS</li>
-            <li class="skill-item"><i class="fab fa-google"></i> Google Cloud</li>
-            <li class="skill-item"><i class="fab fa-docker"></i> Docker</li>
-            <li class="skill-item"><i class="fab fa-git-alt"></i> Git</li>
-            <li class="skill-item"><i class="fab fa-bitbucket"></i> Bitbucket</li>
-            <li class="skill-item"><i class="fas fa-code-branch"></i> JIRA</li>
-            <li class="skill-item"><i class="fas fa-code"></i> VS Code</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="projects">
-    <div class="section-title">
-      <i class="fas fa-project-diagram"></i> Featured Projects
-    </div>
-    <div class="projects-grid">
-      <div class="project-card" data-aos="fade-up">
-        <h3>
-          <i class="fas fa-chart-line"></i>
-          <a href="https://fibucks.com" target="_blank" style="color: var(--accent); text-decoration: underline">FiBucks - Personal Expense Tracker</a>
-        </h3>
-        <p class="duration">
-          Personal Project | <a href="https://fibucks.com" target="_blank" style="color: var(--accent); text-decoration: underline">fibucks.com</a>
+        <p class="command">$ WHO AM I</p>
+        <p>
+          I am a Computer Science graduate student at Purdue University with a
+          strong background in data analysis, full-stack development, and
+          machine learning. With experience in developing innovative solutions
+          ranging from expense tracking applications to advanced object
+          detection systems, I bring a unique blend of technical expertise and
+          creative problem-solving skills. My work has been recognized by
+          organizations including the Indian Air Force, and I've participated in
+          prestigious hackathons and research initiatives.
         </p>
-        <div class="description">
-          <p><strong>Technologies:</strong> Next.js, MongoDB, Tailwind CSS, Vercel</p>
-          <p>Built a comprehensive expense tracking application with dynamic charts, secure authentication, and mobile-friendly interface. Features budget monitoring and categorization capabilities.</p>
-        </div>
+        <p class="command">$ locate skills</p>
+        <p>→ Programming Languages:</p>
+        <p>
+          Python, Javascript, JAVA, C++, C#, SQL, Powershell, React, Next.js,
+          Express, Django, HTML, CSS, MongoDB, PostgreSQL
+        </p>
+        <p>→ Tools & Platforms:</p>
+        <p>
+          AWS, Google Cloud, GitHub, JIRA, VS Code, Bitbucket, Visual Studio
+          Preview, PyCharm
+        </p>
+        <p>→ Technologies:</p>
+        <p>
+          MERN Stack, REST APIs, GraphQL, Docker, Kubernetes, TensorFlow,
+          PyTorch, OpenCV, YOLOv5/v7/v8, Gemini API, NLP
+        </p>
       </div>
-      <div class="project-card" data-aos="fade-up" data-aos-delay="100">
-        <h3><i class="fa-solid fa-gopuram"></i> Temple Management System</h3>
-        <p class="duration">React Application</p>
-        <div class="description">
-          <p><strong>Technologies:</strong> React, Node.js, Database Integration</p>
-          <p>Developed an integrated digital solution for temple operations including administration, donation management, and community engagement. Improved data management efficiency by 30%.</p>
-        </div>
+    </section>
+    <section id="education">
+      <div class="section-title">
+        <i class="fas fa-graduation-cap"></i> Education
       </div>
-      <div class="project-card" data-aos="fade-up" data-aos-delay="200">
-        <h3><i class="fas fa-eye"></i> Real-Time Object Detection System</h3>
-        <p class="duration">Research Project | Published Paper</p>
-        <div class="description">
-          <p><strong>Technologies:</strong> YOLOv4, Gemini API, NLP, Deep Learning</p>
-          <p>Achieved 98% accuracy in real-time object detection with integrated NLP communication. Featured audio-enabled interaction and online search capabilities.</p>
-          <p><a href="https://sih.gov.in/sih-2022-senior-final-result" target="_blank" style="color: var(--accent); text-decoration: underline">Smart India Hackathon 2022 Grand Finalist Result</a></p>
+      <div class="timeline">
+        <div class="timeline-item" data-aos="fade-right">
+          <div class="timeline-content">
+            <h3>
+              <img
+                src="Purdue.png"
+                alt="Purdue University Logo"
+                style="
+                  height: 2.5rem;
+                  border-radius: 6px;
+                  background: #fff;
+                  padding: 2px;
+                "
+              />
+              Purdue University
+            </h3>
+            <p class="duration">August 2024 – August 2026</p>
+            <p class="subtitle">Master of Science in Computer Science</p>
+            <div class="description">
+              <p><strong>GPA:</strong> 3.83/4.0</p>
+              <p>
+                <strong>Current Coursework:</strong> Algorithm Design, Software
+                Project Management, Machine Learning, Software Engineering, Full
+                Stack Web Development, Human Computer Interaction, Natural
+                Language Processing
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="project-card" data-aos="fade-up" data-aos-delay="300">
-        <h3><i class="fa-solid fa-microchip"></i> Anti-Drone Systems</h3>
-        <p class="duration">Indian Air Force Project | <a href="https://indianairforce.nic.in/mehar-baba/" target="_blank" style="color: var(--accent); text-decoration: underline">Mehar Baba Swarm Drone Competition</a></p>
-        <div class="description">
-          <p><strong>Technologies:</strong> Object Detection, Swarm Intelligence, Computer Vision</p>
-          <p>Implemented runway debris removal system using custom-designed drones. Led swarm intelligence design for real-time surveillance. Received appreciation from Squadron Leader.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="achievements">
-    <div class="section-title"><i class="fas fa-award"></i> Achievements</div>
-    <div class="achievements-list">
-      <div class="achievement-card" data-aos="fade-up">
-        <div class="icon"><i class="fas fa-trophy"></i></div>
-        <div class="content">
-          <h3>Published Research Paper</h3>
-          <p>DOI: 10.55041/IJSREM29989 (2024)</p>
-          <div class="tags">
-            <span>Research</span><span>Machine Learning</span><span>NLP</span>
+        <div class="timeline-item" data-aos="fade-left">
+          <div class="timeline-content">
+            <h3>
+              <img
+                src="sppu.jpg"
+                alt="Savitribai Phule Pune University Logo"
+                style="
+                  height: 2rem;
+                  border-radius: 6px;
+                  background: #fff;
+                  padding: 2px;
+                "
+              />
+              Savitribai Phule Pune University
+            </h3>
+            <p class="duration">August 2020 – July 2024</p>
+            <p class="subtitle">Bachelor of Engineering in Computer Science</p>
+            <div class="description">
+              <p><strong>GPA:</strong> 8.59/10.0</p>
+              <p>
+                <strong>Key Coursework:</strong> Data Structures and Algorithms,
+                Database Management, Computer Networks and Security, Operating
+                Systems, Artificial Intelligence, Machine Learning, Web
+                Technology
+              </p>
+            </div>
           </div>
         </div>
       </div>
-      <div class="achievement-card" data-aos="fade-up" data-aos-delay="100">
-        <div class="icon"><i class="fas fa-medal"></i></div>
-        <div class="content">
-          <h3>Special Appreciation Letter</h3>
-          <p>From Squadron Leader Manoj Kumar (2023)</p>
-          <div class="tags">
-            <span>Defense</span><span>Drone Technology</span>
+    </section>
+    <section id="experience">
+      <div class="section-title">
+        <i class="fas fa-briefcase"></i> Professional Experience
+      </div>
+      <div class="timeline">
+        <div class="timeline-item" data-aos="fade-right">
+          <div class="timeline-content">
+            <h3>
+              <img
+                src="weagile.jpg"
+                alt="WeAgile Software Solutions Logo"
+                style="
+                  height: 2.5rem;
+                  border-radius: 6px;
+                  background: #fff;
+                  padding: 2px;
+                "
+              />
+              WeAgile Software Solutions
+            </h3>
+            <p class="duration">March 2024 – May 2024</p>
+            <p class="subtitle">Data Analyst</p>
+            <div class="description">
+              <ul>
+                <li>
+                  Developed data visualization pipelines to analyze large
+                  datasets, leading to a 15% improvement in operational decision
+                  making
+                </li>
+                <li>
+                  Performed advanced data manipulation and cleansing to support
+                  accurate trend analysis and reporting
+                </li>
+                <li>
+                  Conducted quality analysis using surveillance camera data to
+                  monitor visitor entry/exit metrics across multiple client
+                  properties
+                </li>
+                <li>
+                  Created dashboards and visual reports to present key insights
+                  to stakeholders, enhancing transparency and performance
+                  tracking
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item" data-aos="fade-left">
+          <div class="timeline-content">
+            <h3>
+              <img
+                src="elite.jpg"
+                alt="Elite Softwares Logo"
+                style="
+                  height: 2.5rem;
+                  border-radius: 6px;
+                  background: #fff;
+                  padding: 2px;
+                "
+              />
+              Elite Softwares
+            </h3>
+            <p class="duration">January 2023 – March 2023</p>
+            <p class="subtitle">Web Development Intern</p>
+            <div class="description">
+              <ul>
+                <li>
+                  Completed comprehensive training in Full Stack Web Development
+                  with Python and Django Framework
+                </li>
+                <li>
+                  Designed and developed a scalable website using Python and
+                  Django for a product-based enterprise
+                </li>
+                <li>
+                  Collaborated with clients to define requirements and ensure
+                  seamless integration with backend APIs
+                </li>
+                <li>
+                  Successfully maintained website performance for 1000+
+                  concurrent users
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-      <div class="achievement-card" data-aos="fade-up" data-aos-delay="200">
-        <div class="icon"><i class="fas fa-rocket"></i></div>
-        <div class="content">
-          <h3>Youngest Team to Present to Indian Air Force</h3>
-          <p>Project presentation to Indian Air Force (2023)</p>
-          <div class="tags">
-            <span>Innovation</span><span>Leadership</span>
+    </section>
+    <section id="skills">
+      <div class="section-title">
+        <i class="fas fa-code"></i> Technical Skills
+      </div>
+      <div class="skills-section">
+        <div class="skills-header">
+          <h2>
+            My expertise spans programming, web development, cloud, DevOps, and
+            AI/ML.
+          </h2>
+        </div>
+        <div class="skills-showcase">
+          <div class="skill-card" data-aos="fade-up">
+            <div class="skill-icon"><i class="fas fa-terminal"></i></div>
+            <h3>Programming Languages</h3>
+            <ul class="skill-items">
+              <li class="skill-item"><i class="fab fa-python"></i> Python</li>
+              <li class="skill-item">
+                <i class="fab fa-js-square"></i> JavaScript
+              </li>
+              <li class="skill-item"><i class="fab fa-java"></i> Java</li>
+              <li class="skill-item"><i class="fas fa-code"></i> C++</li>
+              <li class="skill-item"><i class="fas fa-hashtag"></i> C#</li>
+              <li class="skill-item"><i class="fas fa-database"></i> SQL</li>
+              <li class="skill-item">
+                <i class="fas fa-terminal"></i> PowerShell
+              </li>
+            </ul>
+          </div>
+          <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="skill-icon"><i class="fas fa-globe"></i></div>
+            <h3>Web & Database</h3>
+            <ul class="skill-items">
+              <li class="skill-item"><i class="fab fa-react"></i> React</li>
+              <li class="skill-item"><i class="fab fa-node-js"></i> Next.js</li>
+              <li class="skill-item"><i class="fas fa-server"></i> Express</li>
+              <li class="skill-item"><i class="fab fa-python"></i> Django</li>
+              <li class="skill-item"><i class="fab fa-html5"></i> HTML/CSS</li>
+              <li class="skill-item">
+                <i class="fas fa-database"></i> MongoDB
+              </li>
+              <li class="skill-item">
+                <i class="fas fa-database"></i> PostgreSQL
+              </li>
+            </ul>
+          </div>
+          <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="skill-icon"><i class="fas fa-brain"></i></div>
+            <h3>AI, ML & Data Science</h3>
+            <ul class="skill-items">
+              <li class="skill-item">
+                <i class="fas fa-robot"></i> Machine Learning
+              </li>
+              <li class="skill-item"><i class="fas fa-language"></i> NLP</li>
+              <li class="skill-item">
+                <i class="fas fa-eye"></i> YOLOv5/v7/v8
+              </li>
+              <li class="skill-item">
+                <i class="fas fa-chart-bar"></i> Data Visualization
+              </li>
+              <li class="skill-item">
+                <i class="fab fa-python"></i> TensorFlow
+              </li>
+              <li class="skill-item"><i class="fab fa-python"></i> PyTorch</li>
+              <li class="skill-item">
+                <i class="fas fa-project-diagram"></i> OpenCV
+              </li>
+            </ul>
+          </div>
+          <div class="skill-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="skill-icon"><i class="fas fa-cogs"></i></div>
+            <h3>Cloud & DevOps</h3>
+            <ul class="skill-items">
+              <li class="skill-item"><i class="fab fa-aws"></i> AWS</li>
+              <li class="skill-item">
+                <i class="fab fa-google"></i> Google Cloud
+              </li>
+              <li class="skill-item"><i class="fab fa-docker"></i> Docker</li>
+              <li class="skill-item"><i class="fab fa-git-alt"></i> Git</li>
+              <li class="skill-item">
+                <i class="fab fa-bitbucket"></i> Bitbucket
+              </li>
+              <li class="skill-item">
+                <i class="fas fa-code-branch"></i> JIRA
+              </li>
+              <li class="skill-item"><i class="fas fa-code"></i> VS Code</li>
+            </ul>
           </div>
         </div>
       </div>
-      <div class="achievement-card" data-aos="fade-up" data-aos-delay="300">
-        <div class="icon"><i class="fas fa-lightbulb"></i></div>
-        <div class="content">
-          <h3>Smart India Hackathon Hardware Edition Grand Finalist</h3>
-          <p>National-level hackathon achievement (2022)</p>
-          <div class="tags">
-            <span>Hackathon</span><span>Hardware</span><span>Innovation</span>
+    </section>
+    <section id="projects">
+      <div class="section-title">
+        <i class="fas fa-project-diagram"></i> Featured Projects
+      </div>
+      <div class="projects-grid">
+        <div class="project-card" data-aos="fade-up">
+          <h3>
+            <i class="fas fa-chart-line"></i>
+            <a
+              href="https://fibucks.com"
+              target="_blank"
+              style="color: var(--accent); text-decoration: underline"
+              >FiBucks - Personal Expense Tracker</a
+            >
+          </h3>
+          <p class="duration">
+            Personal Project |
+            <a
+              href="https://fibucks.com"
+              target="_blank"
+              style="color: var(--accent); text-decoration: underline"
+              >fibucks.com</a
+            >
+          </p>
+          <div class="description">
+            <p>
+              <strong>Technologies:</strong> Next.js, MongoDB, Tailwind CSS,
+              Vercel
+            </p>
+            <p>
+              Built a comprehensive expense tracking application with dynamic
+              charts, secure authentication, and mobile-friendly interface.
+              Features budget monitoring and categorization capabilities.
+            </p>
+          </div>
+        </div>
+        <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+          <h3><i class="fa-solid fa-gopuram"></i> Temple Management System</h3>
+          <p class="duration">React Application</p>
+          <div class="description">
+            <p>
+              <strong>Technologies:</strong> React, Node.js, Database
+              Integration
+            </p>
+            <p>
+              Developed an integrated digital solution for temple operations
+              including administration, donation management, and community
+              engagement. Improved data management efficiency by 30%.
+            </p>
+          </div>
+        </div>
+        <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+          <h3><i class="fas fa-eye"></i> Real-Time Object Detection System</h3>
+          <p class="duration">Research Project | Published Paper</p>
+          <div class="description">
+            <p>
+              <strong>Technologies:</strong> YOLOv4, Gemini API, NLP, Deep
+              Learning
+            </p>
+            <p>
+              Achieved 98% accuracy in real-time object detection with
+              integrated NLP communication. Featured audio-enabled interaction
+              and online search capabilities.
+            </p>
+            <p>
+              <a
+                href="https://sih.gov.in/sih-2022-senior-final-result"
+                target="_blank"
+                style="color: var(--accent); text-decoration: underline"
+              >
+                Smart India Hackathon 2022 Grand Finalist Result
+              </a>
+            </p>
+          </div>
+        </div>
+        <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+          <h3><i class="fa-solid fa-microchip"></i> Anti-Drone Systems</h3>
+          <p class="duration">
+            Indian Air Force Project |
+            <a
+              href="https://indianairforce.nic.in/mehar-baba/"
+              target="_blank"
+              style="color: var(--accent); text-decoration: underline"
+            >
+              Mehar Baba Swarm Drone Competition
+            </a>
+          </p>
+          <div class="description">
+            <p>
+              <strong>Technologies:</strong> Object Detection, Swarm
+              Intelligence, Computer Vision
+            </p>
+            <p>
+              Implemented runway debris removal system using custom-designed
+              drones. Led swarm intelligence design for real-time surveillance.
+              Received appreciation from Squadron Leader.
+            </p>
           </div>
         </div>
       </div>
-      <div class="achievement-card" data-aos="fade-up" data-aos-delay="400">
-        <div class="icon"><i class="fas fa-heart"></i></div>
-        <div class="content">
-          <h3>Best Volunteer</h3>
-          <p>Helping Hearts Organization (2021)</p>
-          <div class="tags">
-            <span>Community</span><span>Leadership</span>
+    </section>
+    <section id="achievements">
+      <div class="section-title"><i class="fas fa-award"></i> Achievements</div>
+      <div class="achievements-list">
+        <div class="achievement-card" data-aos="fade-up">
+          <div class="icon"><i class="fas fa-trophy"></i></div>
+          <div class="content">
+            <h3>Published Research Paper</h3>
+            <p>DOI: 10.55041/IJSREM29989 (2024)</p>
+            <div class="tags">
+              <span>Research</span><span>Machine Learning</span><span>NLP</span>
+            </div>
+          </div>
+        </div>
+        <div class="achievement-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="icon"><i class="fas fa-medal"></i></div>
+          <div class="content">
+            <h3>Special Appreciation Letter</h3>
+            <p>From Squadron Leader Manoj Kumar (2023)</p>
+            <div class="tags">
+              <span>Defense</span><span>Drone Technology</span>
+            </div>
+          </div>
+        </div>
+        <div class="achievement-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="icon"><i class="fas fa-rocket"></i></div>
+          <div class="content">
+            <h3>Youngest Team to Present to Indian Air Force</h3>
+            <p>Project presentation to Indian Air Force (2023)</p>
+            <div class="tags">
+              <span>Innovation</span><span>Leadership</span>
+            </div>
+          </div>
+        </div>
+        <div class="achievement-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="icon"><i class="fas fa-lightbulb"></i></div>
+          <div class="content">
+            <h3>Smart India Hackathon Hardware Edition Grand Finalist</h3>
+            <p>National-level hackathon achievement (2022)</p>
+            <div class="tags">
+              <span>Hackathon</span><span>Hardware</span><span>Innovation</span>
+            </div>
+          </div>
+        </div>
+        <div class="achievement-card" data-aos="fade-up" data-aos-delay="400">
+          <div class="icon"><i class="fas fa-heart"></i></div>
+          <div class="content">
+            <h3>Best Volunteer</h3>
+            <p>Helping Hearts Organization (2021)</p>
+            <div class="tags">
+              <span>Community</span><span>Leadership</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-  <script>
-    // Active nav icon on scroll
-    window.addEventListener("scroll", () => {
-      const sections = document.querySelectorAll("section");
-      const navLinks = document.querySelectorAll(".icon-nav a");
-      let current = "";
-      sections.forEach((section) => {
-        const sectionTop = section.offsetTop;
-        if (scrollY >= sectionTop - 180) {
-          current = section.getAttribute("id");
-        }
+    </section>
+    <script>
+      // Particles.js
+      particlesJS("particles-js", {
+        particles: {
+          number: { value: 60, density: { enable: true, value_area: 800 } },
+          color: { value: "#ffffff" },
+          shape: { type: "circle" },
+          opacity: { value: 0.3, random: true },
+          size: { value: 3, random: true },
+          line_linked: {
+            enable: true,
+            distance: 150,
+            color: "#ffffff",
+            opacity: 0.4,
+            width: 1,
+          },
+          move: {
+            enable: true,
+            speed: 2.5,
+            direction: "none",
+            out_mode: "out",
+            bounce: true,
+          },
+        },
+        interactivity: {
+          detect_on: "canvas",
+          events: {
+            onhover: { enable: true, mode: "grab" },
+            onclick: { enable: true, mode: "push" },
+            resize: true,
+          },
+          modes: {
+            grab: { distance: 140, line_linked: { opacity: 0.6 } },
+            push: { particles_nb: 4 },
+          },
+        },
+        retina_detect: true,
       });
-      navLinks.forEach((link) => {
-        link.classList.remove("active");
-        if (link.getAttribute("href") === `#${current}`) {
-          link.classList.add("active");
-        }
+
+      // Navigation smooth scroll & active state
+      document.querySelectorAll("nav a").forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+          document
+            .querySelectorAll("nav a")
+            .forEach((a) => a.classList.remove("active"));
+          this.classList.add("active");
+        });
       });
-    });
-    // Smooth scroll
-    document.querySelectorAll(".icon-nav a").forEach(anchor => {
-      anchor.addEventListener("click", function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute("href"));
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.addEventListener("scroll", () => {
+        const sections = document.querySelectorAll("section");
+        const navLinks = document.querySelectorAll("nav a");
+        let current = "";
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop;
+          if (scrollY >= sectionTop - 200) {
+            current = section.getAttribute("id");
+          }
+        });
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === `#${current}`) {
+            link.classList.add("active");
+          }
+        });
       });
-    });
-    // Typewriter effect
-    const typewriterTexts = [
-      "Hi, I'm Parth Samir Dalvi.",
-      "Full Stack Developer.",
-      "AI/ML Enthusiast.",
-      "Cloud & DevOps Explorer.",
-      "Open Source Contributor."
-    ];
-    let twIndex = 0, twChar = 0, twDeleting = false;
-    function typewriter() {
-      const el = document.getElementById("typewriter");
-      if (!el) return;
-      let txt = typewriterTexts[twIndex];
-      if (twDeleting) {
-        el.textContent = txt.substring(0, twChar--);
-      } else {
-        el.textContent = txt.substring(0, twChar++);
-      }
-      if (!twDeleting && twChar === txt.length + 1) {
-        twDeleting = true;
-        setTimeout(typewriter, 1200);
-      } else if (twDeleting && twChar === 0) {
+
+      // Typewriter effect
+      const typewriterTexts = [
+        "Hi, I'm Parth Samir Dalvi.",
+        "Full Stack Developer.",
+        "AI/ML Enthusiast.",
+        "Cloud & DevOps Explorer.",
+        "Open Source Contributor.",
+      ];
+      let twIndex = 0,
+        twChar = 0,
         twDeleting = false;
-        twIndex = (twIndex + 1) % typewriterTexts.length;
-        setTimeout(typewriter, 400);
-      } else {
-        setTimeout(typewriter, twDeleting ? 40 : 80);
+      function typewriter() {
+        const el = document.getElementById("typewriter");
+        if (!el) return;
+        let txt = typewriterTexts[twIndex];
+        if (twDeleting) {
+          el.textContent = txt.substring(0, twChar--);
+        } else {
+          el.textContent = txt.substring(0, twChar++);
+        }
+        if (!twDeleting && twChar === txt.length + 1) {
+          twDeleting = true;
+          setTimeout(typewriter, 1200);
+        } else if (twDeleting && twChar === 0) {
+          twDeleting = false;
+          twIndex = (twIndex + 1) % typewriterTexts.length;
+          setTimeout(typewriter, 400);
+        } else {
+          setTimeout(typewriter, twDeleting ? 40 : 80);
+        }
       }
-    }
-    typewriter();
-    // Particles.js effect
-    particlesJS("particles-js", {
-      particles: {
-        number: { value: 60, density: { enable: true, value_area: 800 } },
-        color: { value: "#ffffff" },
-        shape: { type: "circle" },
-        opacity: { value: 0.3, random: true },
-        size: { value: 3, random: true },
-        line_linked: {
-          enable: true,
-          distance: 150,
-          color: "#ffffff",
-          opacity: 0.4,
-          width: 1,
-        },
-        move: {
-          enable: true,
-          speed: 2.5,
-          direction: "none",
-          out_mode: "out",
-          bounce: true,
-        },
-      },
-      interactivity: {
-        detect_on: "canvas",
-        events: {
-          onhover: { enable: true, mode: "repulse" },
-          onclick: { enable: true, mode: "push" },
-          resize: true,
-        },
-        modes: {
-          repulse: { distance: 80, duration: 0.4 },
-          push: { particles_nb: 4 },
-        },
-      },
-      retina_detect: true,
-    });
-    AOS.init({ duration: 800, once: true });
-  </script>
-</body>
+      typewriter();
+
+      // Animate on scroll
+      AOS.init({
+        duration: 900,
+        easing: "ease-in-out",
+        once: true,
+        offset: 100,
+      });
+    </script>
+  </body>
 </html>
