@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Parth Samir Dalvi | Portfolio</title>
-    <!-- Fonts & Icons -->
     <link
       href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap"
       rel="stylesheet"
@@ -23,6 +22,10 @@
         --accent: #ffd86b;
         --white: #fff;
         --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        --mini-sidebar-width: 70px; /* Width when collapsed */
+        --expanded-sidebar-width: 250px; /* Width when expanded */
+        --sidebar-bg-alpha: 0.98;
+        --sidebar-blur: 15px;
       }
       * {
         box-sizing: border-box;
@@ -42,6 +45,10 @@
         color: var(--white);
         min-height: 100vh;
         overflow-x: hidden;
+        /* Initial padding for collapsed sidebar on desktop */
+        padding-left: var(--mini-sidebar-width);
+        transition: padding-left 0.3s ease-out; /* Smooth transition for content shift */
+        position: relative; /* Needed for mobile overlay */
       }
       #particles-js {
         position: fixed;
@@ -51,45 +58,225 @@
         height: 100vh;
         z-index: -1;
       }
-      nav {
-        width: 100%;
-        background: rgba(24, 26, 35, 0.95);
-        box-shadow: var(--shadow);
-        position: sticky;
+
+      /* ========================================= */
+      /* ADAPTIVE SIDEBAR STYLES (DESKTOP & MOBILE) */
+      /* ========================================= */
+
+      .sidebar-wrapper {
+        position: fixed;
         top: 0;
+        left: 0;
+        width: var(--mini-sidebar-width); /* Start collapsed */
+        /* height: 100%; REMOVE THIS for content-based height on desktop */
+        background: rgba(24, 26, 35, var(--sidebar-bg-alpha));
+        backdrop-filter: blur(var(--sidebar-blur));
+        -webkit-backdrop-filter: blur(var(--sidebar-blur));
+        box-shadow: var(--shadow);
         z-index: 1000;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
         align-items: center;
+        padding: 1rem 0.5rem; /* Reduced horizontal padding for mini state */
+        transition: width 0.3s ease-out, transform 0.3s ease-in-out,
+          box-shadow 0.3s ease;
+        overflow-y: auto; /* Enable scrolling if content exceeds height */
+        overflow-x: hidden; /* Hide horizontal scroll from text labels */
       }
-      nav ul {
+
+      /* Sidebar expansion on hover (Desktop only) */
+      .sidebar-wrapper:hover,
+      .sidebar-wrapper.expanded {
+        width: var(--expanded-sidebar-width);
+      }
+      body.sidebar-expanded {
+        padding-left: var(
+          --expanded-sidebar-width
+        ); /* Adjust body padding on expand */
+      }
+
+      /* Hide profile section and separator completely */
+      .sidebar-profile,
+      .sidebar-separator {
+        display: none;
+      }
+
+      /* Sidebar Navigation Links (Adaptive) */
+      .sidebar-wrapper nav {
+        width: 100%;
+        /* padding-top: 2rem; REMOVED, controlled by ul margin-top now */
+        padding-bottom: 1rem; /* Reduced overall padding at the bottom */
+        margin-top: 2rem; /* Add top margin to nav container */
+      }
+      .sidebar-wrapper nav ul {
         display: flex;
-        gap: 2rem;
+        flex-direction: column;
+        gap: 0.8rem;
         list-style: none;
-        padding: 1.2rem 0;
+        padding: 0 0.5rem; /* Reduced horizontal padding */
+        align-items: center; /* Center icons in mini state */
       }
-      nav a {
+      .sidebar-wrapper nav ul li {
+        width: 100%;
+        position: relative;
+      }
+      .sidebar-wrapper nav a {
         color: var(--white);
         font-weight: 700;
         text-decoration: none;
-        font-size: 1.1rem;
-        padding: 0.5rem 1.2rem;
-        border-radius: 30px;
-        transition: background 0.3s, color 0.3s, transform 0.2s;
+        font-size: 1.05rem;
+        padding: 0.8rem 0.5rem; /* Adjusted padding for icons-only state */
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 1rem;
+        width: 100%;
+        justify-content: center; /* Center content in mini state */
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
       }
-      nav a.active,
-      nav a:hover {
-        background: linear-gradient(90deg, var(--primary), var(--secondary));
+      .sidebar-wrapper nav a i {
+        min-width: 25px;
+        text-align: center; /* Center icons */
+        font-size: 1.2em;
+      }
+      .sidebar-wrapper nav a span {
+        display: none; /* Hide text by default */
+        white-space: nowrap;
+        opacity: 0;
+        transform: translateX(20px); /* Start off-screen */
+        transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+      }
+
+      /* Show text labels on hover/expand */
+      .sidebar-wrapper:hover nav a span,
+      .sidebar-wrapper.expanded nav a span {
+        display: inline-block;
+        opacity: 1;
+        transform: translateX(0);
+      }
+      .sidebar-wrapper:hover nav a,
+      .sidebar-wrapper.expanded nav a {
+        justify-content: flex-start; /* Align text/icon to start when expanded */
+        padding: 0.8rem 1.2rem; /* Restore normal padding when expanded */
+      }
+
+      /* Gradient Hover/Active Effect for Nav Links */
+      .sidebar-wrapper nav a::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          var(--primary) 0%,
+          var(--secondary) 100%
+        );
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-out;
+        z-index: -1;
+        border-radius: inherit;
+      }
+
+      .sidebar-wrapper nav a:hover::before,
+      .sidebar-wrapper nav a.active::before {
+        transform: translateX(0);
+      }
+
+      .sidebar-wrapper nav a:hover {
         color: var(--bg);
-        transform: translateY(-2px) scale(1.08);
+        transform: scale(1.02);
+        box-shadow: 0 4px 15px rgba(108, 99, 255, 0.4);
       }
+
+      .sidebar-wrapper nav a.active {
+        color: var(--bg);
+        box-shadow: 0 0 15px rgba(108, 99, 255, 0.6);
+      }
+
+      /* ========================================= */
+      /* MOBILE SPECIFIC STYLES (Overlay Sidebar) */
+      /* ========================================= */
+
+      /* Mobile Menu Toggle Button (Hamburger) */
+      .menu-toggle {
+        display: none; /* Hidden by default, shown in media query */
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1001;
+        background: var(--card-bg);
+        color: var(--white);
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 1.5rem;
+        box-shadow: var(--shadow);
+        transition: background 0.3s, transform 0.2s;
+      }
+      .menu-toggle:hover {
+        background: var(--primary);
+        transform: rotate(90deg);
+      }
+
+      /* Mobile Close Button (inside sidebar) */
+      .sidebar-close-btn {
+        display: none; /* Hidden by default, shown in media query */
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: none;
+        border: none;
+        color: var(--white);
+        font-size: 1.8rem;
+        cursor: pointer;
+        z-index: 1002;
+        transition: transform 0.2s, color 0.2s;
+      }
+      .sidebar-close-btn:hover {
+        color: var(--accent);
+        transform: rotate(90deg);
+      }
+
+      /* Overlay for Body when Mobile Sidebar is Open */
+      .body-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s;
+      }
+      .body-overlay.show {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* ========================================= */
+      /* GENERAL CONTENT STYLES (Mostly unchanged) */
+      /* ========================================= */
+
       header {
         text-align: center;
         padding: 5rem 2rem 2rem 2rem;
         position: relative;
         background: none;
       }
-      .profile-img {
+      /* Main header profile image (only visible on large screens) */
+      .main-header-profile-img {
         width: 180px;
         height: 180px;
         border-radius: 50%;
@@ -99,12 +286,12 @@
         border: 6px solid var(--white);
         transition: transform 0.3s;
       }
-      .profile-img:hover {
+      .main-header-profile-img:hover {
         transform: scale(1.05) rotate(-3deg);
       }
       .typewriter {
         display: inline-block;
-        font-size: 2rem;
+        font-size: 2.5rem;
         color: var(--accent);
         font-weight: 700;
         margin-bottom: 1.2rem;
@@ -471,8 +658,82 @@
         border-radius: 12px;
         font-weight: 500;
       }
-      /* Responsive */
+
+      /* ========================================= */
+      /* MEDIA QUERIES (RESPONSIVENESS) */
+      /* ========================================= */
+
       @media (max-width: 900px) {
+        body {
+          padding-left: 0; /* No padding on mobile, sidebar is overlay */
+        }
+        /* Hide regular sidebar elements on mobile */
+        .sidebar-wrapper {
+          left: -100%; /* Hide off-screen by default */
+          width: 80vw; /* Take up 80% of viewport width */
+          max-width: 300px;
+          height: 100vh;
+          box-shadow: none; /* No shadow when hidden */
+          padding-top: 5rem; /* Space for close button */
+        }
+        /* Show mobile sidebar */
+        .sidebar-wrapper.show-sidebar {
+          left: 0; /* Slide in from left */
+          box-shadow: var(--shadow); /* Add shadow when visible */
+        }
+
+        /* Show mobile toggle/close buttons */
+        .menu-toggle {
+          display: flex; /* Show hamburger menu */
+        }
+        .sidebar-close-btn {
+          display: block; /* Show 'X' button inside sidebar */
+        }
+
+        /* Always show profile/separator in mobile overlay (no hover needed) */
+        .sidebar-profile,
+        .sidebar-separator {
+          opacity: 1;
+        }
+        .sidebar-profile img {
+          width: 100px; /* Adjust size for mobile overlay */
+          height: 100px;
+        }
+        .sidebar-profile h2 {
+          font-size: 1.3rem;
+        }
+        .sidebar-profile p {
+          font-size: 0.9rem;
+        }
+        .sidebar-wrapper nav ul {
+          align-items: flex-start; /* Left-align links in mobile overlay */
+          padding: 0 1rem;
+        }
+        .sidebar-wrapper nav a {
+          justify-content: flex-start; /* Left-align text/icon */
+          padding: 0.8rem 1.2rem; /* Normal padding */
+        }
+        .sidebar-wrapper nav a span {
+          display: inline-block; /* Always show text in mobile overlay */
+          opacity: 1;
+          transform: translateX(0);
+        }
+
+        /* Overlay for background content when mobile sidebar is open */
+        .body-overlay {
+          display: block;
+        }
+        .body-overlay.show {
+          opacity: 1;
+          visibility: visible;
+        }
+
+        /* Hide the main header profile image on smaller screens */
+        .main-header-profile-img {
+          display: none;
+        }
+
+        /* Adjustments for main content sections on smaller screens */
         .timeline-content {
           min-width: 220px;
           max-width: 100%;
@@ -487,12 +748,13 @@
           align-items: center;
         }
       }
+
       @media (max-width: 600px) {
-        nav ul {
-          gap: 0.7rem;
-        }
         header {
           padding: 3rem 1rem 1rem 1rem;
+        }
+        .typewriter {
+          font-size: 2rem;
         }
         .section-title {
           font-size: 1.4rem;
@@ -509,6 +771,21 @@
           font-size: 1rem;
           padding: 0.7rem 1rem;
         }
+        .sidebar-profile img {
+          width: 90px;
+          height: 90px;
+        }
+        .sidebar-profile h2 {
+          font-size: 1.1rem;
+        }
+        .sidebar-profile p {
+          font-size: 0.8rem;
+        }
+        .sidebar-wrapper nav a {
+          font-size: 0.95rem;
+          padding: 0.7rem 1rem;
+          gap: 0.6rem;
+        }
       }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
@@ -517,579 +794,643 @@
   </head>
   <body>
     <div id="particles-js"></div>
-    <nav>
-      <ul>
-        <li>
-          <a href="#about" class="active"
-            ><i class="fa-solid fa-user"></i> About</a
-          >
-        </li>
-        <li>
-          <a href="#education"
-            ><i class="fa-solid fa-graduation-cap"></i> Education</a
-          >
-        </li>
-        <li>
-          <a href="#experience"
-            ><i class="fa-solid fa-briefcase"></i> Experience</a
-          >
-        </li>
-        <li>
-          <a href="#skills"><i class="fa-solid fa-code"></i> Skills</a>
-        </li>
-        <li>
-          <a href="#projects"
-            ><i class="fa-solid fa-diagram-project"></i> Projects</a
-          >
-        </li>
-        <li>
-          <a href="#achievements"
-            ><i class="fa-solid fa-award"></i> Achievements</a
-          >
-        </li>
-      </ul>
-    </nav>
-    <header>
-      <div
-        style="
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 2.5rem;
-          flex-wrap: wrap;
-        "
-      >
-        <img
-          src="photo4.jpg"
-          alt="Parth Samir Dalvi"
-          class="profile-img"
-          data-aos="zoom-in"
-          style="flex-shrink: 0; position: sticky; top: 100px"
-        />
-        <div style="min-width: 260px; max-width: 500px">
-          <div class="typewriter" id="typewriter"></div>
-          <p class="subtitle" data-aos="fade-up" data-aos-delay="200">
-            Graduate Student at Purdue University | Full Time Googling error
-            enthusiast
-          </p>
+
+    <button class="menu-toggle" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="sidebar-wrapper">
+      <button class="sidebar-close-btn" id="sidebarCloseBtn">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <nav>
+        <ul>
+          <li>
+            <a href="#about" class="active"
+              ><i class="fa-solid fa-user"></i> <span>About</span></a
+            >
+          </li>
+          <li>
+            <a href="#education"
+              ><i class="fa-solid fa-graduation-cap"></i>
+              <span>Education</span></a
+            >
+          </li>
+          <li>
+            <a href="#experience"
+              ><i class="fa-solid fa-briefcase"></i> <span>Experience</span></a
+            >
+          </li>
+          <li>
+            <a href="#skills"
+              ><i class="fa-solid fa-code"></i> <span>Skills</span></a
+            >
+          </li>
+          <li>
+            <a href="#projects"
+              ><i class="fa-solid fa-diagram-project"></i>
+              <span>Projects</span></a
+            >
+          </li>
+          <li>
+            <a href="#achievements"
+              ><i class="fa-solid fa-award"></i> <span>Achievements</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="main-content">
+      <header>
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+          "
+        >
+          <img
+            src="photo4.jpg"
+            alt="Parth Samir Dalvi"
+            class="main-header-profile-img"
+            data-aos="zoom-in"
+            style="flex-shrink: 0; position: sticky; top: 100px"
+          />
+          <div style="min-width: 260px; max-width: 500px">
+            <div class="typewriter" id="typewriter"></div>
+            <p class="subtitle" data-aos="fade-up" data-aos-delay="200">
+              Graduate Student at Purdue University | Full Time Googling error
+              enthusiast
+            </p>
+          </div>
         </div>
-      </div>
-      <div class="contact-info" data-aos="fade-up" data-aos-delay="400">
-        <span>
-          <i class="fa-brands fa-linkedin"></i>
-          <a href="https://www.linkedin.com/in/parthdalvi04/" target="_blank"
-            >LinkedIn</a
-          >
-        </span>
-        <span>
-          <i class="fa-solid fa-envelope"></i>
-          <a href="mailto:parthsamirdalvi@gmail.com"
-            >parthsamirdalvi@gmail.com</a
-          >
-        </span>
-        <span>
-          <i class="fa-brands fa-github"></i>
-          <a href="https://github.com/Parth04Dalvi" target="_blank">GitHub</a>
-        </span>
-        <span>
-          <i class="fas fa-phone"></i>
-          <a
-            href="tel:+12602492495"
-            download="Parth Samir Dalvi.vcf"
-            onclick="event.preventDefault(); 
-               const vcf = `BEGIN:VCARD
+        <div class="contact-info" data-aos="fade-up" data-aos-delay="400">
+          <span>
+            <i class="fa-brands fa-linkedin"></i>
+            <a href="https://www.linkedin.com/in/parthdalvi04/" target="_blank"
+              >LinkedIn</a
+            >
+          </span>
+          <span>
+            <i class="fa-solid fa-envelope"></i>
+            <a href="mailto:parthsamirdalvi@gmail.com"
+              >parthsamirdalvi@gmail.com</a
+            >
+          </span>
+          <span>
+            <i class="fa-brands fa-github"></i>
+            <a href="https://github.com/Parth04Dalvi" target="_blank">GitHub</a>
+          </span>
+          <span>
+            <i class="fas fa-phone"></i>
+            <a
+              href="tel:+12602492495"
+              download="Parth Samir Dalvi.vcf"
+              onclick="event.preventDefault();
+                const vcf = `BEGIN:VCARD
 VERSION:3.0
 FN:Parth Samir Dalvi
 TEL;TYPE=CELL:+1-260-249-2495
 END:VCARD`;
-               const blob = new Blob([vcf], {type: 'text/vcard'});
-               const link = document.createElement('a');
-               link.href = URL.createObjectURL(blob);
-               link.download = 'Parth Samir Dalvi.vcf';
-               document.body.appendChild(link);
-               link.click();
-               document.body.removeChild(link);"
-          >
-            (260) 249-2495
-          </a>
-        </span>
-        <span>
-          <i class="fas fa-map-marker-alt"></i>
-          <a
-            href="https://www.google.com/maps/place/Indiana,+USA"
-            target="_blank"
-            >Indiana, USA</a
-          >
-        </span>
-        <span>
-          <i class="fa-solid fa-file"></i>
-          <a href="1_Parth Samir Dalvi.pdf" target="_blank" rel="noopener"
-            >Resume</a
-          >
-        </span>
-      </div>
-    </header>
-    <section id="about">
-      <div class="section-title" data-aos="fade-down">
-        <i class="fa-solid fa-user"></i> About Me
-      </div>
-      <div class="terminal-box" data-aos="fade-up">
-        <div class="dots">
-          <span class="red"></span>
-          <span class="yellow"></span>
-          <span class="green"></span>
-        </div>
-        <p class="command">$ WHO AM I</p>
-        <p>
-          I am a Computer Science graduate student at Purdue University with a
-          strong background in data analysis, full-stack development, and
-          machine learning. With experience in developing innovative solutions
-          ranging from expense tracking applications to advanced object
-          detection systems, I bring a unique blend of technical expertise and
-          creative problem-solving skills. My work has been recognized by
-          organizations including the Indian Air Force, and I've participated in
-          prestigious hackathons and research initiatives.
-        </p>
-      </div>
-    </section>
-    <section id="education">
-      <div class="section-title">
-        <i class="fas fa-graduation-cap"></i> Education
-      </div>
-      <div class="timeline">
-        <div class="timeline-item" data-aos="fade-right">
-          <div class="timeline-content">
-            <h3>
-              <img
-                src="Purdue.png"
-                alt="Purdue University Logo"
-                style="
-                  height: 2.5rem;
-                  border-radius: 6px;
-                  background: #fff;
-                  padding: 2px;
-                "
-              />
-              Purdue University
-            </h3>
-            <p class="duration">August 2024 – August 2026</p>
-            <p class="subtitle">Master of Science in Computer Science</p>
-            <div class="description">
-              <p><strong>GPA:</strong> 3.83/4.0</p>
-              <br>
-              <p>
-                <strong>Current Coursework:</strong> Algorithm Design, Software
-                Project Management, Machine Learning, Software Engineering, Full
-                Stack Web Development, Human Computer Interaction, Natural
-                Language Processing
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="timeline-item" data-aos="fade-left">
-          <div class="timeline-content">
-            <h3>
-              <img
-                src="sppu.jpg"
-                alt="Savitribai Phule Pune University Logo"
-                style="
-                  height: 2rem;
-                  border-radius: 6px;
-                  background: #fff;
-                  padding: 2px;
-                "
-              />
-              Savitribai Phule Pune University
-            </h3>
-            <p class="duration">August 2020 – July 2024</p>
-            <p class="subtitle">Bachelor of Engineering in Computer Science</p>
-            <div class="description">
-              <p><strong>GPA:</strong> 8.59/10.0</p>
-              <br>
-              <p>
-                <strong>Key Coursework:</strong> Data Structures and Algorithms,
-                Database Management, Computer Networks and Security, Operating
-                Systems, Artificial Intelligence, Machine Learning, Web
-                Technology
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section id="experience">
-      <div class="section-title">
-        <i class="fas fa-briefcase"></i> Professional Experience
-      </div>
-      <div class="timeline">
-        <div class="timeline-item" data-aos="fade-right">
-          <div class="timeline-content">
-            <h3>
-              <img
-                src="weagile.jpg"
-                alt="WeAgile Software Solutions Logo"
-                style="
-                  height: 2.5rem;
-                  border-radius: 6px;
-                  background: #fff;
-                  padding: 2px;
-                "
-              />
-              WeAgile Software Solutions
-            </h3>
-            <p class="duration">March 2024 – May 2024</p>
-            <p class="subtitle">Data Analyst</p>
-            <div class="description">
-              <ul>
-                <li>
-                  Developed data visualization pipelines to analyze large
-                  datasets, leading to a 15% improvement in operational decision
-                  making
-                </li>
-                <li>
-                  Performed advanced data manipulation and cleansing to support
-                  accurate trend analysis and reporting
-                </li>
-                <li>
-                  Conducted quality analysis using surveillance camera data to
-                  monitor visitor entry/exit metrics across multiple client
-                  properties
-                </li>
-                <li>
-                  Created dashboards and visual reports to present key insights
-                  to stakeholders, enhancing transparency and performance
-                  tracking
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="timeline-item" data-aos="fade-left">
-          <div class="timeline-content">
-            <h3>
-              <img
-                src="elite.jpg"
-                alt="Elite Softwares Logo"
-                style="
-                  height: 2.5rem;
-                  border-radius: 6px;
-                  background: #fff;
-                  padding: 2px;
-                "
-              />
-              Elite Softwares
-            </h3>
-            <p class="duration">January 2023 – March 2023</p>
-            <p class="subtitle">Web Development Intern</p>
-            <div class="description">
-              <ul>
-                <li>
-                  Completed comprehensive training in Full Stack Web Development
-                  with Python and Django Framework
-                </li>
-                <li>
-                  Designed and developed a scalable website using Python and
-                  Django for a product-based enterprise
-                </li>
-                <li>
-                  Collaborated with clients to define requirements and ensure
-                  seamless integration with backend APIs
-                </li>
-                <li>
-                  Successfully maintained website performance for 1000+
-                  concurrent users
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section id="skills">
-      <div class="section-title">
-        <i class="fas fa-code"></i> Technical Skills
-      </div>
-      <div class="skills-section">
-        <div class="skills-header">
-          <h2>
-            My expertise spans programming, web development, cloud, DevOps, and
-            AI/ML.
-          </h2>
-        </div>
-        <div class="skills-showcase">
-          <div class="skill-card" data-aos="fade-up">
-            <div class="skill-icon"><i class="fas fa-terminal"></i></div>
-            <h3>Programming Languages</h3>
-            <ul class="skill-items">
-              <li class="skill-item"><i class="fab fa-python"></i> Python</li>
-              <li class="skill-item">
-                <i class="fab fa-js-square"></i> JavaScript
-              </li>
-              <li class="skill-item"><i class="fab fa-java"></i> Java</li>
-              <li class="skill-item"><i class="fas fa-code"></i> C++</li>
-              <li class="skill-item"><i class="fas fa-hashtag"></i> C#</li>
-              <li class="skill-item"><i class="fas fa-database"></i> SQL</li>
-              <li class="skill-item">
-                <i class="fas fa-terminal"></i> PowerShell
-              </li>
-            </ul>
-          </div>
-          <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
-            <div class="skill-icon"><i class="fas fa-globe"></i></div>
-            <h3>Web & Database</h3>
-            <ul class="skill-items">
-              <li class="skill-item"><i class="fab fa-react"></i> React</li>
-              <li class="skill-item"><i class="fab fa-node-js"></i> Next.js</li>
-              <li class="skill-item"><i class="fas fa-server"></i> Express</li>
-              <li class="skill-item"><i class="fab fa-python"></i> Django</li>
-              <li class="skill-item"><i class="fab fa-html5"></i> HTML/CSS</li>
-              <li class="skill-item">
-                <i class="fas fa-database"></i> MongoDB
-              </li>
-              <li class="skill-item">
-                <i class="fas fa-database"></i> PostgreSQL
-              </li>
-            </ul>
-          </div>
-          <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
-            <div class="skill-icon"><i class="fas fa-brain"></i></div>
-            <h3>AI, ML & Data Science</h3>
-            <ul class="skill-items">
-              <li class="skill-item">
-                <i class="fas fa-robot"></i> Machine Learning
-              </li>
-              <li class="skill-item"><i class="fas fa-language"></i> NLP</li>
-              <li class="skill-item">
-                <i class="fas fa-eye"></i> YOLOv5/v7/v8
-              </li>
-              <li class="skill-item">
-                <i class="fas fa-chart-bar"></i> Data Visualization
-              </li>
-              <li class="skill-item">
-                <i class="fab fa-python"></i> TensorFlow
-              </li>
-              <li class="skill-item"><i class="fab fa-python"></i> PyTorch</li>
-              <li class="skill-item">
-                <i class="fas fa-project-diagram"></i> OpenCV
-              </li>
-            </ul>
-          </div>
-          <div class="skill-card" data-aos="fade-up" data-aos-delay="300">
-            <div class="skill-icon"><i class="fas fa-cogs"></i></div>
-            <h3>Cloud & DevOps</h3>
-            <ul class="skill-items">
-              <li class="skill-item"><i class="fab fa-aws"></i> AWS</li>
-              <li class="skill-item">
-                <i class="fab fa-google"></i> Google Cloud
-              </li>
-              <li class="skill-item"><i class="fab fa-docker"></i> TF-IDF</li>
-              <li class="skill-item"><i class="fab fa-git-alt"></i> Git</li>
-              <li class="skill-item">
-                <i class="fab fa-bitbucket"></i> Bitbucket
-              </li>
-              <li class="skill-item">
-                <i class="fas fa-code-branch"></i> JIRA
-              </li>
-              <li class="skill-item"><i class="fas fa-code"></i> VS Code</li>
-            </ul>
-          </div>
-          <div class="skill-card" data-aos="fade-up" data-aos-delay="300">
-            <div class="skill-icon"><i class="fas fa-cogs"></i></div>
-            <h3>Predictive Analytics</h3>
-            <ul class="skill-items">
-              <li class="skill-item">
-                <i class="fa-solid fa-trowel-bricks"></i> Named Entity
-                Recognition (NER)
-              </li>
-              <li class="skill-item">
-                <i class="fab fa-google"></i> Transformer-based models
-              </li>
-              <li class="skill-item">
-                <i class="fa-solid fa-ruler-combined"></i> Rule-based parsing
-              </li>
-              <li class="skill-item">
-                <i class="fa-solid fa-code-compare"></i> SpaCy
-              </li>
-              <li class="skill-item">
-                <i class="fa-solid fa-gears"></i> Logistic Regression
-              </li>
-              <li class="skill-item">
-                <i class="fa-solid fa-folder-tree"></i> Decision Trees
-              </li>
-              <li class="skill-item">
-                <i class="fa-solid fa-shuffle"></i> Random Forests
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section id="projects">
-      <div class="section-title">
-        <i class="fas fa-project-diagram"></i> Featured Projects
-      </div>
-      <div class="projects-grid">
-        <div class="project-card" data-aos="fade-up">
-          <h3>
-            <i class="fas fa-chart-line"></i>
-            <a
-              href="https://fibucks.com"
-              target="_blank"
-              style="color: var(--accent); text-decoration: underline"
-              >FiBucks - Personal Expense Tracker</a
+                const blob = new Blob([vcf], {type: 'text/vcard'});
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'Parth Samir Dalvi.vcf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);"
             >
-          </h3>
-          <p class="duration">
-            Personal Project |
-            <a
-              href="https://fibucks.com"
-              target="_blank"
-              style="color: var(--accent); text-decoration: underline"
-              >fibucks.com</a
-            >
-          </p>
-          <div class="description">
-            <p>
-              <strong>Technologies:</strong> Next.js, MongoDB, Tailwind CSS,
-              Vercel
-            </p>
-            <br>
-            <p>
-              Built a comprehensive expense tracking application with dynamic
-              charts, secure authentication, and mobile-friendly interface.
-              Features budget monitoring and categorization capabilities.
-            </p>
-          </div>
-        </div>
-        <div class="project-card" data-aos="fade-up" data-aos-delay="100">
-          <h3><i class="fa-solid fa-gopuram"></i> Temple Management System</h3>
-          <p class="duration">React Application</p>
-          <div class="description">
-            <p>
-              <strong>Technologies:</strong> React, Node.js, Database
-              Integration
-            </p>
-            <br>
-            <p>
-              Developed an integrated digital solution for temple operations
-              including administration, donation management, and community
-              engagement. Improved data management efficiency by 30%.
-            </p>
-          </div>
-        </div>
-        <div class="project-card" data-aos="fade-up" data-aos-delay="200">
-          <h3><i class="fas fa-eye"></i> Real-Time Object Detection System</h3>
-          <p class="duration">Research Project | Published Paper</p>
-          <div class="description">
-            <p>
-              <strong>Technologies:</strong> YOLOv4, Gemini API, NLP, Deep
-              Learning
-            </p>
-            <br>
-            <p>
-              Achieved 98% accuracy in real-time object detection with
-              integrated NLP communication. Featured audio-enabled interaction
-              and online search capabilities.
-            </p>
-            <p>
-  
-            </p>
-          </div>
-        </div>
-        <div class="project-card" data-aos="fade-up" data-aos-delay="300">
-          <h3><i class="fa-solid fa-microchip"></i> Anti-Drone Systems</h3>
-          <p class="duration">
-            Indian Air Force Project |
-            <a
-              href="https://indianairforce.nic.in/mehar-baba/"
-              target="_blank"
-              style="color: var(--accent); text-decoration: underline"
-            >
-              Mehar Baba Swarm Drone Competition
+              (260) 249-2495
             </a>
+          </span>
+          <span>
+            <i class="fas fa-map-marker-alt"></i>
+            <a
+              href="https://www.google.com/maps/place/Indiana,+USA"
+              target="_blank"
+              >Indiana, USA</a
+            >
+          </span>
+          <span>
+            <i class="fa-solid fa-file"></i>
+            <a href="1_Parth Samir Dalvi.pdf" target="_blank" rel="noopener"
+              >Resume</a
+            >
+          </span>
+        </div>
+      </header>
+      <section id="about">
+        <div class="section-title" data-aos="fade-down">
+          <i class="fa-solid fa-user"></i> About Me
+        </div>
+        <div class="terminal-box" data-aos="fade-up">
+          <div class="dots">
+            <span class="red"></span>
+            <span class="yellow"></span>
+            <span class="green"></span>
+          </div>
+          <p class="command">$ WHO AM I</p>
+          <p>
+            I am a Computer Science graduate student at Purdue University with a
+            strong background in data analysis, full-stack development, and
+            machine learning. With experience in developing innovative solutions
+            ranging from expense tracking applications to advanced object
+            detection systems, I bring a unique blend of technical expertise and
+            creative problem-solving skills. My work has been recognized by
+            organizations including the Indian Air Force, and I've participated
+            in prestigious hackathons and research initiatives.
           </p>
-          <div class="description">
-            <p>
-              <strong>Technologies:</strong> Object Detection, Swarm
-              Intelligence, Computer Vision
+        </div>
+      </section>
+      <section id="education">
+        <div class="section-title">
+          <i class="fas fa-graduation-cap"></i> Education
+        </div>
+        <div class="timeline">
+          <div class="timeline-item" data-aos="fade-right">
+            <div class="timeline-content">
+              <h3>
+                <img
+                  src="Purdue.png"
+                  alt="Purdue University Logo"
+                  style="
+                    height: 2.5rem;
+                    border-radius: 6px;
+                    background: #fff;
+                    padding: 2px;
+                  "
+                />
+                Purdue University
+              </h3>
+              <p class="duration">August 2024 – August 2026</p>
+              <p class="subtitle">Master of Science in Computer Science</p>
+              <div class="description">
+                <p><strong>GPA:</strong> 3.83/4.0</p>
+                <br />
+                <p>
+                  <strong>Current Coursework:</strong> Algorithm Design,
+                  Software Project Management, Machine Learning, Software
+                  Engineering, Full Stack Web Development, Human Computer
+                  Interaction, Natural Language Processing
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item" data-aos="fade-left">
+            <div class="timeline-content">
+              <h3>
+                <img
+                  src="sppu.jpg"
+                  alt="Savitribai Phule Pune University Logo"
+                  style="
+                    height: 2rem;
+                    border-radius: 6px;
+                    background: #fff;
+                    padding: 2px;
+                  "
+                />
+                Savitribai Phule Pune University
+              </h3>
+              <p class="duration">August 2020 – July 2024</p>
+              <p class="subtitle">
+                Bachelor of Engineering in Computer Science
+              </p>
+              <div class="description">
+                <p><strong>GPA:</strong> 8.59/10.0</p>
+                <br />
+                <p>
+                  <strong>Key Coursework:</strong> Data Structures and
+                  Algorithms, Database Management, Computer Networks and
+                  Security, Operating Systems, Artificial Intelligence, Machine
+                  Learning, Web Technology
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="experience">
+        <div class="section-title">
+          <i class="fas fa-briefcase"></i> Professional Experience
+        </div>
+        <div class="timeline">
+          <div class="timeline-item" data-aos="fade-right">
+            <div class="timeline-content">
+              <h3>
+                <img
+                  src="weagile.jpg"
+                  alt="WeAgile Software Solutions Logo"
+                  style="
+                    height: 2.5rem;
+                    border-radius: 6px;
+                    background: #fff;
+                    padding: 2px;
+                  "
+                />
+                WeAgile Software Solutions
+              </h3>
+              <p class="duration">March 2024 – May 2024</p>
+              <p class="subtitle">Data Analyst</p>
+              <div class="description">
+                <ul>
+                  <li>
+                    Developed data visualization pipelines to analyze large
+                    datasets, leading to a 15% improvement in operational
+                    decision making
+                  </li>
+                  <li>
+                    Performed advanced data manipulation and cleansing to support
+                    accurate trend analysis and reporting
+                  </li>
+                  <li>
+                    Conducting quality analysis using surveillance camera data to
+                    monitor visitor entry/exit metrics across multiple client
+                    properties
+                  </li>
+                  <li>
+                    Created dashboards and visual reports to present key
+                    insights to stakeholders, enhancing transparency and
+                    performance tracking
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item" data-aos="fade-left">
+            <div class="timeline-content">
+              <h3>
+                <img
+                  src="elite.jpg"
+                  alt="Elite Softwares Logo"
+                  style="
+                    height: 2.5rem;
+                    border-radius: 6px;
+                    background: #fff;
+                    padding: 2px;
+                  "
+                />
+                Elite Softwares
+              </h3>
+              <p class="duration">January 2023 – March 2023</p>
+              <p class="subtitle">Web Development Intern</p>
+              <div class="description">
+                <ul>
+                  <li>
+                    Completed comprehensive training in Full Stack Web
+                    Development with Python and Django Framework
+                  </li>
+                  <li>
+                    Designed and developed a scalable website using Python and
+                    Django for a product-based enterprise
+                  </li>
+                  <li>
+                    Collaborated with clients to define requirements and ensure
+                    seamless integration with backend APIs
+                  </li>
+                  <li>
+                    Successfully maintained website performance for 1000+
+                    concurrent users
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="skills">
+        <div class="section-title">
+          <i class="fas fa-code"></i> Technical Skills
+        </div>
+        <div class="skills-section">
+          <div class="skills-header">
+            <h2>
+              My expertise spans programming, web development, cloud, DevOps,
+              and AI/ML.
+            </h2>
+          </div>
+          <div class="skills-showcase">
+            <div class="skill-card" data-aos="fade-up">
+              <div class="skill-icon"><i class="fas fa-terminal"></i></div>
+              <h3>Programming Languages</h3>
+              <ul class="skill-items">
+                <li class="skill-item"><i class="fab fa-python"></i> Python</li>
+                <li class="skill-item">
+                  <i class="fab fa-js-square"></i> JavaScript
+                </li>
+                <li class="skill-item"><i class="fab fa-java"></i> Java</li>
+                <li class="skill-item"><i class="fas fa-code"></i> C++</li>
+                <li class="skill-item"><i class="fas fa-hashtag"></i> C#</li>
+                <li class="skill-item"><i class="fas fa-database"></i> SQL</li>
+                <li class="skill-item">
+                  <i class="fas fa-terminal"></i> PowerShell
+                </li>
+              </ul>
+            </div>
+            <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
+              <div class="skill-icon"><i class="fas fa-globe"></i></div>
+              <h3>Web & Database</h3>
+              <ul class="skill-items">
+                <li class="skill-item"><i class="fab fa-react"></i> React</li>
+                <li class="skill-item">
+                  <i class="fab fa-node-js"></i> Next.js
+                </li>
+                <li class="skill-item">
+                  <i class="fas fa-server"></i> Express
+                </li>
+                <li class="skill-item"><i class="fab fa-python"></i> Django</li>
+                <li class="skill-item">
+                  <i class="fab fa-html5"></i> HTML/CSS
+                </li>
+                <li class="skill-item">
+                  <i class="fas fa-database"></i> MongoDB
+                </li>
+                <li class="skill-item">
+                  <i class="fas fa-database"></i> PostgreSQL
+                </li>
+              </ul>
+            </div>
+            <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
+              <div class="skill-icon"><i class="fas fa-brain"></i></div>
+              <h3>AI, ML & Data Science</h3>
+              <ul class="skill-items">
+                <li class="skill-item">
+                  <i class="fas fa-robot"></i> Machine Learning
+                </li>
+                <li class="skill-item"><i class="fas fa-language"></i> NLP</li>
+                <li class="skill-item">
+                  <i class="fas fa-eye"></i> YOLOv5/v7/v8
+                </li>
+                <li class="skill-item">
+                  <i class="fas fa-chart-bar"></i> Data Visualization
+                </li>
+                <li class="skill-item">
+                  <i class="fab fa-python"></i> TensorFlow
+                </li>
+                <li class="skill-item">
+                  <i class="fab fa-python"></i> PyTorch
+                </li>
+                <li class="skill-item">
+                  <i class="fas fa-project-diagram"></i> OpenCV
+                </li>
+              </ul>
+            </div>
+            <div class="skill-card" data-aos="fade-up" data-aos-delay="300">
+              <div class="skill-icon"><i class="fas fa-cogs"></i></div>
+              <h3>Cloud & DevOps</h3>
+              <ul class="skill-items">
+                <li class="skill-item"><i class="fab fa-aws"></i> AWS</li>
+                <li class="skill-item">
+                  <i class="fab fa-google"></i> Google Cloud
+                </li>
+                <li class="skill-item"><i class="fab fa-docker"></i> TF-IDF</li>
+                <li class="skill-item"><i class="fab fa-git-alt"></i> Git</li>
+                <li class="skill-item">
+                  <i class="fab fa-bitbucket"></i> Bitbucket
+                </li>
+                <li class="skill-item">
+                  <i class="fas fa-code-branch"></i> JIRA
+                </li>
+                <li class="skill-item"><i class="fas fa-code"></i> VS Code</li>
+              </ul>
+            </div>
+            <div class="skill-card" data-aos="fade-up" data-aos-delay="300">
+              <div class="skill-icon"><i class="fas fa-cogs"></i></div>
+              <h3>Predictive Analytics</h3>
+              <ul class="skill-items">
+                <li class="skill-item">
+                  <i class="fa-solid fa-trowel-bricks"></i> Named Entity
+                  Recognition (NER)
+                </li>
+                <li class="skill-item">
+                  <i class="fab fa-google"></i> Transformer-based models
+                </li>
+                <li class="skill-item">
+                  <i class="fa-solid fa-ruler-combined"></i> Rule-based parsing
+                </li>
+                <li class="skill-item">
+                  <i class="fa-solid fa-code-compare"></i> SpaCy
+                </li>
+                <li class="skill-item">
+                  <i class="fa-solid fa-gears"></i> Logistic Regression
+                </li>
+                <li class="skill-item">
+                  <i class="fa-solid fa-folder-tree"></i> Decision Trees
+                </li>
+                <li class="skill-item">
+                  <i class="fa-solid fa-shuffle"></i> Random Forests
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="projects">
+        <div class="section-title">
+          <i class="fas fa-project-diagram"></i> Featured Projects
+        </div>
+        <div class="projects-grid">
+          <div class="project-card" data-aos="fade-up">
+            <h3>
+              <i class="fas fa-chart-line"></i>
+              <a
+                href="https://fibucks.com"
+                target="_blank"
+                style="color: var(--accent); text-decoration: underline"
+                >FiBucks - Personal Expense Tracker</a
+              >
+            </h3>
+            <p class="duration">
+              Personal Project |
+              <a
+                href="https://fibucks.com"
+                target="_blank"
+                style="color: var(--accent); text-decoration: underline"
+                >fibucks.com</a
+              >
             </p>
-            <br>
-            <p>
-              Implemented runway debris removal system using custom-designed
-              drones. Led swarm intelligence design for real-time surveillance.
-              Utilized Object Detection (likely with YOLOv5/v7/v8) and Computer Vision principles, powered by Deep Learning frameworks such as TensorFlow or PyTorch. Received appreciation from Squadron Leader.
-
+            <div class="description">
+              <p>
+                <strong>Technologies:</strong> Next.js, MongoDB, Tailwind CSS,
+                Vercel
+              </p>
+              <br />
+              <p>
+                Built a comprehensive expense tracking application with dynamic
+                charts, secure authentication, and mobile-friendly interface.
+                Features budget monitoring and categorization capabilities.
+              </p>
+            </div>
+          </div>
+          <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+            <h3>
+              <i class="fa-solid fa-gopuram"></i> Temple Management System
+            </h3>
+            <p class="duration">React Application</p>
+            <div class="description">
+              <p>
+                <strong>Technologies:</strong> React, Node.js, Database
+                Integration
+              </p>
+              <br />
+              <p>
+                Developed an integrated digital solution for temple operations
+                including administration, donation management, and community
+                engagement. Improved data management efficiency by 30%.
+              </p>
+            </div>
+          </div>
+          <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+            <h3>
+              <i class="fas fa-eye"></i> Real-Time Object Detection System
+            </h3>
+            <p class="duration">Research Project | Published Paper</p>
+            <div class="description">
+              <p>
+                <strong>Technologies:</strong> YOLOv4, Gemini API, NLP, Deep
+                Learning
+              </p>
+              <br />
+              <p>
+                Achieved 98% accuracy in real-time object detection with
+                integrated NLP communication. Featured audio-enabled interaction
+                and online search capabilities.
+              </p>
+              <p></p>
+            </div>
+          </div>
+          <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+            <h3><i class="fa-solid fa-microchip"></i> Anti-Drone Systems</h3>
+            <p class="duration">
+              Indian Air Force Project |
+              <a
+                href="https://indianairforce.nic.in/mehar-baba/"
+                target="_blank"
+                style="color: var(--accent); text-decoration: underline"
+              >
+                Mehar Baba Swarm Drone Competition
+              </a>
             </p>
+            <div class="description">
+              <p>
+                <strong>Technologies:</strong> Object Detection, Swarm
+                Intelligence, Computer Vision
+              </p>
+              <br />
+              <p>
+                Implemented runway debris removal system using custom-designed
+                drones. Led swarm intelligence design for real-time
+                surveillance. Utilized Object Detection (likely with
+                YOLOv5/v7/v8) and Computer Vision principles, powered by Deep
+                Learning frameworks such as TensorFlow or PyTorch. Received
+                appreciation from Squadron Leader.
+              </p>
+            </div>
           </div>
-        </div>
-        <div class="project-card" data-aos="fade-up" data-aos-delay="300">
-          <h3><i class="fa-solid fa-pager"></i> Resume Parsing and Candidate Matching</h3>
-          <p class="duration">
-           Research Project | Published Paper 
-          </p>
-          <div class="description">
-            <p>
-              <strong>Technologies:</strong> NLP, Named Entity Recognition (NER), TF-IDF, Transformer models, Logistic Regression, Random Forests, SpaCy, BERT-based models, Sentence-BERT (S-BERT)
-            </p>
-            <br>
-            <p>
-Developed an NLP-powered system for automated resume screening, extracting information via NER and rule-based parsing. It matches and ranks candidates using transformer-based similarity and ML models , enhancing recruitment efficiency and reducing bias. The system improves screening accuracy and fairness, addressing challenges of manual reviews and unstructured data.      </div>
-    </section>
-    <section id="achievements">
-      <div class="section-title"><i class="fas fa-award"></i> Achievements</div>
-      <div class="achievements-list">
-        <div class="achievement-card" data-aos="fade-up">
-          <div class="icon"><i class="fas fa-trophy"></i></div>
-          <div class="content">
-            <h3>Published Research Paper</h3>
-            <p>DOI: 10.55041/IJSREM29989 (2024)</p>
-            <div class="tags">
-              <span>Research</span><span>Machine Learning</span><span>NLP</span>
+          <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+            <h3>
+              <i class="fa-solid fa-pager"></i> Resume Parsing and Candidate
+              Matching
+            </h3>
+            <p class="duration">Research Project | Published Paper</p>
+            <div class="description">
+              <p>
+                <strong>Technologies:</strong> NLP, Named Entity Recognition
+                (NER), TF-IDF, Transformer models, Logistic Regression, Random
+                Forests, SpaCy, BERT-based models, Sentence-BERT (S-BERT)
+              </p>
+              <br />
+              <p>
+                Developed an NLP-powered system for automated resume screening,
+                extracting information via NER and rule-based parsing. It
+                matches and ranks candidates using transformer-based similarity
+                and ML models, enhancing recruitment efficiency and reducing
+                bias. The system improves screening accuracy and fairness,
+                addressing challenges of manual reviews and unstructured data.
+              </p>
             </div>
           </div>
         </div>
-        <div class="achievement-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="icon"><i class="fas fa-medal"></i></div>
-          <div class="content">
-            <h3>Special Appreciation Letter</h3>
-            <p>From Squadron Leader Manoj Kumar (2023)</p>
-            <div class="tags">
-              <span>Defense</span><span>Drone Technology</span>
+      </section>
+      <section id="achievements">
+        <div class="section-title">
+          <i class="fas fa-award"></i> Achievements
+        </div>
+        <div class="achievements-list">
+          <div class="achievement-card" data-aos="fade-up">
+            <div class="icon"><i class="fas fa-trophy"></i></div>
+            <div class="content">
+              <h3>Published Research Paper</h3>
+              <p>DOI: 10.55041/IJSREM29989 (2024)</p>
+              <div class="tags">
+                <span>Research</span><span>Machine Learning</span
+                ><span>NLP</span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="achievement-card"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <div class="icon"><i class="fas fa-medal"></i></div>
+            <div class="content">
+              <h3>Special Appreciation Letter</h3>
+              <p>From Squadron Leader Manoj Kumar (2023)</p>
+              <div class="tags">
+                <span>Defense</span><span>Drone Technology</span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="achievement-card"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <div class="icon"><i class="fas fa-rocket"></i></div>
+            <div class="content">
+              <h3>Youngest Team to Present to Indian Air Force</h3>
+              <p>Project presentation to Indian Air Force (2023)</p>
+              <div class="tags">
+                <span>Innovation</span><span>Leadership</span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="achievement-card"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            <div class="icon"><i class="fas fa-lightbulb"></i></div>
+            <div class="content">
+              <h3>Smart India Hackathon Hardware Edition Grand Finalist</h3>
+              <p>National-level hackathon achievement (2022)</p>
+              <div class="tags">
+                <span>Hackathon</span><span>Hardware</span
+                ><span>Innovation</span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="achievement-card"
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
+            <div class="icon"><i class="fas fa-heart"></i></div>
+            <div class="content">
+              <h3>Best Volunteer</h3>
+              <p>Helping Hearts Organization (2021)</p>
+              <div class="tags">
+                <span>Community</span><span>Leadership</span>
+              </div>
             </div>
           </div>
         </div>
-        <div class="achievement-card" data-aos="fade-up" data-aos-delay="200">
-          <div class="icon"><i class="fas fa-rocket"></i></div>
-          <div class="content">
-            <h3>Youngest Team to Present to Indian Air Force</h3>
-            <p>Project presentation to Indian Air Force (2023)</p>
-            <div class="tags">
-              <span>Innovation</span><span>Leadership</span>
-            </div>
-          </div>
-        </div>
-        <div class="achievement-card" data-aos="fade-up" data-aos-delay="300">
-          <div class="icon"><i class="fas fa-lightbulb"></i></div>
-          <div class="content">
-            <h3>Smart India Hackathon Hardware Edition Grand Finalist</h3>
-            <p>National-level hackathon achievement (2022)</p>
-            <div class="tags">
-              <span>Hackathon</span><span>Hardware</span><span>Innovation</span>
-            </div>
-          </div>
-        </div>
-        <div class="achievement-card" data-aos="fade-up" data-aos-delay="400">
-          <div class="icon"><i class="fas fa-heart"></i></div>
-          <div class="content">
-            <h3>Best Volunteer</h3>
-            <p>Helping Hearts Organization (2021)</p>
-            <div class="tags">
-              <span>Community</span><span>Leadership</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
     <script>
       // Particles.js
       particlesJS("particles-js", {
@@ -1129,25 +1470,94 @@ Developed an NLP-powered system for automated resume screening, extracting infor
         retina_detect: true,
       });
 
-      // Navigation smooth scroll & active state
-      document.querySelectorAll("nav a").forEach((anchor) => {
+      // Sidebar Mobile Toggle Logic & Desktop Hover Logic
+      const menuToggle = document.getElementById("menuToggle");
+      const sidebar = document.querySelector(".sidebar-wrapper");
+      const sidebarCloseBtn = document.getElementById("sidebarCloseBtn");
+      const bodyOverlay = document.createElement("div"); // Create overlay element
+      bodyOverlay.classList.add("body-overlay");
+      document.body.appendChild(bodyOverlay); // Add overlay to body
+
+      function openSidebar() {
+        sidebar.classList.add("show-sidebar");
+        bodyOverlay.classList.add("show");
+        document.body.style.overflowY = "hidden"; // Disable main body scroll
+      }
+
+      function closeSidebar() {
+        sidebar.classList.remove("show-sidebar");
+        bodyOverlay.classList.remove("show");
+        document.body.style.overflowY = "auto"; // Enable main body scroll
+      }
+
+      // --- Mobile Specific Event Listeners ---
+      menuToggle.addEventListener("click", openSidebar);
+      sidebarCloseBtn.addEventListener("click", closeSidebar);
+      bodyOverlay.addEventListener("click", closeSidebar); // Close on clicking outside overlay
+
+      // --- Desktop Specific Hover Logic ---
+      function handleSidebarHover() {
+        if (window.innerWidth > 900) {
+          // Only apply hover effect on desktop
+          sidebar.addEventListener("mouseenter", () => {
+            sidebar.classList.add("expanded");
+            document.body.classList.add("sidebar-expanded");
+          });
+          sidebar.addEventListener("mouseleave", () => {
+            sidebar.classList.remove("expanded");
+            document.body.classList.remove("sidebar-expanded");
+          });
+        } else {
+          // Remove hover listeners on mobile
+          // Using dummy functions or no-op arrow functions to ensure event listeners are properly removed if they exist
+          sidebar.removeEventListener("mouseenter", () => {});
+          sidebar.removeEventListener("mouseleave", () => {});
+        }
+      }
+
+      // Initial call for desktop hover logic
+      handleSidebarHover();
+
+      // Adjust sidebar behavior on resize
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 900) {
+          // If resizing to desktop from mobile, ensure sidebar is closed and hover is active
+          closeSidebar();
+          handleSidebarHover(); // Re-apply desktop hover listeners
+        } else {
+          // If resizing to mobile from desktop, ensure desktop hover is removed
+          sidebar.classList.remove("expanded");
+          document.body.classList.remove("sidebar-expanded");
+          handleSidebarHover(); // Re-apply mobile listeners (which do nothing for hover)
+        }
+      });
+
+      // Navigation smooth scroll & active state (modified to close sidebar on mobile)
+      document.querySelectorAll(".sidebar-wrapper nav a").forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
           e.preventDefault();
           const target = document.querySelector(this.getAttribute("href"));
           target.scrollIntoView({ behavior: "smooth", block: "start" });
           document
-            .querySelectorAll("nav a")
+            .querySelectorAll(".sidebar-wrapper nav a")
             .forEach((a) => a.classList.remove("active"));
           this.classList.add("active");
+
+          // Close sidebar on link click if it's a mobile view
+          if (window.innerWidth <= 900) {
+            closeSidebar();
+          }
         });
       });
+
       window.addEventListener("scroll", () => {
         const sections = document.querySelectorAll("section");
-        const navLinks = document.querySelectorAll("nav a");
+        const navLinks = document.querySelectorAll(".sidebar-wrapper nav a");
         let current = "";
         sections.forEach((section) => {
           const sectionTop = section.offsetTop;
-          if (scrollY >= sectionTop - 200) {
+          // Add some offset so active state changes before section hits very top
+          if (scrollY >= sectionTop - 250) {
             current = section.getAttribute("id");
           }
         });
