@@ -550,15 +550,23 @@
       </ul>
     </nav>
     <header>
-      <div style="display: flex; align-items: center; justify-content: center; gap: 2.5rem; flex-wrap: wrap;">
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 2.5rem;
+          flex-wrap: wrap;
+        "
+      >
         <img
           src="photo4.jpg"
           alt="Parth Samir Dalvi"
           class="profile-img"
           data-aos="zoom-in"
-          style="flex-shrink: 0; position: sticky; top: 100px;"
+          style="flex-shrink: 0; position: sticky; top: 100px"
         />
-        <div style="min-width: 260px; max-width: 500px;">
+        <div style="min-width: 260px; max-width: 500px">
           <div class="typewriter" id="typewriter"></div>
           <p class="subtitle" data-aos="fade-up" data-aos-delay="200">
             Graduate Student at Purdue University | Full Time Googling error
@@ -668,6 +676,7 @@ END:VCARD`;
             <p class="subtitle">Master of Science in Computer Science</p>
             <div class="description">
               <p><strong>GPA:</strong> 3.83/4.0</p>
+              <br>
               <p>
                 <strong>Current Coursework:</strong> Algorithm Design, Software
                 Project Management, Machine Learning, Software Engineering, Full
@@ -696,6 +705,7 @@ END:VCARD`;
             <p class="subtitle">Bachelor of Engineering in Computer Science</p>
             <div class="description">
               <p><strong>GPA:</strong> 8.59/10.0</p>
+              <br>
               <p>
                 <strong>Key Coursework:</strong> Data Structures and Algorithms,
                 Database Management, Computer Networks and Security, Operating
@@ -872,7 +882,7 @@ END:VCARD`;
               <li class="skill-item">
                 <i class="fab fa-google"></i> Google Cloud
               </li>
-              <li class="skill-item"><i class="fab fa-docker"></i> Docker</li>
+              <li class="skill-item"><i class="fab fa-docker"></i> TF-IDF</li>
               <li class="skill-item"><i class="fab fa-git-alt"></i> Git</li>
               <li class="skill-item">
                 <i class="fab fa-bitbucket"></i> Bitbucket
@@ -881,6 +891,34 @@ END:VCARD`;
                 <i class="fas fa-code-branch"></i> JIRA
               </li>
               <li class="skill-item"><i class="fas fa-code"></i> VS Code</li>
+            </ul>
+          </div>
+          <div class="skill-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="skill-icon"><i class="fas fa-cogs"></i></div>
+            <h3>Predictive Analytics</h3>
+            <ul class="skill-items">
+              <li class="skill-item">
+                <i class="fa-solid fa-trowel-bricks"></i> Named Entity
+                Recognition (NER)
+              </li>
+              <li class="skill-item">
+                <i class="fab fa-google"></i> Transformer-based models
+              </li>
+              <li class="skill-item">
+                <i class="fa-solid fa-ruler-combined"></i> Rule-based parsing
+              </li>
+              <li class="skill-item">
+                <i class="fa-solid fa-code-compare"></i> SpaCy
+              </li>
+              <li class="skill-item">
+                <i class="fa-solid fa-gears"></i> Logistic Regression
+              </li>
+              <li class="skill-item">
+                <i class="fa-solid fa-folder-tree"></i> Decision Trees
+              </li>
+              <li class="skill-item">
+                <i class="fa-solid fa-shuffle"></i> Random Forests
+              </li>
             </ul>
           </div>
         </div>
@@ -915,6 +953,7 @@ END:VCARD`;
               <strong>Technologies:</strong> Next.js, MongoDB, Tailwind CSS,
               Vercel
             </p>
+            <br>
             <p>
               Built a comprehensive expense tracking application with dynamic
               charts, secure authentication, and mobile-friendly interface.
@@ -930,6 +969,7 @@ END:VCARD`;
               <strong>Technologies:</strong> React, Node.js, Database
               Integration
             </p>
+            <br>
             <p>
               Developed an integrated digital solution for temple operations
               including administration, donation management, and community
@@ -945,19 +985,14 @@ END:VCARD`;
               <strong>Technologies:</strong> YOLOv4, Gemini API, NLP, Deep
               Learning
             </p>
+            <br>
             <p>
               Achieved 98% accuracy in real-time object detection with
               integrated NLP communication. Featured audio-enabled interaction
               and online search capabilities.
             </p>
             <p>
-              <a
-                href="https://sih.gov.in/sih-2022-senior-final-result"
-                target="_blank"
-                style="color: var(--accent); text-decoration: underline"
-              >
-                Smart India Hackathon 2022 Grand Finalist Result
-              </a>
+  
             </p>
           </div>
         </div>
@@ -978,14 +1013,27 @@ END:VCARD`;
               <strong>Technologies:</strong> Object Detection, Swarm
               Intelligence, Computer Vision
             </p>
+            <br>
             <p>
               Implemented runway debris removal system using custom-designed
               drones. Led swarm intelligence design for real-time surveillance.
-              Received appreciation from Squadron Leader.
+              Utilized Object Detection (likely with YOLOv5/v7/v8) and Computer Vision principles, powered by Deep Learning frameworks such as TensorFlow or PyTorch. Received appreciation from Squadron Leader.
+
             </p>
           </div>
         </div>
-      </div>
+        <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+          <h3><i class="fa-solid fa-pager"></i> Resume Parsing and Candidate Matching</h3>
+          <p class="duration">
+           Research Project | Published Paper 
+          </p>
+          <div class="description">
+            <p>
+              <strong>Technologies:</strong> NLP, Named Entity Recognition (NER), TF-IDF, Transformer models, Logistic Regression, Random Forests, SpaCy, BERT-based models, Sentence-BERT (S-BERT)
+            </p>
+            <br>
+            <p>
+Developed an NLP-powered system for automated resume screening, extracting information via NER and rule-based parsing. It matches and ranks candidates using transformer-based similarity and ML models , enhancing recruitment efficiency and reducing bias. The system improves screening accuracy and fairness, addressing challenges of manual reviews and unstructured data.      </div>
     </section>
     <section id="achievements">
       <div class="section-title"><i class="fas fa-award"></i> Achievements</div>
