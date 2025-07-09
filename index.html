@@ -22,10 +22,10 @@
         --accent: #ffd86b;
         --white: #fff;
         --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-        --mini-sidebar-width: 70px; /* Width when collapsed */
-        --expanded-sidebar-width: 250px; /* Width when expanded */
-        --sidebar-bg-alpha: 0.98;
-        --sidebar-blur: 15px;
+        --mini-sidebar-width: 60px; /* New width when collapsed */
+        --expanded-sidebar-width: 200px; /* New width when expanded */
+        --sidebar-bg-alpha: 0.95;
+        --sidebar-blur: 12px;
       }
       * {
         box-sizing: border-box;
@@ -46,9 +46,11 @@
         min-height: 100vh;
         overflow-x: hidden;
         /* Initial padding for collapsed sidebar on desktop */
-        padding-left: var(--mini-sidebar-width);
+        padding-left: calc(
+          var(--mini-sidebar-width) + 20px + 20px
+        ); /* Sidebar width + left offset + some margin for content */
         transition: padding-left 0.3s ease-out; /* Smooth transition for content shift */
-        position: relative; /* Needed for mobile overlay */
+        position: relative;
       }
       #particles-js {
         position: fixed;
@@ -60,42 +62,42 @@
       }
 
       /* ========================================= */
-      /* ADAPTIVE SIDEBAR STYLES (DESKTOP & MOBILE) */
+      /* NEW ADAPTIVE SIDEBAR STYLES */
       /* ========================================= */
 
       .sidebar-wrapper {
         position: fixed;
-        top: 0;
-        left: 0;
+        top: 50%; /* Center vertically */
+        left: 20px; /* 20px from the left edge */
+        transform: translateY(-50%); /* Adjust for vertical centering */
         width: var(--mini-sidebar-width); /* Start collapsed */
-        /* height: 100%; REMOVE THIS for content-based height on desktop */
         background: rgba(24, 26, 35, var(--sidebar-bg-alpha));
         backdrop-filter: blur(var(--sidebar-blur));
         -webkit-backdrop-filter: blur(var(--sidebar-blur));
-        box-shadow: var(--shadow);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); /* Updated shadow */
+        border-radius: 40px; /* Rounded corners for the whole sidebar */
+        padding: 1.5rem 0.5rem; /* Adjusted padding */
         z-index: 1000;
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 1rem 0.5rem; /* Reduced horizontal padding for mini state */
-        transition: width 0.3s ease-out, transform 0.3s ease-in-out,
-          box-shadow 0.3s ease;
-        overflow-y: auto; /* Enable scrolling if content exceeds height */
-        overflow-x: hidden; /* Hide horizontal scroll from text labels */
+        transition: all 0.3s ease;
+        overflow-y: auto;
+        overflow-x: hidden;
       }
 
-      /* Sidebar expansion on hover (Desktop only) */
       .sidebar-wrapper:hover,
       .sidebar-wrapper.expanded {
         width: var(--expanded-sidebar-width);
       }
+
       body.sidebar-expanded {
-        padding-left: var(
-          --expanded-sidebar-width
+        padding-left: calc(
+          var(--expanded-sidebar-width) + 20px + 20px
         ); /* Adjust body padding on expand */
       }
 
-      /* Hide profile section and separator completely */
+      /* Hide profile section and separator completely - not applicable for this design */
       .sidebar-profile,
       .sidebar-separator {
         display: none;
@@ -104,16 +106,15 @@
       /* Sidebar Navigation Links (Adaptive) */
       .sidebar-wrapper nav {
         width: 100%;
-        /* padding-top: 2rem; REMOVED, controlled by ul margin-top now */
-        padding-bottom: 1rem; /* Reduced overall padding at the bottom */
         margin-top: 2rem; /* Add top margin to nav container */
       }
       .sidebar-wrapper nav ul {
         display: flex;
         flex-direction: column;
-        gap: 0.8rem;
+        gap: 2rem; /* Increased gap between links */
         list-style: none;
-        padding: 0 0.5rem; /* Reduced horizontal padding */
+        padding: 0; /* No padding on ul itself */
+        margin: 0;
         align-items: center; /* Center icons in mini state */
       }
       .sidebar-wrapper nav ul li {
@@ -124,7 +125,7 @@
         color: var(--white);
         font-weight: 700;
         text-decoration: none;
-        font-size: 1.05rem;
+        font-size: 1rem;
         padding: 0.8rem 0.5rem; /* Adjusted padding for icons-only state */
         border-radius: 12px;
         transition: all 0.3s ease;
@@ -153,7 +154,7 @@
       /* Show text labels on hover/expand */
       .sidebar-wrapper:hover nav a span,
       .sidebar-wrapper.expanded nav a span {
-        display: inline-block;
+        display: inline; /* Changed to inline for seamless transition */
         opacity: 1;
         transform: translateX(0);
       }
@@ -188,21 +189,21 @@
       }
 
       .sidebar-wrapper nav a:hover {
-        color: var(--bg);
+        color: var(--bg); /* Text color when active/hovered */
         transform: scale(1.02);
         box-shadow: 0 4px 15px rgba(108, 99, 255, 0.4);
       }
 
       .sidebar-wrapper nav a.active {
-        color: var(--bg);
+        color: var(--bg); /* Text color when active */
         box-shadow: 0 0 15px rgba(108, 99, 255, 0.6);
       }
 
       /* ========================================= */
-      /* MOBILE SPECIFIC STYLES (Overlay Sidebar) */
+      /* MOBILE SPECIFIC STYLES (Overlay Sidebar for smaller screens) */
       /* ========================================= */
 
-      /* Mobile Menu Toggle Button (Hamburger) */
+      /* Mobile Menu Toggle Button (Hamburger) - now only for mobile */
       .menu-toggle {
         display: none; /* Hidden by default, shown in media query */
         position: fixed;
@@ -228,7 +229,7 @@
         transform: rotate(90deg);
       }
 
-      /* Mobile Close Button (inside sidebar) */
+      /* Mobile Close Button (inside sidebar) - now only for mobile */
       .sidebar-close-btn {
         display: none; /* Hidden by default, shown in media query */
         position: absolute;
@@ -667,14 +668,19 @@
         body {
           padding-left: 0; /* No padding on mobile, sidebar is overlay */
         }
-        /* Hide regular sidebar elements on mobile */
+        /* Hide desktop sidebar and show mobile overlay */
         .sidebar-wrapper {
+          top: 0;
           left: -100%; /* Hide off-screen by default */
+          transform: none; /* Remove transform for mobile overlay */
           width: 80vw; /* Take up 80% of viewport width */
           max-width: 300px;
           height: 100vh;
-          box-shadow: none; /* No shadow when hidden */
+          border-radius: 0; /* No rounded corners on mobile overlay */
           padding-top: 5rem; /* Space for close button */
+          box-shadow: none; /* No shadow when hidden */
+          /* Ensures the hover styles are not active on mobile */
+          transition: left 0.3s ease-in-out, box-shadow 0.3s ease;
         }
         /* Show mobile sidebar */
         .sidebar-wrapper.show-sidebar {
@@ -690,21 +696,7 @@
           display: block; /* Show 'X' button inside sidebar */
         }
 
-        /* Always show profile/separator in mobile overlay (no hover needed) */
-        .sidebar-profile,
-        .sidebar-separator {
-          opacity: 1;
-        }
-        .sidebar-profile img {
-          width: 100px; /* Adjust size for mobile overlay */
-          height: 100px;
-        }
-        .sidebar-profile h2 {
-          font-size: 1.3rem;
-        }
-        .sidebar-profile p {
-          font-size: 0.9rem;
-        }
+        /* Always show text in mobile overlay (no hover needed) */
         .sidebar-wrapper nav ul {
           align-items: flex-start; /* Left-align links in mobile overlay */
           padding: 0 1rem;
@@ -771,6 +763,7 @@
           font-size: 1rem;
           padding: 0.7rem 1rem;
         }
+        /* Mobile sidebar profile/name display (if you were to re-add it) */
         .sidebar-profile img {
           width: 90px;
           height: 90px;
@@ -795,46 +788,54 @@
   <body>
     <div id="particles-js"></div>
 
-    <button class="menu-toggle" id="menuToggle">
+    <button
+      class="menu-toggle"
+      id="menuToggle"
+      aria-label="Open navigation menu"
+    >
       <i class="fas fa-bars"></i>
     </button>
 
     <div class="sidebar-wrapper">
-      <button class="sidebar-close-btn" id="sidebarCloseBtn">
+      <button
+        class="sidebar-close-btn"
+        id="sidebarCloseBtn"
+        aria-label="Close navigation menu"
+      >
         <i class="fas fa-times"></i>
       </button>
 
       <nav>
         <ul>
           <li>
-            <a href="#about" class="active"
+            <a href="#about" class="active" aria-label="About Section"
               ><i class="fa-solid fa-user"></i> <span>About</span></a
             >
           </li>
           <li>
-            <a href="#education"
+            <a href="#education" aria-label="Education Section"
               ><i class="fa-solid fa-graduation-cap"></i>
               <span>Education</span></a
             >
           </li>
           <li>
-            <a href="#experience"
+            <a href="#experience" aria-label="Experience Section"
               ><i class="fa-solid fa-briefcase"></i> <span>Experience</span></a
             >
           </li>
           <li>
-            <a href="#skills"
+            <a href="#skills" aria-label="Skills Section"
               ><i class="fa-solid fa-code"></i> <span>Skills</span></a
             >
           </li>
           <li>
-            <a href="#projects"
+            <a href="#projects" aria-label="Projects Section"
               ><i class="fa-solid fa-diagram-project"></i>
               <span>Projects</span></a
             >
           </li>
           <li>
-            <a href="#achievements"
+            <a href="#achievements" aria-label="Achievements Section"
               ><i class="fa-solid fa-award"></i> <span>Achievements</span></a
             >
           </li>
@@ -871,7 +872,10 @@
         <div class="contact-info" data-aos="fade-up" data-aos-delay="400">
           <span>
             <i class="fa-brands fa-linkedin"></i>
-            <a href="https://www.linkedin.com/in/parthdalvi04/" target="_blank"
+            <a
+              href="https://www.linkedin.com/in/parthdalvi04/"
+              target="_blank"
+              rel="noopener noreferrer"
               >LinkedIn</a
             >
           </span>
@@ -883,7 +887,12 @@
           </span>
           <span>
             <i class="fa-brands fa-github"></i>
-            <a href="https://github.com/Parth04Dalvi" target="_blank">GitHub</a>
+            <a
+              href="https://github.com/Parth04Dalvi"
+              target="_blank"
+              rel="noopener noreferrer"
+              >GitHub</a
+            >
           </span>
           <span>
             <i class="fas fa-phone"></i>
@@ -912,12 +921,16 @@ END:VCARD`;
             <a
               href="https://www.google.com/maps/place/Indiana,+USA"
               target="_blank"
+              rel="noopener noreferrer"
               >Indiana, USA</a
             >
           </span>
           <span>
             <i class="fa-solid fa-file"></i>
-            <a href="1_Parth Samir Dalvi.pdf" target="_blank" rel="noopener"
+            <a
+              href="1_Parth Samir Dalvi.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               >Resume</a
             >
           </span>
@@ -1043,12 +1056,12 @@ END:VCARD`;
                     decision making
                   </li>
                   <li>
-                    Performed advanced data manipulation and cleansing to support
-                    accurate trend analysis and reporting
+                    Performed advanced data manipulation and cleansing to
+                    support accurate trend analysis and reporting
                   </li>
                   <li>
-                    Conducting quality analysis using surveillance camera data to
-                    monitor visitor entry/exit metrics across multiple client
+                    Conducting quality analysis using surveillance camera data
+                    to monitor visitor entry/exit metrics across multiple client
                     properties
                   </li>
                   <li>
@@ -1186,7 +1199,7 @@ END:VCARD`;
                 <li class="skill-item">
                   <i class="fab fa-google"></i> Google Cloud
                 </li>
-                <li class="skill-item"><i class="fab fa-docker"></i> TF-IDF</li>
+                <li class="skill-item"><i class="fab fa-docker"></i> Docker</li>
                 <li class="skill-item"><i class="fab fa-git-alt"></i> Git</li>
                 <li class="skill-item">
                   <i class="fab fa-bitbucket"></i> Bitbucket
@@ -1206,7 +1219,7 @@ END:VCARD`;
                   Recognition (NER)
                 </li>
                 <li class="skill-item">
-                  <i class="fab fa-google"></i> Transformer-based models
+                  <i class="fa-solid fa-robot"></i> Transformer-based models
                 </li>
                 <li class="skill-item">
                   <i class="fa-solid fa-ruler-combined"></i> Rule-based parsing
@@ -1239,6 +1252,7 @@ END:VCARD`;
               <a
                 href="https://fibucks.com"
                 target="_blank"
+                rel="noopener noreferrer"
                 style="color: var(--accent); text-decoration: underline"
                 >FiBucks - Personal Expense Tracker</a
               >
@@ -1248,6 +1262,7 @@ END:VCARD`;
               <a
                 href="https://fibucks.com"
                 target="_blank"
+                rel="noopener noreferrer"
                 style="color: var(--accent); text-decoration: underline"
                 >fibucks.com</a
               >
@@ -1309,6 +1324,7 @@ END:VCARD`;
               <a
                 href="https://indianairforce.nic.in/mehar-baba/"
                 target="_blank"
+                rel="noopener noreferrer"
                 style="color: var(--accent); text-decoration: underline"
               >
                 Mehar Baba Swarm Drone Competition
@@ -1317,16 +1333,13 @@ END:VCARD`;
             <div class="description">
               <p>
                 <strong>Technologies:</strong> Object Detection, Swarm
-                Intelligence, Computer Vision
+                Intelligence, Computer Vision, YOLOv5/v7/v8, TensorFlow/PyTorch
               </p>
               <br />
               <p>
                 Implemented runway debris removal system using custom-designed
                 drones. Led swarm intelligence design for real-time
-                surveillance. Utilized Object Detection (likely with
-                YOLOv5/v7/v8) and Computer Vision principles, powered by Deep
-                Learning frameworks such as TensorFlow or PyTorch. Received
-                appreciation from Squadron Leader.
+                surveillance. Received appreciation from Squadron Leader.
               </p>
             </div>
           </div>
@@ -1371,11 +1384,7 @@ END:VCARD`;
               </div>
             </div>
           </div>
-          <div
-            class="achievement-card"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
+          <div class="achievement-card" data-aos="fade-up" data-aos-delay="100">
             <div class="icon"><i class="fas fa-medal"></i></div>
             <div class="content">
               <h3>Special Appreciation Letter</h3>
@@ -1385,11 +1394,7 @@ END:VCARD`;
               </div>
             </div>
           </div>
-          <div
-            class="achievement-card"
-            data-aos="fade-up"
-            data-aos-delay="200"
-          >
+          <div class="achievement-card" data-aos="fade-up" data-aos-delay="200">
             <div class="icon"><i class="fas fa-rocket"></i></div>
             <div class="content">
               <h3>Youngest Team to Present to Indian Air Force</h3>
@@ -1399,11 +1404,7 @@ END:VCARD`;
               </div>
             </div>
           </div>
-          <div
-            class="achievement-card"
-            data-aos="fade-up"
-            data-aos-delay="300"
-          >
+          <div class="achievement-card" data-aos="fade-up" data-aos-delay="300">
             <div class="icon"><i class="fas fa-lightbulb"></i></div>
             <div class="content">
               <h3>Smart India Hackathon Hardware Edition Grand Finalist</h3>
@@ -1414,11 +1415,7 @@ END:VCARD`;
               </div>
             </div>
           </div>
-          <div
-            class="achievement-card"
-            data-aos="fade-up"
-            data-aos-delay="400"
-          >
+          <div class="achievement-card" data-aos="fade-up" data-aos-delay="400">
             <div class="icon"><i class="fas fa-heart"></i></div>
             <div class="content">
               <h3>Best Volunteer</h3>
@@ -1431,6 +1428,11 @@ END:VCARD`;
         </div>
       </section>
     </div>
+    <footer style="text-align: center; padding: 3rem 0 2rem; color: #000000">
+      <p>
+        © <span id="currentYear"></span> Parth Samir Dalvi. All rights reserved.
+      </p>
+    </footer>
     <script>
       // Particles.js
       particlesJS("particles-js", {
@@ -1446,13 +1448,6 @@ END:VCARD`;
             color: "#ffffff",
             opacity: 0.4,
             width: 1,
-          },
-          move: {
-            enable: true,
-            speed: 2.5,
-            direction: "none",
-            out_mode: "out",
-            bounce: true,
           },
         },
         interactivity: {
@@ -1490,46 +1485,56 @@ END:VCARD`;
         document.body.style.overflowY = "auto"; // Enable main body scroll
       }
 
-      // --- Mobile Specific Event Listeners ---
+      // --- Mobile Specific Event Listeners (only apply on mobile breakpoint) ---
+      // These are conditionally displayed via media queries, so the listeners
+      // are always there but only affect visible elements.
       menuToggle.addEventListener("click", openSidebar);
       sidebarCloseBtn.addEventListener("click", closeSidebar);
       bodyOverlay.addEventListener("click", closeSidebar); // Close on clicking outside overlay
 
       // --- Desktop Specific Hover Logic ---
-      function handleSidebarHover() {
+      let desktopHoverListenersAdded = false; // Flag to prevent re-adding listeners
+
+      const handleMouseEnter = () => {
         if (window.innerWidth > 900) {
-          // Only apply hover effect on desktop
-          sidebar.addEventListener("mouseenter", () => {
-            sidebar.classList.add("expanded");
-            document.body.classList.add("sidebar-expanded");
-          });
-          sidebar.addEventListener("mouseleave", () => {
-            sidebar.classList.remove("expanded");
-            document.body.classList.remove("sidebar-expanded");
-          });
-        } else {
-          // Remove hover listeners on mobile
-          // Using dummy functions or no-op arrow functions to ensure event listeners are properly removed if they exist
-          sidebar.removeEventListener("mouseenter", () => {});
-          sidebar.removeEventListener("mouseleave", () => {});
+          sidebar.classList.add("expanded");
+          document.body.classList.add("sidebar-expanded");
+        }
+      };
+
+      const handleMouseLeave = () => {
+        if (window.innerWidth > 900) {
+          sidebar.classList.remove("expanded");
+          document.body.classList.remove("sidebar-expanded");
+        }
+      };
+
+      function setupSidebarHover() {
+        if (window.innerWidth > 900 && !desktopHoverListenersAdded) {
+          sidebar.addEventListener("mouseenter", handleMouseEnter);
+          sidebar.addEventListener("mouseleave", handleMouseLeave);
+          desktopHoverListenersAdded = true;
+        } else if (window.innerWidth <= 900 && desktopHoverListenersAdded) {
+          // Remove desktop listeners if switching to mobile
+          sidebar.removeEventListener("mouseenter", handleMouseEnter);
+          sidebar.removeEventListener("mouseleave", handleMouseLeave);
+          desktopHoverListenersAdded = false;
+          // Ensure sidebar state is reset when going from desktop to mobile
+          sidebar.classList.remove("expanded");
+          document.body.classList.remove("sidebar-expanded");
         }
       }
 
       // Initial call for desktop hover logic
-      handleSidebarHover();
+      setupSidebarHover();
 
       // Adjust sidebar behavior on resize
       window.addEventListener("resize", () => {
+        // If resizing to desktop from mobile, ensure sidebar is closed and hover is active
         if (window.innerWidth > 900) {
-          // If resizing to desktop from mobile, ensure sidebar is closed and hover is active
-          closeSidebar();
-          handleSidebarHover(); // Re-apply desktop hover listeners
-        } else {
-          // If resizing to mobile from desktop, ensure desktop hover is removed
-          sidebar.classList.remove("expanded");
-          document.body.classList.remove("sidebar-expanded");
-          handleSidebarHover(); // Re-apply mobile listeners (which do nothing for hover)
+          closeSidebar(); // Ensure mobile sidebar is closed
         }
+        setupSidebarHover(); // Re-evaluate and apply/remove hover listeners
       });
 
       // Navigation smooth scroll & active state (modified to close sidebar on mobile)
@@ -1543,31 +1548,35 @@ END:VCARD`;
             .forEach((a) => a.classList.remove("active"));
           this.classList.add("active");
 
-          // Close sidebar on link click if it's a mobile view
+          // Close sidebar on link click if it's a mobile view (based on breakpoint)
           if (window.innerWidth <= 900) {
             closeSidebar();
           }
         });
       });
 
-      window.addEventListener("scroll", () => {
-        const sections = document.querySelectorAll("section");
-        const navLinks = document.querySelectorAll(".sidebar-wrapper nav a");
-        let current = "";
-        sections.forEach((section) => {
-          const sectionTop = section.offsetTop;
-          // Add some offset so active state changes before section hits very top
-          if (scrollY >= sectionTop - 250) {
-            current = section.getAttribute("id");
-          }
-        });
-        navLinks.forEach((link) => {
-          link.classList.remove("active");
-          if (link.getAttribute("href") === `#${current}`) {
-            link.classList.add("active");
-          }
-        });
-      });
+      window.addEventListener(
+        "scroll",
+        () => {
+          const sections = document.querySelectorAll("section");
+          const navLinks = document.querySelectorAll(".sidebar-wrapper nav a");
+          let current = "";
+          sections.forEach((section) => {
+            const sectionTop = section.offsetTop;
+            // Add some offset so active state changes before section hits very top
+            if (scrollY >= sectionTop - 250) {
+              current = section.getAttribute("id");
+            }
+          });
+          navLinks.forEach((link) => {
+            link.classList.remove("active");
+            if (link.getAttribute("href") === `#${current}`) {
+              link.classList.add("active");
+            }
+          });
+        },
+        { passive: true }
+      ); /* Added passive listener */
 
       // Typewriter effect
       const typewriterTexts = [
@@ -1609,6 +1618,10 @@ END:VCARD`;
         once: true,
         offset: 100,
       });
+
+      // Update current year in footer
+      document.getElementById("currentYear").textContent =
+        new Date().getFullYear();
     </script>
   </body>
 </html>
