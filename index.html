@@ -276,7 +276,7 @@
         position: relative;
         background: none;
       }
-      /* Main header profile image (only visible on large screens) */
+      /* Main header profile image (now always visible) */
       .main-header-profile-img {
         width: 180px;
         height: 180px;
@@ -661,125 +661,170 @@
       }
 
       /* ========================================= */
-      /* MEDIA QUERIES (RESPONSIVENESS) */
+      /* CHATBOT STYLES */
       /* ========================================= */
-
-      @media (max-width: 900px) {
-        body {
-          padding-left: 0; /* No padding on mobile, sidebar is overlay */
-        }
-        /* Hide desktop sidebar and show mobile overlay */
-        .sidebar-wrapper {
-          top: 0;
-          left: -100%; /* Hide off-screen by default */
-          transform: none; /* Remove transform for mobile overlay */
-          width: 80vw; /* Take up 80% of viewport width */
-          max-width: 300px;
-          height: 100vh;
-          border-radius: 0; /* No rounded corners on mobile overlay */
-          padding-top: 5rem; /* Space for close button */
-          box-shadow: none; /* No shadow when hidden */
-          /* Ensures the hover styles are not active on mobile */
-          transition: left 0.3s ease-in-out, box-shadow 0.3s ease;
-        }
-        /* Show mobile sidebar */
-        .sidebar-wrapper.show-sidebar {
-          left: 0; /* Slide in from left */
-          box-shadow: var(--shadow); /* Add shadow when visible */
-        }
-
-        /* Show mobile toggle/close buttons */
-        .menu-toggle {
-          display: flex; /* Show hamburger menu */
-        }
-        .sidebar-close-btn {
-          display: block; /* Show 'X' button inside sidebar */
-        }
-
-        /* Always show text in mobile overlay (no hover needed) */
-        .sidebar-wrapper nav ul {
-          align-items: flex-start; /* Left-align links in mobile overlay */
-          padding: 0 1rem;
-        }
-        .sidebar-wrapper nav a {
-          justify-content: flex-start; /* Left-align text/icon */
-          padding: 0.8rem 1.2rem; /* Normal padding */
-        }
-        .sidebar-wrapper nav a span {
-          display: inline-block; /* Always show text in mobile overlay */
-          opacity: 1;
-          transform: translateX(0);
-        }
-
-        /* Overlay for background content when mobile sidebar is open */
-        .body-overlay {
-          display: block;
-        }
-        .body-overlay.show {
-          opacity: 1;
-          visibility: visible;
-        }
-
-        /* Hide the main header profile image on smaller screens */
-        .main-header-profile-img {
-          display: none;
-        }
-
-        /* Adjustments for main content sections on smaller screens */
-        .timeline-content {
-          min-width: 220px;
-          max-width: 100%;
-          margin: 0 1rem;
-        }
-        .timeline::before,
-        .timeline-item::before {
-          display: none;
-        }
-        .timeline-item {
-          flex-direction: column !important;
-          align-items: center;
-        }
+      .chatbot-toggle {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 60px;
+        height: 60px;
+        background: var(--primary);
+        color: var(--white);
+        border: none;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        cursor: pointer;
+        box-shadow: var(--shadow);
+        z-index: 1000;
+        transition: transform 0.3s ease, background 0.3s ease;
+      }
+      .chatbot-toggle:hover {
+        transform: scale(1.1);
+        background: var(--secondary);
+      }
+      .chatbot-container {
+        position: fixed;
+        bottom: 100px; /* Position above the toggle button */
+        right: 30px;
+        width: 350px;
+        height: 500px;
+        background: var(--card-bg);
+        border-radius: 18px;
+        box-shadow: var(--shadow);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        z-index: 1000;
+        transform: translateY(20px) scale(0.8);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease-in-out;
+      }
+      .chatbot-container.open {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+        visibility: visible;
+      }
+      .chatbot-header {
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        color: var(--white);
+        padding: 1rem;
+        font-weight: 700;
+        font-size: 1.1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top-left-radius: 18px;
+        border-top-right-radius: 18px;
+      }
+      .chatbot-header button {
+        background: none;
+        border: none;
+        color: var(--white);
+        font-size: 1.4rem;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+      .chatbot-header button:hover {
+        transform: rotate(90deg);
+      }
+      .chatbot-messages {
+        flex-grow: 1;
+        padding: 1rem;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
+        background-color: var(--bg);
+      }
+      .chatbot-messages::-webkit-scrollbar {
+        width: 8px;
+      }
+      .chatbot-messages::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+      }
+      .chatbot-message {
+        max-width: 80%;
+        padding: 0.8rem 1rem;
+        border-radius: 15px;
+        line-height: 1.4;
+      }
+      .chatbot-message.user {
+        align-self: flex-end;
+        background-color: var(--primary);
+        color: var(--white);
+        border-bottom-right-radius: 2px;
+      }
+      .chatbot-message.bot {
+        align-self: flex-start;
+        background-color: var(--card-bg);
+        color: var(--white);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-bottom-left-radius: 2px;
+      }
+      .chatbot-typing-indicator {
+        align-self: flex-start;
+        background-color: var(--card-bg);
+        color: var(--white);
+        padding: 0.8rem 1rem;
+        border-radius: 15px;
+        border-bottom-left-radius: 2px;
+        font-style: italic;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .chatbot-typing-indicator.show {
+        opacity: 1;
+      }
+      .chatbot-input-container {
+        display: flex;
+        padding: 0.8rem 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        background-color: var(--card-bg);
+        border-bottom-left-radius: 18px;
+        border-bottom-right-radius: 18px;
+      }
+      .chatbot-input-container input {
+        flex-grow: 1;
+        padding: 0.7rem;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 25px;
+        background-color: var(--bg);
+        color: var(--white);
+        font-family: "Montserrat", Arial, sans-serif;
+        font-size: 1rem;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .chatbot-input-container input:focus {
+        border-color: var(--accent);
+      }
+      .chatbot-input-container button {
+        background: var(--primary);
+        color: var(--white);
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        margin-left: 0.8rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: background 0.2s, transform 0.2s;
+      }
+      .chatbot-input-container button:hover {
+        background: var(--secondary);
+        transform: scale(1.05);
       }
 
-      @media (max-width: 600px) {
-        header {
-          padding: 3rem 1rem 1rem 1rem;
-        }
-        .typewriter {
-          font-size: 2rem;
-        }
-        .section-title {
-          font-size: 1.4rem;
-        }
-        .skills-section,
-        section {
-          padding: 2rem 0.5rem;
-        }
-        .skills-showcase,
-        .projects-grid {
-          grid-template-columns: 1fr;
-        }
-        .contact-info {
-          font-size: 1rem;
-          padding: 0.7rem 1rem;
-        }
-        /* Mobile sidebar profile/name display (if you were to re-add it) */
-        .sidebar-profile img {
-          width: 90px;
-          height: 90px;
-        }
-        .sidebar-profile h2 {
-          font-size: 1.1rem;
-        }
-        .sidebar-profile p {
-          font-size: 0.8rem;
-        }
-        .sidebar-wrapper nav a {
-          font-size: 0.95rem;
-          padding: 0.7rem 1rem;
-          gap: 0.6rem;
-        }
-      }
+      /* Removed .model-container and associated styles */
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -1433,6 +1478,42 @@ END:VCARD`;
         © <span id="currentYear"></span> Parth Samir Dalvi. All rights reserved.
       </p>
     </footer>
+
+    <button
+      class="chatbot-toggle"
+      id="chatbotToggle"
+      aria-label="Open chat with portfolio bot"
+    >
+      <i class="fas fa-robot"></i>
+    </button>
+
+    <div class="chatbot-container" id="chatbotContainer">
+      <div class="chatbot-header">
+        <span>Portfolio Bot</span>
+        <button id="chatbotCloseBtn" aria-label="Close chat">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="chatbot-messages" id="chatbotMessages">
+        <div class="chatbot-message bot">
+          Hello! I'm your portfolio bot. Ask me anything about Parth's skills,
+          projects, or background! Try "skills" or "projects".
+        </div>
+        <div class="chatbot-typing-indicator" id="typingIndicator">...</div>
+      </div>
+      <div class="chatbot-input-container">
+        <input
+          type="text"
+          id="chatbotInput"
+          placeholder="Type your question..."
+          aria-label="Chatbot input field"
+        />
+        <button id="chatbotSendBtn" aria-label="Send message">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+
     <script>
       // Particles.js
       particlesJS("particles-js", {
@@ -1455,7 +1536,7 @@ END:VCARD`;
           events: {
             onhover: { enable: true, mode: "grab" },
             onclick: { enable: true, mode: "push" },
-            resize: true,
+            _resize: true,
           },
           modes: {
             grab: { distance: 140, line_linked: { opacity: 0.6 } },
@@ -1469,31 +1550,27 @@ END:VCARD`;
       const menuToggle = document.getElementById("menuToggle");
       const sidebar = document.querySelector(".sidebar-wrapper");
       const sidebarCloseBtn = document.getElementById("sidebarCloseBtn");
-      const bodyOverlay = document.createElement("div"); // Create overlay element
+      const bodyOverlay = document.createElement("div");
       bodyOverlay.classList.add("body-overlay");
-      document.body.appendChild(bodyOverlay); // Add overlay to body
+      document.body.appendChild(bodyOverlay);
 
       function openSidebar() {
         sidebar.classList.add("show-sidebar");
         bodyOverlay.classList.add("show");
-        document.body.style.overflowY = "hidden"; // Disable main body scroll
+        document.body.style.overflowY = "hidden";
       }
 
       function closeSidebar() {
         sidebar.classList.remove("show-sidebar");
         bodyOverlay.classList.remove("show");
-        document.body.style.overflowY = "auto"; // Enable main body scroll
+        document.body.style.overflowY = "auto";
       }
 
-      // --- Mobile Specific Event Listeners (only apply on mobile breakpoint) ---
-      // These are conditionally displayed via media queries, so the listeners
-      // are always there but only affect visible elements.
       menuToggle.addEventListener("click", openSidebar);
       sidebarCloseBtn.addEventListener("click", closeSidebar);
-      bodyOverlay.addEventListener("click", closeSidebar); // Close on clicking outside overlay
+      bodyOverlay.addEventListener("click", closeSidebar);
 
-      // --- Desktop Specific Hover Logic ---
-      let desktopHoverListenersAdded = false; // Flag to prevent re-adding listeners
+      let desktopHoverListenersAdded = false;
 
       const handleMouseEnter = () => {
         if (window.innerWidth > 900) {
@@ -1515,29 +1592,23 @@ END:VCARD`;
           sidebar.addEventListener("mouseleave", handleMouseLeave);
           desktopHoverListenersAdded = true;
         } else if (window.innerWidth <= 900 && desktopHoverListenersAdded) {
-          // Remove desktop listeners if switching to mobile
           sidebar.removeEventListener("mouseenter", handleMouseEnter);
           sidebar.removeEventListener("mouseleave", handleMouseLeave);
           desktopHoverListenersAdded = false;
-          // Ensure sidebar state is reset when going from desktop to mobile
           sidebar.classList.remove("expanded");
           document.body.classList.remove("sidebar-expanded");
         }
       }
 
-      // Initial call for desktop hover logic
       setupSidebarHover();
 
-      // Adjust sidebar behavior on resize
       window.addEventListener("resize", () => {
-        // If resizing to desktop from mobile, ensure sidebar is closed and hover is active
         if (window.innerWidth > 900) {
-          closeSidebar(); // Ensure mobile sidebar is closed
+          closeSidebar();
         }
-        setupSidebarHover(); // Re-evaluate and apply/remove hover listeners
+        setupSidebarHover();
       });
 
-      // Navigation smooth scroll & active state (modified to close sidebar on mobile)
       document.querySelectorAll(".sidebar-wrapper nav a").forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
           e.preventDefault();
@@ -1548,7 +1619,6 @@ END:VCARD`;
             .forEach((a) => a.classList.remove("active"));
           this.classList.add("active");
 
-          // Close sidebar on link click if it's a mobile view (based on breakpoint)
           if (window.innerWidth <= 900) {
             closeSidebar();
           }
@@ -1563,7 +1633,6 @@ END:VCARD`;
           let current = "";
           sections.forEach((section) => {
             const sectionTop = section.offsetTop;
-            // Add some offset so active state changes before section hits very top
             if (scrollY >= sectionTop - 250) {
               current = section.getAttribute("id");
             }
@@ -1576,7 +1645,7 @@ END:VCARD`;
           });
         },
         { passive: true }
-      ); /* Added passive listener */
+      );
 
       // Typewriter effect
       const typewriterTexts = [
@@ -1622,6 +1691,120 @@ END:VCARD`;
       // Update current year in footer
       document.getElementById("currentYear").textContent =
         new Date().getFullYear();
+
+      // =========================================
+      // CHATBOT LOGIC
+      // =========================================
+      const chatbotToggle = document.getElementById("chatbotToggle");
+      const chatbotContainer = document.getElementById("chatbotContainer");
+      const chatbotCloseBtn = document.getElementById("chatbotCloseBtn");
+      const chatbotMessages = document.getElementById("chatbotMessages");
+      const chatbotInput = document.getElementById("chatbotInput");
+      const chatbotSendBtn = document.getElementById("chatbotSendBtn");
+      const typingIndicator = document.getElementById("typingIndicator");
+
+      chatbotToggle.addEventListener("click", () => {
+        chatbotContainer.classList.toggle("open");
+        if (chatbotContainer.classList.contains("open")) {
+          chatbotInput.focus();
+          scrollToBottom();
+        }
+      });
+
+      chatbotCloseBtn.addEventListener("click", () => {
+        chatbotContainer.classList.remove("open");
+      });
+
+      chatbotInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          sendMessage();
+        }
+      });
+
+      chatbotSendBtn.addEventListener("click", sendMessage);
+
+      function addMessage(text, sender) {
+        const messageDiv = document.createElement("div");
+        messageDiv.classList.add("chatbot-message", sender);
+        messageDiv.textContent = text;
+        chatbotMessages.appendChild(messageDiv);
+        scrollToBottom();
+      }
+
+      function scrollToBottom() {
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+      }
+
+      function showTypingIndicator() {
+        typingIndicator.classList.add("show");
+        scrollToBottom();
+      }
+
+      function hideTypingIndicator() {
+        typingIndicator.classList.remove("show");
+      }
+
+      function sendMessage() {
+        const userMessage = chatbotInput.value.trim();
+        if (userMessage === "") return;
+
+        addMessage(userMessage, "user");
+        chatbotInput.value = "";
+        showTypingIndicator();
+
+        setTimeout(() => {
+          hideTypingIndicator();
+          handleBotResponse(userMessage.toLowerCase());
+        }, 1000);
+      }
+
+      function handleBotResponse(message) {
+        let response =
+          "I'm not sure how to answer that. Could you try asking about 'skills', 'projects', 'education', or 'experience'?";
+
+        if (message.includes("hello") || message.includes("hi")) {
+          response =
+            "Hello there! How can I help you learn more about Parth's portfolio?";
+        } else if (message.includes("your name")) {
+          response =
+            "I'm Parth's portfolio bot, designed to help you navigate his work and experience.";
+        } else if (message.includes("skills")) {
+          response =
+            "Parth has strong skills in Programming (Python, JavaScript, Java, C++, C#, SQL, PowerShell), Web & Database (React, Next.js, Express, Django, MongoDB, PostgreSQL), AI/ML & Data Science (Machine Learning, NLP, YOLO, TensorFlow, PyTorch, OpenCV), Cloud & DevOps (AWS, Google Cloud, Docker, Git, Bitbucket, JIRA, VS Code), and Predictive Analytics (NER, Transformer models, Logistic Regression, Decision Trees, Random Forests, SpaCy).";
+        } else if (message.includes("projects")) {
+          response =
+            "Parth has worked on exciting projects like FiBucks (Personal Expense Tracker), a Temple Management System, a Real-Time Object Detection System, Anti-Drone Systems, and a Resume Parsing and Candidate Matching system. Which one would you like to know more about?";
+        } else if (message.includes("fibucks")) {
+          response =
+            "FiBucks is a personal expense tracker built with Next.js and MongoDB, featuring dynamic charts and secure authentication. You can visit it at fibucks.com.";
+        } else if (message.includes("object detection")) {
+          response =
+            "The Real-Time Object Detection System achieved 98% accuracy using YOLOv4 and integrated NLP communication. It even features audio-enabled interaction!";
+        } else if (message.includes("education")) {
+          response =
+            "Parth is currently pursuing a Master of Science in Computer Science at Purdue University (2024-2026) and completed his Bachelor of Engineering in Computer Science at Savitribai Phule Pune University (2020-2024).";
+        } else if (message.includes("experience") || message.includes("work")) {
+          response =
+            "Parth has professional experience as a Data Analyst at WeAgile Software Solutions (March 2024 – May 2024) and as a Web Development Intern at Elite Softwares (January 2023 – March 2023).";
+        } else if (message.includes("achievements")) {
+          response =
+            "Parth's achievements include publishing research papers, receiving a special appreciation letter from the Indian Air Force, being the youngest team to present to the IAF, and being a Smart India Hackathon Grand Finalist.";
+        } else if (
+          message.includes("contact") ||
+          message.includes("email") ||
+          message.includes("linkedin")
+        ) {
+          response =
+            "You can contact Parth via email at parthsamirdalvi@gmail.com, connect on LinkedIn, or check out his GitHub. His phone number is (260) 249-2495.";
+        } else if (message.includes("thank")) {
+          response =
+            "You're welcome! Feel free to ask more questions if you have them.";
+        }
+
+        addMessage(response, "bot");
+      }
+
+      // All 3D model related JavaScript code has been removed
     </script>
   </body>
 </html>
