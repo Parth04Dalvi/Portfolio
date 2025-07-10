@@ -435,7 +435,6 @@
         font-weight: 700;
         display: flex;
         align-items: center;
-        /* Adjusted for potential overflow with long names + image */
         flex-wrap: wrap; /* Allow wrapping if content is too long */
         word-break: break-word; /* Break long words */
       }
@@ -527,63 +526,76 @@
         margin-bottom: 1rem;
         font-weight: 600;
       }
+      /* --- START Skill Hexagons / Honeycomb Grid styles --- */
       .skill-items {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.3rem;
-        margin: 0 auto;
-        padding: 0; /* Remove default ul padding */
+        display: grid; /* Use grid for layout */
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); /* Auto-fit columns */
+        gap: 0.8rem; /* Space between skill items */
+        padding: 0;
+        list-style: none; /* Remove default list bullets */
+        justify-items: center; /* Center items within grid cells */
       }
-      /* New CSS for Skill Progress Bars */
+
       .skill-item {
-        display: flex; /* Make skill name and progress bar align */
-        justify-content: space-between; /* Push name to left, bar to right */
-        align-items: center;
-        gap: 0.5rem; /* Space between text and bar */
-        width: 100%; /* Ensure it takes full width of its container */
-        padding: 0.4rem 0.9rem; /* Keep original padding */
-        background: rgba(255, 255, 255, 0.08); /* Original background */
-        border-radius: 12px; /* Original border-radius */
-        margin-bottom: 0.2rem; /* Original margin */
-        transition: background 0.2s, transform 0.2s; /* Original transitions */
-        overflow: hidden; /* Important for progress bar animation to not break layout */
-      }
-
-      .skill-name-wrapper {
+        width: 100px; /* Base width for the hexagon/pill */
+        height: 80px; /* Adjust height for the visual shape */
         display: flex;
+        flex-direction: column; /* Stack icon and text */
         align-items: center;
-        gap: 0.5rem;
-        font-size: 0.95rem;
-        font-weight: 500;
-        color: var(--white); /* Ensure text color is consistent */
-        /* Removed white-space: nowrap; to allow text wrapping for long names */
-        flex-shrink: 0; /* Prevent it from shrinking too much, but allow wrap */
-        max-width: 60%; /* Limit text width to make space for bar on one line */
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.12); /* Background for the skill item */
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 10px; /* Slightly rounded corners */
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        text-align: center;
+        cursor: default;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        flex-shrink: 0; /* Prevent items from shrinking too much */
       }
 
-      .progress-bar-container {
-        flex-grow: 1; /* Allow container to take remaining space */
-        height: 8px; /* Height of the progress bar */
-        background-color: rgba(255, 255, 255, 0.2); /* Background of the empty bar */
-        border-radius: 4px; /* Rounded corners for the bar */
-        overflow: hidden; /* Ensures the inner bar stays within bounds */
-        margin-left: 1rem; /* Space between skill name and bar */
-        min-width: 50px; /* Ensure bar is at least a certain width */
+      .skill-item:hover {
+        background: var(--accent); /* Hover background */
+        color: var(--bg); /* Hover text color */
+        transform: scale(1.1) translateY(-5px); /* Lift and enlarge effect */
+        box-shadow: 0 8px 20px rgba(255, 216, 107, 0.4); /* Accent glow on hover */
       }
 
+      .skill-item i {
+          font-size: 1.4rem; /* Larger icon */
+          margin-bottom: 0.4rem; /* Space between icon and text */
+          color: var(--secondary); /* Icon color */
+          transition: color 0.3s ease;
+      }
+
+      .skill-item:hover i {
+          color: var(--bg); /* Icon color on hover */
+      }
+
+      .skill-item span {
+          font-size: 0.85rem; /* Smaller, readable text */
+          font-weight: 600;
+          line-height: 1.2;
+          color: var(--white); /* Text color */
+          transition: color 0.3s ease;
+          word-break: break-word; /* Allow long skill names to wrap */
+          padding: 0 5px; /* Small horizontal padding for text */
+      }
+
+      .skill-item:hover span {
+          color: var(--bg); /* Text color on hover */
+      }
+
+      /* No need for skill-name-wrapper, progress-bar-container, progress-bar classes in this design */
+      /* These classes are effectively replaced by the .skill-item and its direct children styles. */
+      .skill-name-wrapper,
+      .progress-bar-container,
       .progress-bar {
-        height: 100%;
-        width: 0; /* Initial width for animation */
-        background: linear-gradient(
-          90deg,
-          var(--primary),
-          var(--secondary)
-        ); /* Gradient fill */
-        border-radius: 4px;
-        transition: width 1s ease-out; /* Smooth animation for bar fill */
-        position: relative; /* For the text percentage if added */
+          display: none; /* Ensure they are hidden if remnants exist */
       }
+      /* --- END Skill Hexagons / Honeycomb Grid styles --- */
+
 
       /* Projects */
       .projects-grid {
@@ -597,6 +609,7 @@
         border-radius: 16px;
         box-shadow: var(--shadow);
         padding: 2rem 1.5rem;
+        text-align: center;
         border: 1px solid rgba(255, 255, 255, 0.08);
         transition: transform 0.2s, box-shadow 0.2s;
         position: relative;
@@ -1184,314 +1197,137 @@ END:VCARD`;
             <div class="skill-card" data-aos="fade-up">
               <div class="skill-icon"><i class="fas fa-terminal"></i></div>
               <h3>Programming Languages</h3>
-              <ul class="skill-items">
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fab fa-python"></i> Python
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="90"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fab fa-js-square"></i> JavaScript
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="85"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fab fa-java"></i> Java
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="75"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fas fa-code"></i> C++
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="70"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fas fa-hashtag"></i> C#
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="60"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fas fa-database"></i> SQL
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="95"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fas fa-terminal"></i> PowerShell
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="65"></div>
-                  </div>
-                </li>
-              </ul>
+              <div class="skill-items">
+                <div class="skill-item">
+                  <i class="fab fa-python"></i> <span>Python</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fab fa-js-square"></i> <span>JavaScript</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fab fa-java"></i> <span>Java</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fas fa-code"></i> <span>C++</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fas fa-hashtag"></i> <span>C#</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fas fa-database"></i> <span>SQL</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fas fa-terminal"></i> <span>PowerShell</span>
+                </div>
+              </div>
             </div>
             <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
               <div class="skill-icon"><i class="fas fa-globe"></i></div>
               <h3>Web & Database</h3>
-              <ul class="skill-items">
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fab fa-react"></i> React
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="88"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fab fa-node-js"></i> Next.js
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="82"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fas fa-server"></i> Express
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="78"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fab fa-python"></i> Django
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="70"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fab fa-html5"></i> HTML/CSS
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="92"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fas fa-database"></i> MongoDB
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="85"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fas fa-database"></i> PostgreSQL
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="80"></div>
-                  </div>
-                </li>
-              </ul>
+              <div class="skill-items">
+                <div class="skill-item">
+                  <i class="fab fa-react"></i> <span>React</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fab fa-node-js"></i> <span>Next.js</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fas fa-server"></i> <span>Express</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fab fa-python"></i> <span>Django</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fab fa-html5"></i> <span>HTML/CSS</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fas fa-database"></i> <span>MongoDB</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fas fa-database"></i> <span>PostgreSQL</span>
+                </div>
+              </div>
             </div>
             <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
               <div class="skill-icon"><i class="fas fa-brain"></i></div>
               <h3>AI, ML & Data Science</h3>
-              <ul class="skill-items">
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fas fa-robot"></i> Machine Learning
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="85"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fas fa-language"></i> NLP
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="80"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fas fa-eye"></i> YOLOv5/v7/v8
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="75"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fas fa-chart-bar"></i> Data Visualization
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="90"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fab fa-python"></i> TensorFlow
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="70"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fab fa-python"></i> PyTorch
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="68"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fas fa-project-diagram"></i> OpenCV
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="72"></div>
-                  </div>
-                </li>
-              </ul>
+              <div class="skill-items">
+                <div class="skill-item">
+                  <i class="fas fa-robot"></i> <span>Machine Learning</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fas fa-language"></i> <span>NLP</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fas fa-eye"></i> <span>YOLOv5/v7/v8</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fas fa-chart-bar"></i> <span>Data Visualization</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fab fa-python"></i> <span>TensorFlow</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fab fa-python"></i> <span>PyTorch</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fas fa-project-diagram"></i> <span>OpenCV</span>
+                </div>
+              </div>
             </div>
             <div class="skill-card" data-aos="fade-up" data-aos-delay="300">
               <div class="skill-icon"><i class="fas fa-cogs"></i></div>
               <h3>Cloud & DevOps</h3>
               <ul class="skill-items">
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fab fa-aws"></i> AWS
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="70"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fab fa-google"></i> Google Cloud
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="65"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fab fa-docker"></i> Docker
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="80"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fab fa-git-alt"></i> Git
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="90"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fab fa-bitbucket"></i> Bitbucket
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="75"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fas fa-code-branch"></i> JIRA
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="85"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fas fa-code"></i> VS Code
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="95"></div>
-                  </div>
-                </li>
+                <div class="skill-item">
+                  <i class="fab fa-aws"></i> <span>AWS</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fab fa-google"></i> <span>Google Cloud</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fab fa-docker"></i> <span>Docker</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fab fa-git-alt"></i> <span>Git</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fab fa-bitbucket"></i> <span>Bitbucket</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fas fa-code-branch"></i> <span>JIRA</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fas fa-code"></i> <span>VS Code</span>
+                </div>
               </ul>
             </div>
             <div class="skill-card" data-aos="fade-up" data-aos-delay="300">
               <div class="skill-icon"><i class="fas fa-cogs"></i></div>
               <h3>Predictive Analytics</h3>
-              <ul class="skill-items">
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fa-solid fa-trowel-bricks"></i> Named Entity
-                    Recognition
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="80"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fa-solid fa-robot"></i> Transformer-based models
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="75"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fa-solid fa-ruler-combined"></i> Rule-based
-                    parsing
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="85"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fa-solid fa-code-compare"></i> SpaCy
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="70"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fa-solid fa-gears"></i> Logistic Regression
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="88"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fa-solid fa-folder-tree"></i> Decision Trees
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="82"></div>
-                  </div>
-                </li>
-                <li class="skill-item">
-                  <div class="skill-name-wrapper">
-                    <i class="fa-solid fa-shuffle"></i> Random Forests
-                  </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar" data-proficiency="78"></div>
-                  </div>
-                </li>
-              </ul>
+              <div class="skill-items">
+                <div class="skill-item">
+                  <i class="fa-solid fa-trowel-bricks"></i> <span>Named Entity Recognition</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fa-solid fa-robot"></i> <span>Transformer-based models</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fa-solid fa-ruler-combined"></i> <span>Rule-based parsing</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fa-solid fa-code-compare"></i> <span>SpaCy</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fa-solid fa-gears"></i> <span>Logistic Regression</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fa-solid fa-folder-tree"></i> <span>Decision Trees</span>
+                </div>
+                <div class="skill-item">
+                  <i class="fa-solid fa-shuffle"></i> <span>Random Forests</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -2029,32 +1865,7 @@ END:VCARD`;
         addMessage(response, "bot");
       }
 
-      // New function to animate progress bars
-      function animateProgressBars() {
-        const progressBars = document.querySelectorAll('.progress-bar');
-
-        progressBars.forEach(bar => {
-          const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                const proficiency = entry.target.dataset.proficiency;
-                entry.target.style.width = proficiency + '%';
-                observer.unobserve(entry.target); // Stop observing once animated
-              }
-            });
-          }, {
-            threshold: 0.8 // Trigger when 80% of the bar is visible
-          });
-
-          observer.observe(bar);
-        });
-      }
-
-      // Call animateProgressBars after the DOM is fully loaded
-      document.addEventListener('DOMContentLoaded', () => {
-        animateProgressBars();
-        // Other existing DOMContentLoaded setup can go here if any
-      });
+      // Removed animateProgressBars function as progress bars are removed.
     </script>
   </body>
 </html>
