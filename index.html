@@ -22,8 +22,8 @@
         --accent: #ffd86b;
         --white: #fff;
         --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-        --mini-sidebar-width: 60px; /* New width when collapsed */
-        --expanded-sidebar-width: 200px; /* New width when expanded */
+        --mini-sidebar-width: 60px;
+        --expanded-sidebar-width: 200px;
         --sidebar-bg-alpha: 0.95;
         --sidebar-blur: 12px;
       }
@@ -45,11 +45,10 @@
         color: var(--white);
         min-height: 100vh;
         overflow-x: hidden;
-        /* Initial padding for collapsed sidebar on desktop */
         padding-left: calc(
           var(--mini-sidebar-width) + 20px + 20px
-        ); /* Sidebar width + left offset + some margin for content */
-        transition: padding-left 0.3s ease-out; /* Smooth transition for content shift */
+        );
+        transition: padding-left 0.3s ease-out;
         position: relative;
       }
       #particles-js {
@@ -61,22 +60,18 @@
         z-index: -1;
       }
 
-      /* ========================================= */
-      /* NEW ADAPTIVE SIDEBAR STYLES */
-      /* ========================================= */
-
       .sidebar-wrapper {
         position: fixed;
-        top: 50%; /* Center vertically */
-        left: 20px; /* 20px from the left edge */
-        transform: translateY(-50%); /* Adjust for vertical centering */
-        width: var(--mini-sidebar-width); /* Start collapsed */
+        top: 50%;
+        left: 20px;
+        transform: translateY(-50%);
+        width: var(--mini-sidebar-width);
         background: rgba(24, 26, 35, var(--sidebar-bg-alpha));
         backdrop-filter: blur(var(--sidebar-blur));
         -webkit-backdrop-filter: blur(var(--sidebar-blur));
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); /* Updated shadow */
-        border-radius: 40px; /* Rounded corners for the whole sidebar */
-        padding: 1.5rem 0.5rem; /* Adjusted padding */
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        border-radius: 40px;
+        padding: 1.5rem 0.5rem;
         z-index: 1000;
         display: flex;
         flex-direction: column;
@@ -94,28 +89,26 @@
       body.sidebar-expanded {
         padding-left: calc(
           var(--expanded-sidebar-width) + 20px + 20px
-        ); /* Adjust body padding on expand */
+        );
       }
 
-      /* Hide profile section and separator completely - not applicable for this design */
       .sidebar-profile,
       .sidebar-separator {
         display: none;
       }
 
-      /* Sidebar Navigation Links (Adaptive) */
       .sidebar-wrapper nav {
         width: 100%;
-        margin-top: 2rem; /* Add top margin to nav container */
+        margin-top: 2rem;
       }
       .sidebar-wrapper nav ul {
         display: flex;
         flex-direction: column;
-        gap: 2rem; /* Increased gap between links */
+        gap: 2rem;
         list-style: none;
-        padding: 0; /* No padding on ul itself */
+        padding: 0;
         margin: 0;
-        align-items: center; /* Center icons in mini state */
+        align-items: center;
       }
       .sidebar-wrapper nav ul li {
         width: 100%;
@@ -126,45 +119,43 @@
         font-weight: 700;
         text-decoration: none;
         font-size: 1rem;
-        padding: 0.8rem 0.5rem; /* Adjusted padding for icons-only state */
+        padding: 0.8rem 0.5rem;
         border-radius: 12px;
         transition: all 0.3s ease;
         display: inline-flex;
         align-items: center;
         gap: 1rem;
         width: 100%;
-        justify-content: center; /* Center content in mini state */
+        justify-content: center;
         position: relative;
         z-index: 1;
         overflow: hidden;
       }
       .sidebar-wrapper nav a i {
         min-width: 25px;
-        text-align: center; /* Center icons */
+        text-align: center;
         font-size: 1.2em;
       }
       .sidebar-wrapper nav a span {
-        display: none; /* Hide text by default */
+        display: none;
         white-space: nowrap;
         opacity: 0;
-        transform: translateX(20px); /* Start off-screen */
+        transform: translateX(20px);
         transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
       }
 
-      /* Show text labels on hover/expand */
       .sidebar-wrapper:hover nav a span,
       .sidebar-wrapper.expanded nav a span {
-        display: inline; /* Changed to inline for seamless transition */
+        display: inline;
         opacity: 1;
         transform: translateX(0);
       }
       .sidebar-wrapper:hover nav a,
       .sidebar-wrapper.expanded nav a {
-        justify-content: flex-start; /* Align text/icon to start when expanded */
-        padding: 0.8rem 1.2rem; /* Restore normal padding when expanded */
+        justify-content: flex-start;
+        padding: 0.8rem 1.2rem;
       }
 
-      /* Gradient Hover/Active Effect for Nav Links */
       .sidebar-wrapper nav a::before {
         content: "";
         position: absolute;
@@ -189,29 +180,22 @@
       }
 
       .sidebar-wrapper nav a:hover {
-        color: var(--bg); /* Text color when active/hovered */
+        color: var(--bg);
         transform: scale(1.02);
         box-shadow: 0 4px 15px rgba(108, 99, 255, 0.4);
       }
 
       .sidebar-wrapper nav a.active {
-        color: var(--bg); /* Text color when active */
+        color: var(--bg);
         box-shadow: 0 0 15px rgba(108, 99, 255, 0.6);
       }
 
-      /* ========================================= */
-      /* MOBILE SPECIFIC STYLES (Overlay Sidebar for smaller screens) */
-      /* ========================================= */
-
-      /* Mobile Menu Toggle Button (Hamburger) - now only for mobile */
-      /* Completely hide the menu toggle button */
       .menu-toggle {
         display: none !important;
       }
 
-      /* Mobile Close Button (inside sidebar) - now only for mobile */
       .sidebar-close-btn {
-        display: none; /* Hidden by default, shown in media query */
+        display: none;
         position: absolute;
         top: 15px;
         right: 15px;
@@ -228,7 +212,6 @@
         transform: rotate(90deg);
       }
 
-      /* Overlay for Body when Mobile Sidebar is Open */
       .body-overlay {
         position: fixed;
         top: 0;
@@ -246,17 +229,12 @@
         visibility: visible;
       }
 
-      /* ========================================= */
-      /* GENERAL CONTENT STYLES (Mostly unchanged) */
-      /* ========================================= */
-
       header {
         text-align: center;
         padding: 5rem 2rem 2rem 2rem;
         position: relative;
         background: none;
       }
-      /* Main header profile image (now always visible) */
       .main-header-profile-img {
         width: 180px;
         height: 180px;
@@ -335,7 +313,6 @@
         margin: 1rem auto 0 auto;
         border-radius: 2px;
       }
-      /* About Terminal */
       .terminal-box {
         background: var(--card-bg);
         color: #c0caf5;
@@ -382,7 +359,6 @@
         margin: 0.5rem 0;
         line-height: 1.7;
       }
-      /* Timeline */
       .timeline {
         position: relative;
         margin: 0 auto;
@@ -435,13 +411,12 @@
         font-weight: 700;
         display: flex;
         align-items: center;
-        flex-wrap: wrap; /* Allow wrapping if content is too long */
-        word-break: break-word; /* Break long words */
+        flex-wrap: wrap;
+        word-break: break-word;
       }
-      /* Ensure images in h3 don't push content out */
       .timeline-content h3 img {
-        flex-shrink: 0; /* Prevent image from shrinking */
-        margin-right: 0.5rem; /* Small space after image */
+        flex-shrink: 0;
+        margin-right: 0.5rem;
       }
       .timeline-content .duration {
         font-style: italic;
@@ -458,7 +433,6 @@
         color: #e0e0e0;
         font-size: 1rem;
       }
-      /* Timeline dots */
       .timeline-item::before {
         content: "";
         position: absolute;
@@ -472,7 +446,6 @@
         transform: translateX(-50%);
         z-index: 3;
       }
-      /* Skills */
       .skills-section {
         background: rgba(24, 26, 35, 0.95);
         border-radius: 20px;
@@ -526,24 +499,23 @@
         margin-bottom: 1rem;
         font-weight: 600;
       }
-      /* --- START Skill Hexagons / Honeycomb Grid styles --- */
       .skill-items {
-        display: grid; /* Use grid for layout */
+        display: grid;
         grid-template-columns: repeat(
           auto-fit,
           minmax(90px, 1fr)
-        ); /* Auto-fit columns */
-        gap: 0.8rem; /* Space between skill items */
+        );
+        gap: 0.8rem;
         padding: 0;
-        list-style: none; /* Remove default list bullets */
-        justify-items: center; /* Center items within grid cells */
+        list-style: none;
+        justify-items: center;
       }
 
       .skill-item {
-        width: 100px; /* Base width for the hexagon/pill */
-        height: 80px; /* Adjust height for the visual shape */
+        width: 100px;
+        height: 80px;
         display: flex;
-        flex-direction: column; /* Stack icon and text */
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         background: rgba(
@@ -551,60 +523,55 @@
           255,
           255,
           0.12
-        ); /* Background for the skill item */
+        );
         border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 10px; /* Slightly rounded corners */
+        border-radius: 10px;
         position: relative;
         overflow: hidden;
         transition: all 0.3s ease;
         text-align: center;
         cursor: default;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        flex-shrink: 0; /* Prevent items from shrinking too much */
+        flex-shrink: 0;
       }
 
       .skill-item:hover {
-        background: var(--accent); /* Hover background */
-        color: var(--bg); /* Hover text color */
-        transform: scale(1.1) translateY(-5px); /* Lift and enlarge effect */
-        box-shadow: 0 8px 20px rgba(255, 216, 107, 0.4); /* Accent glow on hover */
+        background: var(--accent);
+        color: var(--bg);
+        transform: scale(1.1) translateY(-5px);
+        box-shadow: 0 8px 20px rgba(255, 216, 107, 0.4);
       }
 
       .skill-item i {
-        font-size: 1.4rem; /* Larger icon */
-        margin-bottom: 0.4rem; /* Space between icon and text */
-        color: var(--secondary); /* Icon color */
+        font-size: 1.4rem;
+        margin-bottom: 0.4rem;
+        color: var(--secondary);
         transition: color 0.3s ease;
       }
 
       .skill-item:hover i {
-        color: var(--bg); /* Icon color on hover */
+        color: var(--bg);
       }
 
       .skill-item span {
-        font-size: 0.85rem; /* Smaller, readable text */
+        font-size: 0.85rem;
         font-weight: 600;
         line-height: 1.2;
-        color: var(--white); /* Text color */
+        color: var(--white);
         transition: color 0.3s ease;
-        word-break: break-word; /* Allow long skill names to wrap */
-        padding: 0 5px; /* Small horizontal padding for text */
+        word-break: break-word;
+        padding: 0 5px;
       }
 
       .skill-item:hover span {
-        color: var(--bg); /* Text color on hover */
+        color: var(--bg);
       }
 
-      /* No need for skill-name-wrapper, progress-bar-container, progress-bar classes in this design */
-      /* These classes are effectively replaced by the .skill-item and its direct children styles. */
       .skill-name-wrapper,
       .progress-bar-container,
       .progress-bar {
-        display: none; /* Ensure they are hidden if remnants exist */
+        display: none;
       }
-      /* --- END Skill Hexagons / Honeycomb Grid styles --- */
-
-      /* Projects */
       .projects-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -642,7 +609,6 @@
         color: #e0e0e0;
         font-size: 1rem;
       }
-      /* Achievements */
       .achievements-list {
         display: flex;
         flex-direction: column;
@@ -700,9 +666,6 @@
         font-weight: 500;
       }
 
-      /* ========================================= */
-      /* NEW CONTACT SECTION STYLES */
-      /* ========================================= */
       .contact-section-content {
         background: var(--card-bg);
         border-radius: 20px;
@@ -770,8 +733,8 @@
         font-weight: 700;
         cursor: pointer;
         transition: transform 0.2s, box-shadow 0.2s;
-        align-self: center; /* Center the button */
-        width: fit-content; /* Adjust width to content */
+        align-self: center;
+        width: fit-content;
       }
 
       .form-submit-btn:hover {
@@ -821,31 +784,27 @@
         transform: scale(1.1);
       }
 
-      /* Style for the resume download link within the social links */
       .social-links-bottom .resume-download-link {
         display: flex;
         align-items: center;
         gap: 0.5rem;
         color: var(--white);
-        font-size: 2.2rem; /* Keep icon size consistent */
-        text-decoration: none; /* Remove underline */
+        font-size: 2.2rem;
+        text-decoration: none;
         transition: color 0.2s, transform 0.2s;
       }
 
       .social-links-bottom .resume-download-link span {
-        font-size: 1rem; /* Adjust text size as needed */
+        font-size: 1rem;
         font-weight: 600;
-        color: var(--accent); /* Consistent accent color */
+        color: var(--accent);
       }
 
       .social-links-bottom .resume-download-link:hover {
         color: var(--accent);
-        transform: scale(1.05); /* Slightly less scaling than pure icons */
+        transform: scale(1.05);
       }
 
-      /* ========================================= */
-      /* CHATBOT STYLES */
-      /* ========================================= */
       .chatbot-toggle {
         position: fixed;
         bottom: 30px;
@@ -871,7 +830,7 @@
       }
       .chatbot-container {
         position: fixed;
-        bottom: 100px; /* Position above the toggle button */
+        bottom: 100px;
         right: 30px;
         width: 350px;
         height: 500px;
@@ -1417,8 +1376,7 @@ END:VCARD`;
                   <i class="fas fa-eye"></i> <span>YOLOv5/v7/v8</span>
                 </div>
                 <div class="skill-item">
-                  <i class="fas fa-chart-bar"></i>
-                  <span>Data Visualization</span>
+                  <i class="fas fa-chart-bar"></i> <span>Data Visualization</span>
                 </div>
                 <div class="skill-item">
                   <i class="fab fa-python"></i> <span>TensorFlow</span>
@@ -1463,31 +1421,25 @@ END:VCARD`;
               <h3>Predictive Analytics</h3>
               <div class="skill-items">
                 <div class="skill-item">
-                  <i class="fa-solid fa-trowel-bricks"></i>
-                  <span>Named Entity Recognition</span>
+                  <i class="fa-solid fa-trowel-bricks"></i> <span>Named Entity Recognition</span>
                 </div>
                 <div class="skill-item">
-                  <i class="fa-solid fa-robot"></i>
-                  <span>Transformer-based models</span>
+                  <i class="fa-solid fa-robot"></i> <span>Transformer-based models</span>
                 </div>
                 <div class="skill-item">
-                  <i class="fa-solid fa-ruler-combined"></i>
-                  <span>Rule-based parsing</span>
+                  <i class="fa-solid fa-ruler-combined"></i> <span>Rule-based parsing</span>
                 </div>
                 <div class="skill-item">
                   <i class="fa-solid fa-code-compare"></i> <span>SpaCy</span>
                 </div>
                 <div class="skill-item">
-                  <i class="fa-solid fa-gears"></i>
-                  <span>Logistic Regression</span>
+                  <i class="fa-solid fa-gears"></i> <span>Logistic Regression</span>
                 </div>
                 <div class="skill-item">
-                  <i class="fa-solid fa-folder-tree"></i>
-                  <span>Decision Trees</span>
+                  <i class="fa-solid fa-folder-tree"></i> <span>Decision Trees</span>
                 </div>
                 <div class="skill-item">
-                  <i class="fa-solid fa-shuffle"></i>
-                  <span>Random Forests</span>
+                  <i class="fa-solid fa-shuffle"></i> <span>Random Forests</span>
                 </div>
               </div>
             </div>
@@ -1637,7 +1589,11 @@ END:VCARD`;
               </div>
             </div>
           </div>
-          <div class="achievement-card" data-aos="fade-up" data-aos-delay="100">
+          <div
+            class="achievement-card"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
             <div class="icon"><i class="fas fa-medal"></i></div>
             <div class="content">
               <h3>Special Appreciation Letter</h3>
@@ -1647,7 +1603,11 @@ END:VCARD`;
               </div>
             </div>
           </div>
-          <div class="achievement-card" data-aos="fade-up" data-aos-delay="200">
+          <div
+            class="achievement-card"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
             <div class="icon"><i class="fas fa-rocket"></i></div>
             <div class="content">
               <h3>Youngest Team to Present to Indian Air Force</h3>
@@ -1657,7 +1617,11 @@ END:VCARD`;
               </div>
             </div>
           </div>
-          <div class="achievement-card" data-aos="fade-up" data-aos-delay="300">
+          <div
+            class="achievement-card"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
             <div class="icon"><i class="fas fa-lightbulb"></i></div>
             <div class="content">
               <h3>Smart India Hackathon Hardware Edition Grand Finalist</h3>
@@ -1668,7 +1632,11 @@ END:VCARD`;
               </div>
             </div>
           </div>
-          <div class="achievement-card" data-aos="fade-up" data-aos-delay="400">
+          <div
+            class="achievement-card"
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
             <div class="icon"><i class="fas fa-heart"></i></div>
             <div class="content">
               <h3>Best Volunteer</h3>
@@ -1681,23 +1649,19 @@ END:VCARD`;
         </div>
       </section>
 
-      ---
-
       <section id="contact">
         <div class="section-title" data-aos="fade-down">
           <i class="fa-solid fa-paper-plane"></i> Contact Me
         </div>
         <div class="contact-section-content" data-aos="fade-up">
           <p class="availability-text">
-            I'm currently a graduate student at Purdue University and am
-            actively seeking opportunities for Summer 2025 internships and
-            full-time roles starting Fall 2026. I'm always open to discussing
-            new projects, collaborations, or just a quick chat about technology!
+            I'm currently a graduate student at Purdue University and am actively
+            seeking opportunities for Summer 2025 internships and full-time roles
+            starting Fall 2026. I'm always open to discussing new projects,
+            collaborations, or just a quick chat about technology!
             <br /><br />
             The best way to reach me is via email at
-            <a
-              href="mailto:parthsamirdalvi@gmail.com"
-              style="color: var(--accent); text-decoration: underline"
+            <a href="mailto:parthsamirdalvi@gmail.com" style="color: var(--accent); text-decoration: underline;"
               >parthsamirdalvi@gmail.com</a
             >
             or by filling out the form below.
@@ -1773,7 +1737,7 @@ END:VCARD`;
           Hello! I'm your portfolio bot. Ask me anything about Parth's skills,
           projects, or background! Try "skills" or "projects".
         </div>
-        <div class="chatbot-typing-indicator" id="typingIndicator">...</div>
+        <div class="chatbot-typing-indicator" id="typingIndicator"></div>
       </div>
       <div class="chatbot-input-container">
         <input
@@ -1789,7 +1753,6 @@ END:VCARD`;
     </div>
 
     <script>
-      // Particles.js
       particlesJS("particles-js", {
         particles: {
           number: { value: 60, density: { enable: true, value_area: 800 } },
@@ -1820,8 +1783,6 @@ END:VCARD`;
         retina_detect: true,
       });
 
-      // Sidebar Mobile Toggle Logic & Desktop Hover Logic
-      // menuToggle is not used as the button is removed
       const sidebar = document.querySelector(".sidebar-wrapper");
       const sidebarCloseBtn = document.getElementById("sidebarCloseBtn");
       const bodyOverlay = document.createElement("div");
@@ -1906,7 +1867,6 @@ END:VCARD`;
           let current = "";
           sections.forEach((section) => {
             const sectionTop = section.offsetTop;
-            // Adjust offset to trigger active state slightly before section reaches top
             if (scrollY >= sectionTop - 250) {
               current = section.getAttribute("id");
             }
@@ -1921,14 +1881,30 @@ END:VCARD`;
         { passive: true }
       );
 
-      // Typewriter effect
-      const typewriterTexts = [
-        "Hi, I'm Parth Samir Dalvi.",
-        "Full Stack Developer.",
-        "AI/ML Enthusiast.",
-        "Cloud & DevOps Explorer.",
-        "Open Source Contributor.",
-      ];
+      const hasVisited = localStorage.getItem('hasVisitedParthPortfolio');
+      let typewriterTexts;
+
+      if (hasVisited) {
+        typewriterTexts = [
+          "Welcome back, glad to see you again!",
+          "Hi, I'm Parth Samir Dalvi.",
+          "Full Stack Developer.",
+          "AI/ML Enthusiast.",
+          "Cloud & DevOps Explorer.",
+          "Open Source Contributor.",
+        ];
+      } else {
+        typewriterTexts = [
+          "Hello there!",
+          "Hi, I'm Parth Samir Dalvi.",
+          "Full Stack Developer.",
+          "AI/ML Enthusiast.",
+          "Cloud & DevOps Explorer.",
+          "Open Source Contributor.",
+        ];
+        localStorage.setItem('hasVisitedParthPortfolio', 'true');
+      }
+
       let twIndex = 0,
         twChar = 0,
         twDeleting = false;
@@ -1954,7 +1930,6 @@ END:VCARD`;
       }
       typewriter();
 
-      // Animate on scroll
       AOS.init({
         duration: 900,
         easing: "ease-in-out",
@@ -1962,13 +1937,9 @@ END:VCARD`;
         offset: 100,
       });
 
-      // Update current year in footer
       document.getElementById("currentYear").textContent =
         new Date().getFullYear();
 
-      // =========================================
-      // CHATBOT LOGIC
-      // =========================================
       const chatbotToggle = document.getElementById("chatbotToggle");
       const chatbotContainer = document.getElementById("chatbotContainer");
       const chatbotCloseBtn = document.getElementById("chatbotCloseBtn");
@@ -2067,7 +2038,7 @@ END:VCARD`;
           message.includes("contact") ||
           message.includes("email") ||
           message.includes("linkedin") ||
-          message.includes("resume") // Added for chatbot response
+          message.includes("resume")
         ) {
           response =
             "You can contact Parth via email at parthsamirdalvi@gmail.com, connect on LinkedIn, check out his GitHub, or download his resume directly from the contact section.";
@@ -2079,68 +2050,21 @@ END:VCARD`;
         addMessage(response, "bot");
       }
 
-      // =========================================
-      // CONTACT FORM LOGIC
-      // =========================================
       const contactForm = document.getElementById("contactForm");
       const formMessage = document.getElementById("formMessage");
 
       contactForm.addEventListener("submit", function (e) {
-        e.preventDefault(); // Prevent default form submission
+        e.preventDefault();
 
-        // In a real application, you would send this data to a server
-        // using fetch() or XMLHttpRequest. For this demo, we'll just
-        // display a success message.
-
-        // Example of what a fetch call might look like (conceptual):
-        /*
-        const formData = new FormData(contactForm);
-        const data = Object.fromEntries(formData.entries());
-
-        fetch('/api/send-email', { // Replace with your actual backend endpoint
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-        .then(response => response.json())
-        .then(result => {
-            if (result.success) {
-                formMessage.textContent = "Thank you for your message! I'll get back to you soon.";
-                formMessage.style.color = "var(--accent)";
-                contactForm.reset(); // Clear the form
-            } else {
-                formMessage.textContent = "There was an error sending your message. Please try again later.";
-                formMessage.style.color = "red";
-            }
-            formMessage.classList.add("show");
-            setTimeout(() => {
-                formMessage.classList.remove("show");
-            }, 5000); // Hide message after 5 seconds
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            formMessage.textContent = "An unexpected error occurred. Please try again.";
-            formMessage.style.color = "red";
-            formMessage.classList.add("show");
-            setTimeout(() => {
-                formMessage.classList.remove("show");
-            }, 5000);
-        });
-        */
-
-        // --- DEMO LOGIC (replace with actual backend integration) ---
         formMessage.textContent =
           "Thank you for your message! I'll get back to you soon.";
         formMessage.style.color = "var(--accent)";
         formMessage.classList.add("show");
-        contactForm.reset(); // Clear the form fields
+        contactForm.reset();
 
         setTimeout(() => {
           formMessage.classList.remove("show");
-        }, 5000); // Hide message after 5 seconds
-        // --- END DEMO LOGIC ---
+        }, 5000);
       });
     </script>
   </body>
