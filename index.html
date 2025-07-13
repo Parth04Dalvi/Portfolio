@@ -529,7 +529,10 @@
       /* --- START Skill Hexagons / Honeycomb Grid styles --- */
       .skill-items {
         display: grid; /* Use grid for layout */
-        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); /* Auto-fit columns */
+        grid-template-columns: repeat(
+          auto-fit,
+          minmax(90px, 1fr)
+        ); /* Auto-fit columns */
         gap: 0.8rem; /* Space between skill items */
         padding: 0;
         list-style: none; /* Remove default list bullets */
@@ -543,7 +546,12 @@
         flex-direction: column; /* Stack icon and text */
         align-items: center;
         justify-content: center;
-        background: rgba(255, 255, 255, 0.12); /* Background for the skill item */
+        background: rgba(
+          255,
+          255,
+          255,
+          0.12
+        ); /* Background for the skill item */
         border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 10px; /* Slightly rounded corners */
         position: relative;
@@ -551,7 +559,7 @@
         transition: all 0.3s ease;
         text-align: center;
         cursor: default;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         flex-shrink: 0; /* Prevent items from shrinking too much */
       }
 
@@ -563,28 +571,28 @@
       }
 
       .skill-item i {
-          font-size: 1.4rem; /* Larger icon */
-          margin-bottom: 0.4rem; /* Space between icon and text */
-          color: var(--secondary); /* Icon color */
-          transition: color 0.3s ease;
+        font-size: 1.4rem; /* Larger icon */
+        margin-bottom: 0.4rem; /* Space between icon and text */
+        color: var(--secondary); /* Icon color */
+        transition: color 0.3s ease;
       }
 
       .skill-item:hover i {
-          color: var(--bg); /* Icon color on hover */
+        color: var(--bg); /* Icon color on hover */
       }
 
       .skill-item span {
-          font-size: 0.85rem; /* Smaller, readable text */
-          font-weight: 600;
-          line-height: 1.2;
-          color: var(--white); /* Text color */
-          transition: color 0.3s ease;
-          word-break: break-word; /* Allow long skill names to wrap */
-          padding: 0 5px; /* Small horizontal padding for text */
+        font-size: 0.85rem; /* Smaller, readable text */
+        font-weight: 600;
+        line-height: 1.2;
+        color: var(--white); /* Text color */
+        transition: color 0.3s ease;
+        word-break: break-word; /* Allow long skill names to wrap */
+        padding: 0 5px; /* Small horizontal padding for text */
       }
 
       .skill-item:hover span {
-          color: var(--bg); /* Text color on hover */
+        color: var(--bg); /* Text color on hover */
       }
 
       /* No need for skill-name-wrapper, progress-bar-container, progress-bar classes in this design */
@@ -592,10 +600,9 @@
       .skill-name-wrapper,
       .progress-bar-container,
       .progress-bar {
-          display: none; /* Ensure they are hidden if remnants exist */
+        display: none; /* Ensure they are hidden if remnants exist */
       }
       /* --- END Skill Hexagons / Honeycomb Grid styles --- */
-
 
       /* Projects */
       .projects-grid {
@@ -691,6 +698,149 @@
         font-size: 0.8rem;
         border-radius: 12px;
         font-weight: 500;
+      }
+
+      /* ========================================= */
+      /* NEW CONTACT SECTION STYLES */
+      /* ========================================= */
+      .contact-section-content {
+        background: var(--card-bg);
+        border-radius: 20px;
+        box-shadow: var(--shadow);
+        padding: 3rem 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+        max-width: 600px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      .contact-form .form-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .contact-form label {
+        margin-bottom: 0.5rem;
+        color: var(--accent);
+        font-weight: 600;
+        font-size: 1rem;
+      }
+
+      .contact-form input,
+      .contact-form textarea {
+        padding: 1rem 1.2rem;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        background-color: var(--bg);
+        color: var(--white);
+        font-family: "Montserrat", Arial, sans-serif;
+        font-size: 1rem;
+        outline: none;
+        transition: border-color 0.2s, box-shadow 0.2s;
+        width: 100%;
+      }
+
+      .contact-form input:focus,
+      .contact-form textarea:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.3);
+      }
+
+      .contact-form textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+
+      .form-submit-btn {
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        color: var(--white);
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+        align-self: center; /* Center the button */
+        width: fit-content; /* Adjust width to content */
+      }
+
+      .form-submit-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(108, 99, 255, 0.4);
+      }
+
+      .form-message {
+        text-align: center;
+        margin-top: 1rem;
+        font-size: 1rem;
+        color: var(--accent);
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+
+      .form-message.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .availability-text {
+        text-align: center;
+        color: #e0e0e0;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+      }
+
+      .social-links-bottom {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+        flex-wrap: wrap;
+      }
+
+      .social-links-bottom a {
+        color: var(--white);
+        font-size: 2.2rem;
+        transition: color 0.2s, transform 0.2s;
+      }
+
+      .social-links-bottom a:hover {
+        color: var(--accent);
+        transform: scale(1.1);
+      }
+
+      /* Style for the resume download link within the social links */
+      .social-links-bottom .resume-download-link {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--white);
+        font-size: 2.2rem; /* Keep icon size consistent */
+        text-decoration: none; /* Remove underline */
+        transition: color 0.2s, transform 0.2s;
+      }
+
+      .social-links-bottom .resume-download-link span {
+        font-size: 1rem; /* Adjust text size as needed */
+        font-weight: 600;
+        color: var(--accent); /* Consistent accent color */
+      }
+
+      .social-links-bottom .resume-download-link:hover {
+        color: var(--accent);
+        transform: scale(1.05); /* Slightly less scaling than pure icons */
       }
 
       /* ========================================= */
@@ -907,6 +1057,11 @@
               ><i class="fa-solid fa-award"></i> <span>Achievements</span></a
             >
           </li>
+          <li>
+            <a href="#contact" aria-label="Contact Section"
+              ><i class="fa-solid fa-envelope"></i> <span>Contact</span></a
+            >
+          </li>
         </ul>
       </nav>
     </div>
@@ -996,7 +1151,7 @@ END:VCARD`;
           <span>
             <i class="fa-solid fa-file"></i>
             <a
-              href="1_Parth Samir Dalvi.pdf"
+              href="Resume Parth Dalvi.pdf"
               target="_blank"
               rel="noopener noreferrer"
               >Resume</a
@@ -1262,7 +1417,8 @@ END:VCARD`;
                   <i class="fas fa-eye"></i> <span>YOLOv5/v7/v8</span>
                 </div>
                 <div class="skill-item">
-                  <i class="fas fa-chart-bar"></i> <span>Data Visualization</span>
+                  <i class="fas fa-chart-bar"></i>
+                  <span>Data Visualization</span>
                 </div>
                 <div class="skill-item">
                   <i class="fab fa-python"></i> <span>TensorFlow</span>
@@ -1307,25 +1463,31 @@ END:VCARD`;
               <h3>Predictive Analytics</h3>
               <div class="skill-items">
                 <div class="skill-item">
-                  <i class="fa-solid fa-trowel-bricks"></i> <span>Named Entity Recognition</span>
+                  <i class="fa-solid fa-trowel-bricks"></i>
+                  <span>Named Entity Recognition</span>
                 </div>
                 <div class="skill-item">
-                  <i class="fa-solid fa-robot"></i> <span>Transformer-based models</span>
+                  <i class="fa-solid fa-robot"></i>
+                  <span>Transformer-based models</span>
                 </div>
                 <div class="skill-item">
-                  <i class="fa-solid fa-ruler-combined"></i> <span>Rule-based parsing</span>
+                  <i class="fa-solid fa-ruler-combined"></i>
+                  <span>Rule-based parsing</span>
                 </div>
                 <div class="skill-item">
                   <i class="fa-solid fa-code-compare"></i> <span>SpaCy</span>
                 </div>
                 <div class="skill-item">
-                  <i class="fa-solid fa-gears"></i> <span>Logistic Regression</span>
+                  <i class="fa-solid fa-gears"></i>
+                  <span>Logistic Regression</span>
                 </div>
                 <div class="skill-item">
-                  <i class="fa-solid fa-folder-tree"></i> <span>Decision Trees</span>
+                  <i class="fa-solid fa-folder-tree"></i>
+                  <span>Decision Trees</span>
                 </div>
                 <div class="skill-item">
-                  <i class="fa-solid fa-shuffle"></i> <span>Random Forests</span>
+                  <i class="fa-solid fa-shuffle"></i>
+                  <span>Random Forests</span>
                 </div>
               </div>
             </div>
@@ -1475,11 +1637,7 @@ END:VCARD`;
               </div>
             </div>
           </div>
-          <div
-            class="achievement-card"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
+          <div class="achievement-card" data-aos="fade-up" data-aos-delay="100">
             <div class="icon"><i class="fas fa-medal"></i></div>
             <div class="content">
               <h3>Special Appreciation Letter</h3>
@@ -1489,11 +1647,7 @@ END:VCARD`;
               </div>
             </div>
           </div>
-          <div
-            class="achievement-card"
-            data-aos="fade-up"
-            data-aos-delay="200"
-          >
+          <div class="achievement-card" data-aos="fade-up" data-aos-delay="200">
             <div class="icon"><i class="fas fa-rocket"></i></div>
             <div class="content">
               <h3>Youngest Team to Present to Indian Air Force</h3>
@@ -1503,11 +1657,7 @@ END:VCARD`;
               </div>
             </div>
           </div>
-          <div
-            class="achievement-card"
-            data-aos="fade-up"
-            data-aos-delay="300"
-          >
+          <div class="achievement-card" data-aos="fade-up" data-aos-delay="300">
             <div class="icon"><i class="fas fa-lightbulb"></i></div>
             <div class="content">
               <h3>Smart India Hackathon Hardware Edition Grand Finalist</h3>
@@ -1518,11 +1668,7 @@ END:VCARD`;
               </div>
             </div>
           </div>
-          <div
-            class="achievement-card"
-            data-aos="fade-up"
-            data-aos-delay="400"
-          >
+          <div class="achievement-card" data-aos="fade-up" data-aos-delay="400">
             <div class="icon"><i class="fas fa-heart"></i></div>
             <div class="content">
               <h3>Best Volunteer</h3>
@@ -1534,8 +1680,74 @@ END:VCARD`;
           </div>
         </div>
       </section>
+
+      ---
+
+      <section id="contact">
+        <div class="section-title" data-aos="fade-down">
+          <i class="fa-solid fa-paper-plane"></i> Contact Me
+        </div>
+        <div class="contact-section-content" data-aos="fade-up">
+          <p class="availability-text">
+            I'm currently a graduate student at Purdue University and am
+            actively seeking opportunities for Summer 2025 internships and
+            full-time roles starting Fall 2026. I'm always open to discussing
+            new projects, collaborations, or just a quick chat about technology!
+            <br /><br />
+            The best way to reach me is via email at
+            <a
+              href="mailto:parthsamirdalvi@gmail.com"
+              style="color: var(--accent); text-decoration: underline"
+              >parthsamirdalvi@gmail.com</a
+            >
+            or by filling out the form below.
+          </p>
+
+          <form id="contactForm" class="contact-form">
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Your Email</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+            <div class="form-group">
+              <label for="message">Your Message</label>
+              <textarea id="message" name="message" required></textarea>
+            </div>
+            <button type="submit" class="form-submit-btn">Send Message</button>
+            <p id="formMessage" class="form-message"></p>
+          </form>
+
+          <div class="social-links-bottom">
+            <a
+              href="https://www.linkedin.com/in/parthdalvi04/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn Profile"
+              ><i class="fab fa-linkedin"></i
+            ></a>
+            <a
+              href="https://github.com/Parth04Dalvi"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub Profile"
+              ><i class="fab fa-github"></i
+            ></a>
+            <a
+              href="Resume Parth Dalvi.pdf"
+              download="Parth Samir Dalvi - Resume.pdf"
+              class="resume-download-link"
+              aria-label="Download Resume"
+            >
+              <i class="fas fa-file-pdf"></i> <span>Resume</span>
+            </a>
+          </div>
+        </div>
+      </section>
     </div>
-    <footer style="text-align: center; padding: 3rem 0 2rem; color: #aaa;">
+    <footer style="text-align: center; padding: 3rem 0 2rem; color: #aaa">
       <p>
         © <span id="currentYear"></span> Parth Samir Dalvi. All rights reserved.
       </p>
@@ -1694,6 +1906,7 @@ END:VCARD`;
           let current = "";
           sections.forEach((section) => {
             const sectionTop = section.offsetTop;
+            // Adjust offset to trigger active state slightly before section reaches top
             if (scrollY >= sectionTop - 250) {
               current = section.getAttribute("id");
             }
@@ -1853,10 +2066,11 @@ END:VCARD`;
         } else if (
           message.includes("contact") ||
           message.includes("email") ||
-          message.includes("linkedin")
+          message.includes("linkedin") ||
+          message.includes("resume") // Added for chatbot response
         ) {
           response =
-            "You can contact Parth via email at parthsamirdalvi@gmail.com, connect on LinkedIn, or check out his GitHub. His phone number is (260) 249-2495.";
+            "You can contact Parth via email at parthsamirdalvi@gmail.com, connect on LinkedIn, check out his GitHub, or download his resume directly from the contact section.";
         } else if (message.includes("thank")) {
           response =
             "You're welcome! Feel free to ask more questions if you have them.";
@@ -1865,7 +2079,69 @@ END:VCARD`;
         addMessage(response, "bot");
       }
 
-      // Removed animateProgressBars function as progress bars are removed.
+      // =========================================
+      // CONTACT FORM LOGIC
+      // =========================================
+      const contactForm = document.getElementById("contactForm");
+      const formMessage = document.getElementById("formMessage");
+
+      contactForm.addEventListener("submit", function (e) {
+        e.preventDefault(); // Prevent default form submission
+
+        // In a real application, you would send this data to a server
+        // using fetch() or XMLHttpRequest. For this demo, we'll just
+        // display a success message.
+
+        // Example of what a fetch call might look like (conceptual):
+        /*
+        const formData = new FormData(contactForm);
+        const data = Object.fromEntries(formData.entries());
+
+        fetch('/api/send-email', { // Replace with your actual backend endpoint
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                formMessage.textContent = "Thank you for your message! I'll get back to you soon.";
+                formMessage.style.color = "var(--accent)";
+                contactForm.reset(); // Clear the form
+            } else {
+                formMessage.textContent = "There was an error sending your message. Please try again later.";
+                formMessage.style.color = "red";
+            }
+            formMessage.classList.add("show");
+            setTimeout(() => {
+                formMessage.classList.remove("show");
+            }, 5000); // Hide message after 5 seconds
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            formMessage.textContent = "An unexpected error occurred. Please try again.";
+            formMessage.style.color = "red";
+            formMessage.classList.add("show");
+            setTimeout(() => {
+                formMessage.classList.remove("show");
+            }, 5000);
+        });
+        */
+
+        // --- DEMO LOGIC (replace with actual backend integration) ---
+        formMessage.textContent =
+          "Thank you for your message! I'll get back to you soon.";
+        formMessage.style.color = "var(--accent)";
+        formMessage.classList.add("show");
+        contactForm.reset(); // Clear the form fields
+
+        setTimeout(() => {
+          formMessage.classList.remove("show");
+        }, 5000); // Hide message after 5 seconds
+        // --- END DEMO LOGIC ---
+      });
     </script>
   </body>
 </html>
