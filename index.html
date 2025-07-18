@@ -13,7 +13,9 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
     <style>
+      /* --- CSS Variables --- */
       :root {
         --primary: #6c63ff;
         --secondary: #48c6ef;
@@ -27,6 +29,8 @@
         --sidebar-bg-alpha: 0.95;
         --sidebar-blur: 12px;
       }
+
+      /* --- Base Styles --- */
       * {
         box-sizing: border-box;
         margin: 0;
@@ -47,7 +51,7 @@
         overflow-x: hidden;
         padding-left: calc(
           --mini-sidebar-width + 20px + 20px
-        );
+        ); /* Initial desktop padding */
         transition: padding-left 0.3s ease-out;
         position: relative;
       }
@@ -60,6 +64,7 @@
         z-index: -1;
       }
 
+      /* --- Sidebar Styles --- */
       .sidebar-wrapper {
         position: fixed;
         top: 50%;
@@ -81,11 +86,11 @@
         overflow-x: hidden;
       }
 
+      /* Desktop: Sidebar hover to expand */
       .sidebar-wrapper:hover,
       .sidebar-wrapper.expanded {
         width: var(--expanded-sidebar-width);
       }
-
       body.sidebar-expanded {
         padding-left: calc(
           --expanded-sidebar-width + 20px + 20px
@@ -94,7 +99,7 @@
 
       .sidebar-profile,
       .sidebar-separator {
-        display: none;
+        display: none; /* Not currently used, but kept from original */
       }
 
       .sidebar-wrapper nav {
@@ -137,21 +142,24 @@
         font-size: 1.2em;
       }
       .sidebar-wrapper nav a span {
-        display: none;
+        display: none; /* Hidden by default on mini sidebar */
         white-space: nowrap;
         opacity: 0;
         transform: translateX(20px);
         transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
       }
 
+      /* Display span text on hover/expanded sidebar */
       .sidebar-wrapper:hover nav a span,
-      .sidebar-wrapper.expanded nav a span {
+      .sidebar-wrapper.expanded nav a span,
+      .sidebar-wrapper.show-sidebar nav a span { /* Added for mobile open sidebar */
         display: inline;
         opacity: 1;
         transform: translateX(0);
       }
       .sidebar-wrapper:hover nav a,
-      .sidebar-wrapper.expanded nav a {
+      .sidebar-wrapper.expanded nav a,
+      .sidebar-wrapper.show-sidebar nav a { /* Added for mobile open sidebar */
         justify-content: flex-start;
         padding: 0.8rem 1.2rem;
       }
@@ -190,12 +198,33 @@
         box-shadow: 0 0 15px rgba(108, 99, 255, 0.6);
       }
 
+      /* Mobile Menu Toggle */
       .menu-toggle {
-        display: none !important;
+        display: none; /* Hidden by default on desktop */
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        width: 50px;
+        height: 50px;
+        background: var(--primary);
+        color: var(--white);
+        border: none;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        cursor: pointer;
+        box-shadow: var(--shadow);
+        z-index: 1001;
+        transition: transform 0.3s ease, background 0.3s ease;
+      }
+      .menu-toggle:hover {
+        transform: scale(1.1);
+        background: var(--secondary);
       }
 
       .sidebar-close-btn {
-        display: none;
+        display: none; /* Hidden by default, shown on mobile */
         position: absolute;
         top: 15px;
         right: 15px;
@@ -229,11 +258,19 @@
         visibility: visible;
       }
 
+      /* --- Header Section --- */
       header {
         text-align: center;
         padding: 5rem 2rem 2rem 2rem;
         position: relative;
         background: none;
+      }
+      .header-content-wrapper { /* Consolidated inline style for header flex */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2.5rem;
+        flex-wrap: wrap;
       }
       .main-header-profile-img {
         width: 180px;
@@ -244,9 +281,16 @@
         margin-bottom: 1.5rem;
         border: 6px solid var(--white);
         transition: transform 0.3s;
+        flex-shrink: 0;
+        position: sticky;
+        top: 100px;
       }
       .main-header-profile-img:hover {
         transform: scale(1.05) rotate(-3deg);
+      }
+      .header-text-wrapper { /* Consolidated inline style for header text */
+        min-width: 260px;
+        max-width: 500px;
       }
       .typewriter {
         display: inline-block;
@@ -288,6 +332,12 @@
       .contact-info a:hover {
         color: var(--white);
       }
+      .contact-info .phone-link { /* Specific style for phone link to handle JS */
+        cursor: pointer;
+      }
+
+
+      /* --- Section General Styles --- */
       section {
         max-width: 1100px;
         margin: 0 auto;
@@ -313,6 +363,8 @@
         margin: 1rem auto 0 auto;
         border-radius: 2px;
       }
+
+      /* --- About Section (Terminal Box) --- */
       .terminal-box {
         background: var(--card-bg);
         color: #c0caf5;
@@ -338,13 +390,13 @@
         border-radius: 50%;
         display: inline-block;
       }
-      .red {
+      .terminal-box .dots .red {
         background: #ff5f56;
       }
-      .yellow {
+      .terminal-box .dots .yellow {
         background: #ffbd2e;
       }
-      .green {
+      .terminal-box .dots .green {
         background: #27c93f;
       }
       .terminal-box .command {
@@ -359,6 +411,8 @@
         margin: 0.5rem 0;
         line-height: 1.7;
       }
+
+      /* --- Education & Experience (Timeline) Styles --- */
       .timeline {
         position: relative;
         margin: 0 auto;
@@ -414,7 +468,11 @@
         flex-wrap: wrap;
         word-break: break-word;
       }
-      .timeline-content h3 img {
+      .timeline-content h3 img { /* Moved from inline style */
+        height: 2.5rem;
+        border-radius: 6px;
+        background: #fff;
+        padding: 2px;
         flex-shrink: 0;
         margin-right: 0.5rem;
       }
@@ -446,6 +504,8 @@
         transform: translateX(-50%);
         z-index: 3;
       }
+
+      /* --- Skills Section --- */
       .skills-section {
         background: rgba(24, 26, 35, 0.95);
         border-radius: 20px;
@@ -467,7 +527,7 @@
       }
       .skill-card {
         background: var(--card-bg);
-        border-radius: 18px;
+        border-radius: 18px; /* Corrected to match image analysis */
         box-shadow: var(--shadow);
         padding: 2rem 1.5rem;
         text-align: center;
@@ -570,28 +630,55 @@
       .skill-name-wrapper,
       .progress-bar-container,
       .progress-bar {
-        display: none;
+        display: none; /* These were set to display:none in original code. */
       }
+
+      /* --- Projects Section --- */
+      /* New wrapper for projects section to apply skills-section styles */
+      .projects-section-wrapper {
+        background: rgba(24, 26, 35, 0.95); /* Copied from .skills-section */
+        border-radius: 20px; /* Copied from .skills-section */
+        box-shadow: var(--shadow); /* Copied from .skills-section */
+        margin: 2rem 0; /* Copied from .skills-section */
+        padding: 3rem 2rem; /* Copied from .skills-section */
+      }
+
       .projects-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 2rem;
-        margin-top: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Adjusted minmax from 320px to 260px to match skills-showcase */
+        gap: 2rem; /* Already same as skills-showcase */
+        margin-top: 0; /* Removed old margin-top, now handled by projects-section-wrapper */
       }
       .project-card {
         background: var(--card-bg);
-        border-radius: 16px;
+        border-radius: 18px; /* Changed from 16px to 18px to match skill-card */
         box-shadow: var(--shadow);
         padding: 2rem 1.5rem;
         text-align: center;
         border: 1px solid rgba(255, 255, 255, 0.08);
-        transition: transform 0.2s, box-shadow 0.2s;
+        transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out, color 0.3s ease-out, border-color 0.3s ease-out;
         position: relative;
+        cursor: pointer;
+        overflow: hidden; /* Ensure rounded borders */
       }
+
       .project-card:hover {
-        transform: translateY(-6px) scale(1.02);
-        box-shadow: 0 12px 32px 0 rgba(31, 38, 135, 0.18);
+        background: var(--accent); /* Change background to accent yellow */
+        color: var(--bg); /* Change text color to dark background color */
+        transform: scale(1.1) translateY(-10px); /* Matches skill item: slightly enlarges and lifts */
+        box-shadow: 0 8px 20px rgba(255, 216, 107, 0.4); /* Accent color shadow, similar to skill-item:hover */
+        border-color: var(--accent); /* Change border to accent yellow */
       }
+
+      /* Ensure all nested text elements also change color on hover */
+      .project-card:hover h3,
+      .project-card:hover h3 a,
+      .project-card:hover p,
+      .project-card:hover .duration,
+      .project-card:hover .description {
+        color: var(--bg); /* All text becomes dark on hover */
+      }
+
       .project-card h3 {
         color: var(--accent);
         font-size: 1.1rem;
@@ -599,6 +686,13 @@
         display: flex;
         align-items: center;
         gap: 0.5rem;
+      }
+      .project-card h3 a { /* Style for links within project card titles */
+        color: var(--accent);
+        text-decoration: underline;
+      }
+      .project-card h3 a:hover {
+        color: var(--white); /* Keep consistency with other link hovers */
       }
       .project-card .duration {
         color: #b0b0b0;
@@ -609,6 +703,8 @@
         color: #e0e0e0;
         font-size: 1rem;
       }
+
+      /* --- Achievements Section --- */
       .achievements-list {
         display: flex;
         flex-direction: column;
@@ -617,14 +713,14 @@
       }
       .achievement-card {
         background: var(--card-bg);
-        display: flex;
-        gap: 1.2rem;
-        align-items: flex-start;
-        padding: 1.5rem;
-        border-radius: 18px;
+        border-radius: 18px; /* Corrected to match image analysis */
         box-shadow: var(--shadow);
+        padding: 1.5rem;
         border: 1px solid rgba(255, 255, 255, 0.08);
         transition: transform 0.2s;
+        display: flex; /* Added from original for layout */
+        gap: 1.2rem; /* Added from original for layout */
+        align-items: flex-start; /* Added from original for layout */
       }
       .achievement-card:hover {
         transform: scale(1.03);
@@ -666,6 +762,7 @@
         font-weight: 500;
       }
 
+      /* --- Contact Section --- */
       .contact-section-content {
         background: var(--card-bg);
         border-radius: 20px;
@@ -764,6 +861,14 @@
         line-height: 1.6;
         margin-bottom: 1.5rem;
       }
+      .availability-text a { /* Style for links within availability text */
+        color: var(--accent);
+        text-decoration: underline;
+      }
+      .availability-text a:hover {
+        color: var(--white);
+      }
+
 
       .social-links-bottom {
         display: flex;
@@ -805,6 +910,7 @@
         transform: scale(1.05);
       }
 
+      /* --- Chatbot Styles --- */
       .chatbot-toggle {
         position: fixed;
         bottom: 30px;
@@ -965,13 +1071,77 @@
         background: var(--secondary);
         transform: scale(1.05);
       }
+
+      /* --- Mobile Responsiveness (Media Queries) --- */
+      @media (max-width: 900px) {
+        body {
+          padding-left: 0; /* Remove fixed padding on mobile */
+        }
+        .menu-toggle {
+          display: flex; /* Show hamburger button on mobile */
+        }
+        .sidebar-wrapper {
+          left: -250px; /* Hide sidebar off-screen initially */
+          top: 0;
+          transform: translateY(0); /* Remove translateY for mobile */
+          height: 100vh; /* Full height on mobile */
+          border-radius: 0; /* No border-radius on mobile */
+          padding-top: 5rem; /* Space for close button */
+          width: 250px; /* Specific width for mobile sidebar */
+        }
+        /* When sidebar is opened via toggle on mobile */
+        .sidebar-wrapper.show-sidebar {
+          left: 0; /* Slide in */
+          border-radius: 0 40px 40px 0; /* Rounded on right side when open */
+          width: 250px; /* Ensure width is consistent when open */
+        }
+        .sidebar-close-btn {
+          display: block; /* Show close button on mobile sidebar */
+        }
+        /* Disable hover effects for expanding sidebar on mobile */
+        .sidebar-wrapper:hover, .sidebar-wrapper.expanded {
+          width: 250px; /* Prevent expansion, keep mobile width */
+          transform: translateY(0); /* Ensure no vertical shift */
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); /* Revert shadow to default */
+        }
+        body.sidebar-expanded { /* This class is no longer relevant for mobile padding */
+          padding-left: 0;
+        }
+
+        .main-header-profile-img { /* Adjust for smaller screens if sticky is problematic */
+          position: static;
+          top: auto;
+        }
+
+        .timeline::before { /* Adjust timeline center for smaller screens */
+          left: 18px; /* Move timeline line to the left */
+          transform: translateX(0);
+        }
+        .timeline-item { /* Make timeline items full width */
+          flex-direction: column !important; /* Force single column on mobile */
+          align-items: center;
+        }
+        .timeline-item:nth-child(even) { /* Reset direction for mobile */
+          flex-direction: column !important;
+        }
+        .timeline-content {
+          margin: 0 0 2rem 0; /* Remove horizontal margin */
+          max-width: 100%; /* Allow content to take full width */
+          width: calc(100% - 36px); /* Account for padding/margin */
+        }
+        .timeline-item::before { /* Align circles to left line */
+          left: 18px;
+          transform: translateX(-50%);
+        }
+      }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   </head>
   <body>
     <div id="particles-js"></div>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu">
+      <i class="fas fa-bars"></i>
+    </button>
 
     <div class="sidebar-wrapper">
       <button
@@ -1027,23 +1197,14 @@
 
     <div class="main-content">
       <header>
-        <div
-          style="
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 2.5rem;
-            flex-wrap: wrap;
-          "
-        >
+        <div class="header-content-wrapper">
           <img
             src="photo4.jpg"
             alt="Parth Samir Dalvi"
             class="main-header-profile-img"
             data-aos="zoom-in"
-            style="flex-shrink: 0; position: sticky; top: 100px"
           />
-          <div style="min-width: 260px; max-width: 500px">
+          <div class="header-text-wrapper">
             <div class="typewriter" id="typewriter"></div>
             <p class="subtitle" data-aos="fade-up" data-aos-delay="200">
               Graduate Student at Purdue University | Full Time Googling error
@@ -1079,7 +1240,8 @@
           <span>
             <i class="fas fa-phone"></i>
             <a
-              href="tel:+12602492495"
+              href="#"
+              class="phone-link"
               download="Parth Samir Dalvi.vcf"
               onclick="event.preventDefault();
                 const vcf = `BEGIN:VCARD
@@ -1118,6 +1280,7 @@ END:VCARD`;
           </span>
         </div>
       </header>
+
       <section id="about">
         <div class="section-title" data-aos="fade-down">
           <i class="fa-solid fa-user"></i> About Me
@@ -1141,6 +1304,7 @@ END:VCARD`;
           </p>
         </div>
       </section>
+
       <section id="education">
         <div class="section-title">
           <i class="fas fa-graduation-cap"></i> Education
@@ -1152,12 +1316,6 @@ END:VCARD`;
                 <img
                   src="Purdue.png"
                   alt="Purdue University Logo"
-                  style="
-                    height: 2.5rem;
-                    border-radius: 6px;
-                    background: #fff;
-                    padding: 2px;
-                  "
                 />
                 Purdue University
               </h3>
@@ -1178,12 +1336,6 @@ END:VCARD`;
                 <img
                   src="sppu.jpg"
                   alt="Savitribai Phule Pune University Logo"
-                  style="
-                    height: 2rem;
-                    border-radius: 6px;
-                    background: #fff;
-                    padding: 2px;
-                  "
                 />
                 Savitribai Phule Pune University
               </h3>
@@ -1202,6 +1354,7 @@ END:VCARD`;
           </div>
         </div>
       </section>
+
       <section id="experience">
         <div class="section-title">
           <i class="fas fa-briefcase"></i> Professional Experience
@@ -1213,12 +1366,6 @@ END:VCARD`;
                 <img
                   src="gameplayinc.jpeg"
                   alt="GamePlay Inc Logo"
-                  style="
-                    height: 2.5rem;
-                    border-radius: 6px;
-                    background: #fff;
-                    padding: 2px;
-                  "
                 />
                 GamePlay Inc
               </h3>
@@ -1260,12 +1407,6 @@ END:VCARD`;
                 <img
                   src="weagile.jpg"
                   alt="WeAgile Software Solutions Logo"
-                  style="
-                    height: 2.5rem;
-                    border-radius: 6px;
-                    background: #fff;
-                    padding: 2px;
-                  "
                 />
                 WeAgile Software Solutions
               </h3>
@@ -1297,6 +1438,7 @@ END:VCARD`;
           </div>
         </div>
       </section>
+
       <section id="skills">
         <div class="section-title">
           <i class="fas fa-code"></i> Technical Skills
@@ -1447,108 +1589,110 @@ END:VCARD`;
           </div>
         </div>
       </section>
+
       <section id="projects">
         <div class="section-title">
           <i class="fas fa-project-diagram"></i> Featured Projects
         </div>
-        <div class="projects-grid">
-          <div class="project-card" data-aos="fade-up">
-            <h3>
-              <i class="fas fa-chart-line"></i>
-              <a
-                href="https://fibucks.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                style="color: var(--accent); text-decoration: underline"
-                >FiBucks - Personal Expense Tracker</a
-              >
-            </h3>
-            <p class="duration">
-              Personal Project |
-              <a
-                href="https://fibucks.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                style="color: var(--accent); text-decoration: underline"
-                >fibucks.com</a
-              >
-            </p>
-            <div class="description">
-              <p>
-                <strong>Technologies:</strong> Tailwind CSS, Next.js, MongoDB,
-                Chai, Snyk, Git, Vercel
+        <div class="projects-section-wrapper">
+          <div class="projects-grid">
+            <div class="project-card" data-aos="fade-up">
+              <h3>
+                <i class="fas fa-chart-line"></i>
+                <a
+                  href="https://fibucks.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >FiBucks - Personal Expense Tracker</a
+                >
+              </h3>
+              <p class="duration">
+                Personal Project |
+                <a
+                  href="https://fibucks.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >fibucks.com</a
+                >
               </p>
-              <br />
-              <p>
-                Built an application to record, categorize, and visualize income
-                expenses using dynamic charts. Enabled secure user
-                authentication and provided mobile friendly tracking capabilities.
-                Set and monitor monthly or weekly budgets.
-              </p>
+              <div class="description">
+                <p>
+                  <strong>Technologies:</strong> Tailwind CSS, Next.js, MongoDB,
+                  Chai, Snyk, Git, Vercel
+                </p>
+                <br />
+                <p>
+                  Built an application to record, categorize, and visualize income
+                  expenses using dynamic charts. Enabled secure user
+                  authentication and provided mobile friendly tracking capabilities.
+                  Set and monitor monthly or weekly budgets.
+                </p>
+              </div>
             </div>
-          </div>
-          <div class="project-card" data-aos="fade-up" data-aos-delay="100">
-            <h3>
-              <i class="fa-solid fa-gopuram"></i> Temple Management System
-            </h3>
-            <p class="duration">React Application</p>
-            <div class="description">
-              <p>
-                <strong>Description:</strong> Temple Management System is an
-                integrated digital solution designed to streamline temple
-                operations, including administration, donation management, event
-                coordination, and community engagement. It leverages
-                advanced software tools to provide a centralized, user friendly
-                platform that enhances the efficiency of temple activities and
-                improves communication with devotees. Built for small
-                temple networks a like it can scale to meet the needs of any
-                religious organization. Digitalized paper based
-                workflows, enhancing efficiency and data management by 30%.
-              </p>
+            <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+              <h3>
+                <i class="fa-solid fa-gopuram"></i> Temple Management System
+              </h3>
+              <p class="duration">React Application</p>
+              <div class="description">
+                <p>
+                  <strong>Description:</strong> Temple Management System is an
+                  integrated digital solution designed to streamline temple
+                  operations, including administration, donation management, event
+                  coordination, and community engagement. It leverages
+                  advanced software tools to provide a centralized, user friendly
+                  platform that enhances the efficiency of temple activities and
+                  improves communication with devotees. Built for small
+                  temple networks a like it can scale to meet the needs of any
+                  religious organization. Digitalized paper based
+                  workflows, enhancing efficiency and data management by 30%.
+                </p>
+              </div>
             </div>
-          </div>
-          <div class="project-card" data-aos="fade-up" data-aos-delay="200">
-            <h3>
-              <i class="fas fa-eye"></i> Real-Time Audio-Enabled Object
-              Detection System with NLP - Based Interaction
-            </h3>
-            <p class="duration">Research Project | Published Paper</p>
-            <div class="description">
-              <p>
-                <strong>Technologies:</strong> YOLOv4, Gemini API, NLP, Deep
-                Learning
-              </p>
-              <br />
-              <p>
-                Applied deep learning techniques (YOLOv4) to accurately identify
-                and detect objects in real-time within complex environments
-                achieving an object detection accuracy rate of 98%.
-                Integrated the Gemini API for real-time NLP communication,
-                enhancing user interaction with an online search module for
-                object descriptions and applications.
-              </p>
+            <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+              <h3>
+                <i class="fas fa-eye"></i> Real-Time Audio-Enabled Object
+                Detection System with NLP - Based Interaction
+              </h3>
+              <p class="duration">Research Project | Published Paper</p>
+              <div class="description">
+                <p>
+                  <strong>Technologies:</strong> YOLOv4, Gemini API, NLP, Deep
+                  Learning
+                </p>
+                <br />
+                <p>
+                  Applied deep learning techniques (YOLOv4) to accurately identify
+                  and detect objects in real-time within complex environments
+                  achieving an object detection accuracy rate of 98%.
+                  Integrated the Gemini API for real-time NLP communication,
+                  enhancing user interaction with an online search module for
+                  object descriptions and applications.
+                </p>
+              </div>
             </div>
-          </div>
-          <div class="project-card" data-aos="fade-up" data-aos-delay="300">
-            <h3>
-              <i class="fa-solid fa-pager"></i> Resume Parsing & Candidate
-              Matching Project
-            </h3>
-            <p class="duration">Research Project | NLP</p>
-            <div class="description">
-              <p>
-                <strong>Description:</strong> Successfully built the backend
-                using FastAPI to upload resumes in PDF and DOCX formats.
-                Extracted essential details such as name, contact information,
-                skills, education, and experience using Named Entity
-                Recognition (NER) and stored them in a MongoDB database.
-                Designed to automate resume parsing and candidate-job matching to
-                remove biases and improve efficiency in recruitment.
-              </p>
+            <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+              <h3>
+                <i class="fa-solid fa-pager"></i> Resume Parsing & Candidate
+                Matching Project
+              </h3>
+              <p class="duration">Research Project | NLP</p>
+              <div class="description">
+                <p>
+                  <strong>Description:</strong> Successfully built the backend
+                  using FastAPI to upload resumes in PDF and DOCX formats.
+                  Extracted essential details such as name, contact information,
+                  skills, education, and experience using Named Entity
+                  Recognition (NER) and stored them in a MongoDB database.
+                  Designed to automate resume parsing and candidate-job matching to
+                  remove biases and improve efficiency in recruitment.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
+
       <section id="achievements">
         <div class="section-title">
           <i class="fas fa-award"></i> Achievements
@@ -1623,7 +1767,7 @@ END:VCARD`;
             collaborations, or just a quick chat about technology!
             <br /><br />
             The best way to reach me is via email at
-            <a href="mailto:parthsamirdalvi@gmail.com" style="color: var(--accent); text-decoration: underline;"
+            <a href="mailto:parthsamirdalvi@gmail.com"
               >parthsamirdalvi@gmail.com</a
             >
             or by filling out the form below.
@@ -1673,6 +1817,7 @@ END:VCARD`;
         </div>
       </section>
     </div>
+
     <footer style="text-align: center; padding: 3rem 0 2rem; color: #aaa">
       <p>
         © <span id="currentYear"></span> Parth Samir Dalvi. All rights reserved.
@@ -1714,7 +1859,12 @@ END:VCARD`;
       </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
     <script>
+      // --- Particles.js Initialization ---
       particlesJS("particles-js", {
         particles: {
           number: { value: 60, density: { enable: true, value_area: 800 } },
@@ -1735,7 +1885,7 @@ END:VCARD`;
           events: {
             onhover: { enable: true, mode: "grab" },
             onclick: { enable: true, mode: "push" },
-            _resize: true,
+            resize: true, /* Corrected property name */
           },
           modes: {
             grab: { distance: 140, line_linked: { opacity: 0.6 } },
@@ -1745,8 +1895,10 @@ END:VCARD`;
         retina_detect: true,
       });
 
+      // --- Sidebar and Mobile Menu Logic ---
       const sidebar = document.querySelector(".sidebar-wrapper");
       const sidebarCloseBtn = document.getElementById("sidebarCloseBtn");
+      const menuToggle = document.getElementById("menuToggle"); // New: Mobile menu toggle
       const bodyOverlay = document.createElement("div");
       bodyOverlay.classList.add("body-overlay");
       document.body.appendChild(bodyOverlay);
@@ -1754,20 +1906,23 @@ END:VCARD`;
       function openSidebar() {
         sidebar.classList.add("show-sidebar");
         bodyOverlay.classList.add("show");
-        document.body.style.overflowY = "hidden";
+        document.body.style.overflowY = "hidden"; // Prevent scrolling when sidebar is open
       }
 
       function closeSidebar() {
         sidebar.classList.remove("show-sidebar");
         bodyOverlay.classList.remove("show");
-        document.body.style.overflowY = "auto";
+        document.body.style.overflowY = "auto"; // Re-enable scrolling
       }
 
+      // Event listeners for sidebar toggle and close
+      if (menuToggle) { // Check if element exists before adding listener
+          menuToggle.addEventListener("click", openSidebar);
+      }
       sidebarCloseBtn.addEventListener("click", closeSidebar);
       bodyOverlay.addEventListener("click", closeSidebar);
 
-      let desktopHoverListenersAdded = false;
-
+      // Handle sidebar hover effect for desktop and disable on mobile
       const handleMouseEnter = () => {
         if (window.innerWidth > 900) {
           sidebar.classList.add("expanded");
@@ -1777,10 +1932,15 @@ END:VCARD`;
 
       const handleMouseLeave = () => {
         if (window.innerWidth > 900) {
-          sidebar.classList.remove("expanded");
+          sidebar.removeEventListener("mouseenter", handleMouseEnter); // Ensure listeners are removed to prevent multiple
+          sidebar.removeEventListener("mouseleave", handleMouseLeave); // additions on resize
+          sidebar.classList.remove("expanded"); // Ensure no lingering expanded state
           document.body.classList.remove("sidebar-expanded");
         }
       };
+
+      // Flag to prevent adding multiple listeners on desktop
+      let desktopHoverListenersAdded = false;
 
       function setupSidebarHover() {
         if (window.innerWidth > 900 && !desktopHoverListenersAdded) {
@@ -1788,39 +1948,45 @@ END:VCARD`;
           sidebar.addEventListener("mouseleave", handleMouseLeave);
           desktopHoverListenersAdded = true;
         } else if (window.innerWidth <= 900 && desktopHoverListenersAdded) {
+          // Remove desktop hover listeners if screen size is mobile
           sidebar.removeEventListener("mouseenter", handleMouseEnter);
           sidebar.removeEventListener("mouseleave", handleMouseLeave);
           desktopHoverListenersAdded = false;
+          // Ensure sidebar is not 'expanded' due to a lingering desktop hover state
           sidebar.classList.remove("expanded");
-          document.body.classList.remove("sidebar-expanded");
+          document.body.classList.remove("sidebar-expanded"); // Remove padding
         }
       }
 
+      // Initial setup and re-setup on resize
       setupSidebarHover();
-
       window.addEventListener("resize", () => {
         if (window.innerWidth <= 900) {
-          closeSidebar();
+          closeSidebar(); // Close sidebar if resized to mobile
         }
-        setupSidebarHover();
+        setupSidebarHover(); // Re-evaluate hover behavior
       });
 
+      // Smooth scroll and active link highlighting for sidebar
       document.querySelectorAll(".sidebar-wrapper nav a").forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
           e.preventDefault();
           const target = document.querySelector(this.getAttribute("href"));
-          target.scrollIntoView({ behavior: "smooth", block: "start" });
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
           document
             .querySelectorAll(".sidebar-wrapper nav a")
             .forEach((a) => a.classList.remove("active"));
           this.classList.add("active");
 
           if (window.innerWidth <= 900) {
-            closeSidebar();
+            closeSidebar(); // Close sidebar after clicking a link on mobile
           }
         });
       });
 
+      // Highlight active sidebar link based on scroll position
       window.addEventListener(
         "scroll",
         () => {
@@ -1829,7 +1995,8 @@ END:VCARD`;
           let current = "";
           sections.forEach((section) => {
             const sectionTop = section.offsetTop;
-            if (scrollY >= sectionTop - 250) {
+            // Adjust offset to trigger active state slightly before section is fully at top
+            if (window.scrollY >= sectionTop - 250) {
               current = section.getAttribute("id");
             }
           });
@@ -1843,6 +2010,7 @@ END:VCARD`;
         { passive: true }
       );
 
+      // --- Typewriter Effect ---
       const hasVisited = localStorage.getItem('hasVisitedParthPortfolio');
       let typewriterTexts;
 
@@ -1881,17 +2049,18 @@ END:VCARD`;
         }
         if (!twDeleting && twChar === txt.length + 1) {
           twDeleting = true;
-          setTimeout(typewriter, 1200);
+          setTimeout(typewriter, 1200); // Pause before deleting
         } else if (twDeleting && twChar === 0) {
           twDeleting = false;
           twIndex = (twIndex + 1) % typewriterTexts.length;
-          setTimeout(typewriter, 400);
+          setTimeout(typewriter, 400); // Pause before typing next
         } else {
-          setTimeout(typewriter, twDeleting ? 40 : 80);
+          setTimeout(typewriter, twDeleting ? 40 : 80); // Typing/deleting speed
         }
       }
-      typewriter();
+      typewriter(); // Start the typewriter effect
 
+      // --- AOS Initialization ---
       AOS.init({
         duration: 900,
         easing: "ease-in-out",
@@ -1899,9 +2068,10 @@ END:VCARD`;
         offset: 100,
       });
 
-      document.getElementById("currentYear").textContent =
-        new Date().getFullYear();
+      // --- Footer Year Update ---
+      document.getElementById("currentYear").textContent = new Date().getFullYear();
 
+      // --- Chatbot Logic ---
       const chatbotToggle = document.getElementById("chatbotToggle");
       const chatbotContainer = document.getElementById("chatbotContainer");
       const chatbotCloseBtn = document.getElementById("chatbotCloseBtn");
@@ -1959,6 +2129,7 @@ END:VCARD`;
         chatbotInput.value = "";
         showTypingIndicator();
 
+        // Simulate bot response delay
         setTimeout(() => {
           hideTypingIndicator();
           handleBotResponse(userMessage.toLowerCase());
@@ -2012,18 +2183,24 @@ END:VCARD`;
         addMessage(response, "bot");
       }
 
+      // --- Contact Form Logic ---
       const contactForm = document.getElementById("contactForm");
       const formMessage = document.getElementById("formMessage");
 
       contactForm.addEventListener("submit", function (e) {
         e.preventDefault();
 
+        // In a real application, you would send this data to a server
+        // e.g., using fetch() or XMLHttpRequest to a backend endpoint or a service like Formspree.
+        // For demonstration, we'll just show a success message.
+
         formMessage.textContent =
           "Thank you for your message! I'll get back to you soon.";
-        formMessage.style.color = "var(--accent)";
+        formMessage.style.color = "var(--accent)"; // Set color directly for this message
         formMessage.classList.add("show");
-        contactForm.reset();
+        contactForm.reset(); // Clear the form fields
 
+        // Hide the message after a few seconds
         setTimeout(() => {
           formMessage.classList.remove("show");
         }, 5000);
