@@ -301,6 +301,16 @@
         min-height: 2.5rem;
         letter-spacing: 1px;
       }
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+      }
       .subtitle {
         font-size: 1.2rem;
         color: #e0e0e0;
@@ -704,12 +714,21 @@
         font-size: 1rem;
       }
 
+      /* --- Achievements Section Wrapper --- */
+      .achievements-section-wrapper {
+        background: rgba(24, 26, 35, 0.95); /* Copied from .skills-section */
+        border-radius: 20px; /* Copied from .skills-section */
+        box-shadow: var(--shadow); /* Copied from .skills-section */
+        margin: 2rem 0; /* Copied from .skills-section */
+        padding: 3rem 2rem; /* Copied from .skills-section */
+      }
+
       /* --- Achievements Section --- */
       .achievements-list {
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
-        margin-top: 2rem;
+        margin-top: 0; /* Removed old margin-top, now handled by wrapper */
       }
       .achievement-card {
         background: var(--card-bg);
@@ -717,42 +736,35 @@
         box-shadow: var(--shadow);
         padding: 1.5rem;
         border: 1px solid rgba(255, 255, 255, 0.08);
-        transition: transform 0.2s;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; /* Added more transitions for full effect */
         display: flex; /* Added from original for layout */
         gap: 1.2rem; /* Added from original for layout */
         align-items: flex-start; /* Added from original for layout */
+        cursor: pointer; /* Add cursor pointer to indicate interactivity */
+        overflow: hidden; /* Ensure rounded borders */
       }
+
       .achievement-card:hover {
-        transform: scale(1.03);
+        background: var(--accent); /* Change background to accent yellow */
+        color: var(--bg); /* Change text color to dark background color */
+        transform: scale(1.05) translateY(-8px); /* Lift and scale effect, adjusted slightly for card size */
+        box-shadow: 0 8px 20px rgba(255, 216, 107, 0.4); /* Accent color shadow, similar to skill-item:hover */
+        border-color: var(--accent); /* Change border to accent yellow */
       }
-      .achievement-card .icon {
-        font-size: 2rem;
-        color: var(--primary);
-        background: var(--white);
-        padding: 1rem;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        box-shadow: 0 4px 12px rgba(31, 38, 135, 0.1);
+
+      /* Ensure all nested text elements also change color on hover */
+      .achievement-card:hover h3,
+      .achievement-card:hover p,
+      .achievement-card:hover .tags span {
+        color: var(--bg); /* All text becomes dark on hover */
       }
-      .achievement-card .content h3 {
-        font-size: 1.1rem;
-        margin: 0;
-        font-weight: 600;
-        color: var(--accent);
+
+      /* Adjust icon color on hover specifically if it has a background that will clash */
+      .achievement-card:hover .icon {
+        background: var(--bg); /* Change icon background to dark on hover */
+        color: var(--accent); /* Change icon color to accent on hover */
       }
-      .achievement-card .content p {
-        margin: 0.3rem 0 0.8rem;
-        color: #e0e0e0;
-        font-size: 0.97rem;
-      }
-      .achievement-card .tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-      }
+
       .achievement-card .tags span {
         background: rgba(255, 255, 255, 0.12);
         color: var(--secondary);
@@ -760,6 +772,12 @@
         font-size: 0.8rem;
         border-radius: 12px;
         font-weight: 500;
+        border: 1px solid rgba(255, 255, 255, 0.08); /* Added this line to match skill-item border */
+      }
+
+      /* Also, let's ensure the tag color changes correctly on achievement card hover */
+      .achievement-card:hover .tags span {
+        color: var(--bg); /* Ensure tag text goes dark on hover */
       }
 
       /* --- Contact Section --- */
@@ -1195,7 +1213,7 @@
       </nav>
     </div>
 
-    <div class="main-content">
+    <main class="main-content">
       <header>
         <div class="header-content-wrapper">
           <img
@@ -1205,6 +1223,7 @@
             data-aos="zoom-in"
           />
           <div class="header-text-wrapper">
+            <h1 class="visually-hidden">Parth Samir Dalvi - Full Stack Developer & AI/ML Enthusiast</h1>
             <div class="typewriter" id="typewriter"></div>
             <p class="subtitle" data-aos="fade-up" data-aos-delay="200">
               Graduate Student at Purdue University | Full Time Googling error
@@ -1697,58 +1716,60 @@ END:VCARD`;
         <div class="section-title">
           <i class="fas fa-award"></i> Achievements
         </div>
-        <div class="achievements-list">
-          <div class="achievement-card" data-aos="fade-up">
-            <div class="icon"><i class="fas fa-trophy"></i></div>
-            <div class="content">
-              <h3>Published Research Paper: Audio Based Object Detection System</h3>
-              <p>DOI: 10.55041/IJSREM29989</p>
-              <div class="tags">
-                <span>Research</span><span>Machine Learning</span
-                ><span>NLP</span>
+        <div class="achievements-section-wrapper">
+          <div class="achievements-list">
+            <div class="achievement-card" data-aos="fade-up">
+              <div class="icon"><i class="fas fa-trophy"></i></div>
+              <div class="content">
+                <h3>Published Research Paper: Audio Based Object Detection System</h3>
+                <p>DOI: 10.55041/IJSREM29989</p>
+                <div class="tags">
+                  <span>Research</span><span>Machine Learning</span
+                  ><span>NLP</span>
+                </div>
               </div>
             </div>
-          </div>
-          <div
-            class="achievement-card"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
-            <div class="icon"><i class="fas fa-medal"></i></div>
-            <div class="content">
-              <h3>Presented Project as the youngest team to Indian Air Force</h3>
-              <p>Indian Air Force (2023)</p>
-              <div class="tags">
-                <span>Defense</span><span>Drone Technology</span>
+            <div
+              class="achievement-card"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <div class="icon"><i class="fas fa-medal"></i></div>
+              <div class="content">
+                <h3>Presented Project as the youngest team to Indian Air Force</h3>
+                <p>Indian Air Force (2023)</p>
+                <div class="tags">
+                  <span>Defense</span><span>Drone Technology</span>
+                </div>
               </div>
             </div>
-          </div>
-          <div
-            class="achievement-card"
-            data-aos="fade-up"
-            data-aos-delay="200"
-          >
-            <div class="icon"><i class="fas fa-rocket"></i></div>
-            <div class="content">
-              <h3>Smart India Hackathon Hardware Edition Grand Finalists</h3>
-              <p>National-level hackathon achievement (2022)</p>
-              <div class="tags">
-                <span>Hackathon</span><span>Hardware</span
-                ><span>Innovation</span>
+            <div
+              class="achievement-card"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              <div class="icon"><i class="fas fa-rocket"></i></div>
+              <div class="content">
+                <h3>Smart India Hackathon Hardware Edition Grand Finalists</h3>
+                <p>National-level hackathon achievement (2022)</p>
+                <div class="tags">
+                  <span>Hackathon</span><span>Hardware</span
+                  ><span>Innovation</span>
+                </div>
               </div>
             </div>
-          </div>
-          <div
-            class="achievement-card"
-            data-aos="fade-up"
-            data-aos-delay="300"
-          >
-            <div class="icon"><i class="fas fa-heart"></i></div>
-            <div class="content">
-              <h3>Best Volunteer for Helping Hearts Organization</h3>
-              <p>Helping Hearts Organization (2021)</p>
-              <div class="tags">
-                <span>Community</span><span>Leadership</span>
+            <div
+              class="achievement-card"
+              data-aos="fade-up"
+              data-aos-delay="300"
+            >
+              <div class="icon"><i class="fas fa-heart"></i></div>
+              <div class="content">
+                <h3>Best Volunteer for Helping Hearts Organization</h3>
+                <p>Helping Hearts Organization (2021)</p>
+                <div class="tags">
+                  <span>Community</span><span>Leadership</span>
+                </div>
               </div>
             </div>
           </div>
@@ -1816,7 +1837,7 @@ END:VCARD`;
           </div>
         </div>
       </section>
-    </div>
+    </main>
 
     <footer style="text-align: center; padding: 3rem 0 2rem; color: #aaa">
       <p>
@@ -1923,6 +1944,8 @@ END:VCARD`;
       bodyOverlay.addEventListener("click", closeSidebar);
 
       // Handle sidebar hover effect for desktop and disable on mobile
+      let desktopHoverListenersAdded = false;
+
       const handleMouseEnter = () => {
         if (window.innerWidth > 900) {
           sidebar.classList.add("expanded");
@@ -1932,29 +1955,25 @@ END:VCARD`;
 
       const handleMouseLeave = () => {
         if (window.innerWidth > 900) {
-          sidebar.removeEventListener("mouseenter", handleMouseEnter); // Ensure listeners are removed to prevent multiple
-          sidebar.removeEventListener("mouseleave", handleMouseLeave); // additions on resize
           sidebar.classList.remove("expanded"); // Ensure no lingering expanded state
           document.body.classList.remove("sidebar-expanded");
         }
       };
 
-      // Flag to prevent adding multiple listeners on desktop
-      let desktopHoverListenersAdded = false;
-
       function setupSidebarHover() {
-        if (window.innerWidth > 900 && !desktopHoverListenersAdded) {
+        // Remove existing listeners to prevent duplicates if function is called multiple times on resize
+        sidebar.removeEventListener("mouseenter", handleMouseEnter);
+        sidebar.removeEventListener("mouseleave", handleMouseLeave);
+        desktopHoverListenersAdded = false; // Reset flag
+
+        if (window.innerWidth > 900) {
           sidebar.addEventListener("mouseenter", handleMouseEnter);
           sidebar.addEventListener("mouseleave", handleMouseLeave);
           desktopHoverListenersAdded = true;
-        } else if (window.innerWidth <= 900 && desktopHoverListenersAdded) {
-          // Remove desktop hover listeners if screen size is mobile
-          sidebar.removeEventListener("mouseenter", handleMouseEnter);
-          sidebar.removeEventListener("mouseleave", handleMouseLeave);
-          desktopHoverListenersAdded = false;
-          // Ensure sidebar is not 'expanded' due to a lingering desktop hover state
+        } else {
+          // If resizing to mobile, ensure desktop-specific classes are removed
           sidebar.classList.remove("expanded");
-          document.body.classList.remove("sidebar-expanded"); // Remove padding
+          document.body.classList.remove("sidebar-expanded");
         }
       }
 
