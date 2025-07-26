@@ -50,7 +50,7 @@
         min-height: 100vh;
         overflow-x: hidden;
         padding-left: calc(
-          --mini-sidebar-width + 20px + 20px
+          var(--mini-sidebar-width) + 20px + 20px
         ); /* Initial desktop padding */
         transition: padding-left 0.3s ease-out;
         position: relative;
@@ -1691,6 +1691,21 @@ END:VCARD`;
               </div>
             </div>
             <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+              <h3>
+                <i class="fa-solid fa-utensils"></i> 3Am Recipe Generator
+              </h3>
+              <p class="duration">Mobile Application | React Native</p>
+              <div class="description">
+                <p>
+                  <strong>Technologies:</strong> React Native, Spoonacular API, AsyncStorage, React Context API, Fetch API
+                </p>
+                <br />
+                <p>
+                  A cross-platform mobile application that allows users to search for recipes, save their favorites for offline access, and generate shopping lists from recipe ingredients. This project demonstrates API integration, local data persistence, and a clean user interface.
+                </p>
+              </div>
+            </div>
+            <div class="project-card" data-aos="fade-up" data-aos-delay="400">
               <h3>
                 <i class="fa-solid fa-pager"></i> Resume Parsing & Candidate
                 Matching Project
