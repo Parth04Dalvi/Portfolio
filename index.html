@@ -18,31 +18,19 @@
     <style>
       /* --- CSS Variables --- */
       :root {
-        --bg: #ffffff;
-        --text-main: #181a23;
-        --card-bg: #f4f4f9;
-        --sidebar-bg: rgba(255, 255, 255, 0.9);
         --primary: #6c63ff;
         --secondary: #48c6ef;
-        --accent: #d4af37; 
-        --white: #181a23; 
-        --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
-        --particle-color: #000000; 
+        --bg: #000000;
+        --card-bg: #111111;
+        --accent: #ffd86b;
+        --white: #fff;
+        --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); 
         --mini-sidebar-width: 60px;
         --expanded-sidebar-width: 200px;
         --sidebar-bg-alpha: 0.95;
         --sidebar-blur: 12px;
       }
-      body.dark-mode {
-        --bg: #000000;
-        --text-main: #ffffff;
-        --card-bg: #111111;
-        --sidebar-bg: rgba(24, 26, 35, 0.95);
-        --accent: #ffd86b;
-        --white: #ffffff;
-        --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
-        --particle-color: #ffffff; /* White particles */
-    }
+      
       /* --- Base Styles --- */
       * {
         box-sizing: border-box;
@@ -1118,11 +1106,7 @@
           display: flex; /* Show hamburger button on mobile */
         }
         .sidebar-wrapper {
-          <li>
-          <a href="javascript:void(0)" id="themeToggle" aria-label="Toggle Theme">
-          <i class="fa-solid fa-moon" id="themeIcon"></i> <span>Theme</span>
-          </a>
-          </li>
+
           left: -250px; /* Hide sidebar off-screen initially */
           top: 0;
           transform: translateY(0); /* Remove translateY for mobile */
@@ -2244,68 +2228,11 @@ END:VCARD`;
 
         addMessage(response, "bot");
       }
-
-      // --- Contact Form Logic ---
-      const contactForm = document.getElementById("contactForm");
-      const formMessage = document.getElementById("formMessage");
-
-      contactForm.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        // In a real application, you would send this data to a server
-        // e.g., using fetch() or XMLHttpRequest to a backend endpoint or a service like Formspree.
-        // For demonstration, we'll just show a success message.
-
-        formMessage.textContent =
-          "Thank you for your message! I'll get back to you soon.";
-        formMessage.style.color = "var(--accent)"; // Set color directly for this message
-        formMessage.classList.add("show");
-        contactForm.reset(); // Clear the form fields
-
-        // Hide the message after a few seconds
-        setTimeout(() => {
-          formMessage.classList.remove("show");
-        }, 5000);
-      });
-      const themeToggle = document.getElementById("themeToggle");
-      const themeIcon = document.getElementById("themeIcon");
-
-      themeToggle.addEventListener("click", () => {
-        document.body.classList.toggle("dark-mode");
-        const isDark = document.body.classList.contains("dark-mode");
-        
-        // Switch the Icon
-        themeIcon.classList.toggle("fa-moon", !isDark);
-        themeIcon.classList.toggle("fa-sun", isDark);
-
-        // Re-initialize Particles with the correct color
-        const newColor = isDark ? "#ffffff" : "#000000";
-        
-        particlesJS("particles-js", {
-          particles: {
-            number: { value: 60, density: { enable: true, value_area: 800 } },
-            color: { value: newColor },
-            shape: { type: "circle" },
-            opacity: { value: 0.5, random: true },
-            size: { value: 3, random: true },
-            line_linked: {
-              enable: true,
-              distance: 150,
-              color: newColor,
-              opacity: 0.4,
-              width: 1,
-            }
-          },
-          interactivity: {
-            detect_on: "canvas",
-            events: { onhover: { enable: true, mode: "grab" }, resize: true }
-          },
-          retina_detect: true
-        });
       });
     </script>
   </body>
 </html>
+
 
 
 
