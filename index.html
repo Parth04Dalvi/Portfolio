@@ -41,11 +41,14 @@
         scroll-behavior: smooth;
       }
       body {
-        font-family: "Montserrat", Arial, sans-serif;
-        background: linear-gradient(
-          120deg,
-          var(--primary) 0%,
-          var(--secondary) 100%
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #000000; /* Changed from linear-gradient to solid black */
+      color: var(--white);
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding-left: calc(var(--mini-sidebar-width) + 20px + 20px);
+      transition: padding-left 0.3s ease-out;
+      position: relative;
         );
         color: var(--white);
         min-height: 100vh;
@@ -2247,6 +2250,7 @@ END:VCARD`;
     </script>
   </body>
 </html>
+
 
 
 
