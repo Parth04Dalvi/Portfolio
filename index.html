@@ -27,7 +27,7 @@
         --accent: #d4af37; 
         --white: #181a23; 
         --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
-        --particle-color: #000000; /* Black particles */
+        --particle-color: #000000; 
         --mini-sidebar-width: 60px;
         --expanded-sidebar-width: 200px;
         --sidebar-bg-alpha: 0.95;
@@ -318,11 +318,7 @@
         min-height: 2.5rem;
         letter-spacing: 1px;
       }
-      <li>
-            <a href="javascript:void(0)" id="themeToggle" aria-label="Toggle Theme">
-              <i class="fa-solid fa-moon" id="themeIcon"></i> <span>Theme</span>
-            </a>
-          </li>
+
       
       .visually-hidden {
         position: absolute;
@@ -1122,6 +1118,11 @@
           display: flex; /* Show hamburger button on mobile */
         }
         .sidebar-wrapper {
+          <li>
+          <a href="javascript:void(0)" id="themeToggle" aria-label="Toggle Theme">
+          <i class="fa-solid fa-moon" id="themeIcon"></i> <span>Theme</span>
+          </a>
+          </li>
           left: -250px; /* Hide sidebar off-screen initially */
           top: 0;
           transform: translateY(0); /* Remove translateY for mobile */
