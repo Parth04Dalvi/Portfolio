@@ -1080,35 +1080,31 @@
 
       }
 
+/* --- Skills --- */
+      .skills-section { background: rgba(24, 26, 35, 0.95); border-radius: 20px; padding: 3rem 2rem; }
+      .skills-showcase { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
       .skill-card {
-
         background: var(--card-bg);
-
-        border-radius: 18px; /* Corrected to match image analysis */
-
-        box-shadow: var(--shadow);
-
-        padding: 2rem 1.5rem;
-
+        padding: 2rem;
+        border-radius: 18px;
         text-align: center;
-
-        border: 1px solid rgba(255, 255, 255, 0.08);
-
-        transition: transform 0.2s, box-shadow 0.2s;
-
-        position: relative;
-
-        overflow: hidden;
-
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease; /* Ensure smooth transition for hover */
+        /* --- NEW: Glowing Effect --- */
+        box-shadow: 0 0 15px rgba(118, 112, 228, 0.4); /* Subtle blue glow */
       }
-
       .skill-card:hover {
-
-        transform: translateY(-8px) scale(1.03);
-
-        box-shadow: 0 16px 40px 0 rgba(31, 38, 135, 0.25);
-
+        transform: translateY(-5px); /* Lift slightly on hover */
+        box-shadow: 0 0 25px rgba(118, 112, 228, 0.4); 
+        border: 1px solid rgba(118, 112, 228, 0.6);/* Intensify glow on hover */
       }
+      .skill-items { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 1rem; }
+      .skill-item {
+        background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px;
+        width: 90px; transition: 0.3s; font-size: 0.8rem;
+      }
+      .skill-item:hover { background: var(--accent); color: var(--bg); transform: scale(1.1); }
+
 
       .skill-icon {
 
@@ -1136,17 +1132,6 @@
 
       }
 
-      .skill-card h3 {
-
-        color: var(--accent);
-
-        font-size: 1.1rem;
-
-        margin-bottom: 1rem;
-
-        font-weight: 600;
-
-      }
 
       .skill-items {
 
@@ -4501,3 +4486,4 @@ END:VCARD`;
   </body>
 
 </html>
+
