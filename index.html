@@ -268,10 +268,10 @@
       }
       .header-content-wrapper {
         display: flex;
-        flex-direction: column; /* Stack vertically */
+        flex-direction: column; 
         align-items: center;
         justify-content: center;
-        gap: 1.5rem; /* Adjusted for vertical layout */
+        gap: 1.5rem; 
       }
       .main-header-profile-img {
         width: 160px;
@@ -1230,6 +1230,9 @@
           left: 18px;
           transform: translateX(-50%);
         }
+        .typewriter {
+          height: 70px; /* Reduced for smaller text on mobile */
+        }
       }
 
       /* --- Print Styles --- */
@@ -1350,9 +1353,9 @@
             <div class="typewriter" id="typewriter"></div>
             <div class="subtitle" data-aos="fade-up" data-aos-delay="200">
               <div style="margin-bottom: 0.4rem;">MS Computer Science, Purdue University</div>
-              <div style="display: inline-block; text-align: left;">
-                | Open to Full-Time Opportunities<br>
-                | Atlanta, GA — Open to Relocation
+              <div style="text-align: center;">
+                Open to Full-Time Opportunities<br>
+                Atlanta, GA — Open to Relocation
               </div>
             </div>
             <a href="#projects" id="seeMyWorkBtn" class="hero-cta" data-aos="fade-up" data-aos-delay="300">
@@ -1441,16 +1444,9 @@ END:VCARD`;
           </div>
           <p class="command">$ WHO AM I</p>
           <p>
-            I am a Computer Science graduate student at Purdue University and
-            an Application Developer at Gameplay Inc, working across AI
-            features, REST APIs, and distributed systems. My work spans
-            full-stack engineering, edge AI, and agentic LLM systems — from
-            reducing rendering latency by 18% in production, to deploying
-            real-time computer vision on autonomous drone swarms in
-            partnership with the Indian Air Force.
+            I am a Computer Science graduate student at Purdue University with a strong focus on AI integration, REST APIs, and distributed systems. My work spans full-stack engineering, edge AI, and agentic LLM systems — from architecting scalable backend solutions to deploying real-time computer vision on autonomous drone swarms in partnership with the Indian Air Force.
             <p>
-              I like building things end-to-end: modular UI components, RAG-backed AI advisors, multi-agent LLM pipelines, and edge-optimized ML models that actually ship. My daily stack leans on Python, TypeScript, Next.js, Spring Boot, and PyTorch, with a growing focus on LangChain/LangGraph and agentic AI systems.
-
+As someone who likes breaking things just to figure out how to fix them usually with code and snacks. I build web apps that try their best to work on the first try (no promises though). React and Tailwind are my daily tools, and I'm currently exploring the mysterious land of backend development where bugs go to multiply. Full-stack dreams, coffee-fueled nights, and lots of console.log. When I'm not coding, I'm either daydreaming startup ideas, lurking on GitHub, or explaining to my friends why 'it works on my machine' is totally valid. I love creating stuff that's fun, functional, and maybe a little chaotic.
 Outside of work, I'm usually exploring new ML architectures, contributing to open source, or explaining to my friends why "it works on my machine" is a totally valid excuse.
             </p>
           </p>
@@ -2031,10 +2027,9 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
         </div>
         <div class="contact-section-content" data-aos="fade-up">
           <p class="availability-text">
-            I'm a graduate student at Purdue University, currently working as
-            an Application Developer at Gameplay Inc, and actively open to
-            new full-time roles and opportunities starting Summer 2026 —
-            based in Atlanta, GA, open to remote. I'm always happy to
+            I'm a graduate student at Purdue University, actively open to
+            new full-time roles and opportunities —
+            based in Atlanta, GA, and open to remote work or relocation. I'm always happy to
             discuss new projects, collaborations, or just talk tech!
             <br /><br />
             The best way to reach me is via email at
@@ -2044,7 +2039,7 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
             or by filling out the form below.
           </p>
 
-          <form id="contactForm" class="contact-form" action="https://formspree.io/f/xvkpzggr" method="POST">
+          <form id="contactForm" class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID_HERE" method="POST">
             <div class="form-group">
               <label for="name">Your Name</label>
               <input type="text" id="name" name="name" required />
@@ -2509,7 +2504,7 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
             "Parth is currently pursuing a Master of Science in Computer Science at Purdue University (August 2024 - May 2026) and completed his Bachelor of Technology in Computer Science at the University of Pune (August 2020 - July 2024).";
         } else if (message.includes("experience") || message.includes("work")) {
           response =
-            "Parth is currently an Application Developer at Gameplay Inc (May 2025 - present), where he's improved rendering latency by 18% and database performance by 20%. Before that, he was a Data Analyst at Weagile Software Solutions (March 2022 - July 2024).";
+            "Parth has experience as an Application Developer at Gameplay Inc and a Data Analyst at Weagile Software Solutions.";
         } else if (message.includes("achievements") || message.includes("honors")) {
           response =
             "Parth's honors include being a National Grand Finalist at the Smart India Hackathon, receiving a Formal Appreciation Letter from the Indian Air Force, and serving as Technical Team Volunteer Lead for Helping Hearts NGO.";
