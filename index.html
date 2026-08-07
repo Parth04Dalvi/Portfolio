@@ -290,9 +290,8 @@
         transform: scale(1.03);
       }
       .header-text-wrapper {
-        min-width: 260px;
+        width: 520px; 
         max-width: 100%;
-        width: 520px; /* Fixed width stops horizontal jumping */
         text-align: left;
       }
       .typewriter {
@@ -303,7 +302,7 @@
         letter-spacing: -0.02em;
         margin-bottom: 1rem;
         line-height: 1.2;
-        height: 85px; /* Hardcoded height stops vertical jumping */
+        min-height: 2.5em; /* Dynamically holds space for exactly 2 lines of text */
       }
       .visually-hidden {
         position: absolute;
@@ -1227,9 +1226,6 @@
         .timeline-item::before {
           left: 18px;
           transform: translateX(-50%);
-        }
-        .typewriter {
-          height: 70px; /* Reduced for smaller text on mobile */
         }
       }
 
