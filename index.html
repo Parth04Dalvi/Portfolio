@@ -725,7 +725,7 @@
       .project-card .description strong {
         color: var(--white);
       }
-      /* Iframe embed styling */
+      /* Iframe embed styling (Used for Fibucks AND Sketchfab embeds) */
       .iframe-container {
         margin-top: 1.2rem;
         border-radius: 12px;
@@ -741,7 +741,7 @@
         border: none;
         pointer-events: auto;
       }
-
+      
       /* --- Sketchfab Crop Hack --- */
       .sketchfab-container {
         height: 220px;
@@ -1858,6 +1858,7 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
                 <iframe title="Epson Moverio BT-300 smart glasses for drone" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/a4d81b71228b460eb3d2bcbdb7817922/embed?autostart=1&ui_theme=dark&ui_controls=0&ui_infos=0&ui_settings=0&ui_vr=0&ui_fullscreen=0&ui_animations=0&ui_stop=0"> </iframe>
               </div>
             </div>
+            
             <div class="project-card" data-aos="fade-up" data-aos-delay="300">
               <h3>
                 <i class="fa-solid fa-gopuram"></i> Temple Management System
@@ -1877,7 +1878,22 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
                   workflows, enhancing efficiency and data management by 30%.
                 </p>
               </div>
+              
+              <!-- Interactive 3D Temple Model Embed -->
+              <div class="model-3d-wrapper">
+                <model-viewer 
+                  src="temple.glb" 
+                  alt="3D Temple Model" 
+                  auto-rotate 
+                  camera-controls 
+                  disable-zoom 
+                  shadow-intensity="1"
+                  environment-image="neutral"
+                  exposure="1">
+                </model-viewer>
+              </div>
             </div>
+            
             <div class="project-card" data-aos="fade-up" data-aos-delay="400">
               <h3>
                 <i class="fa-solid fa-utensils"></i> 3Am Recipe Generator
