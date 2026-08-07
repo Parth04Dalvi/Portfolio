@@ -291,17 +291,19 @@
       }
       .header-text-wrapper {
         min-width: 260px;
-        max-width: 520px;
+        max-width: 100%;
+        width: 520px; /* Fixed width stops horizontal jumping */
         text-align: left;
       }
       .typewriter {
-        display: inline-block;
+        display: block;
         font-size: clamp(2rem, 5vw, 3rem);
         color: var(--white);
         font-weight: 600;
         letter-spacing: -0.02em;
         margin-bottom: 1rem;
-        min-height: 3.2rem;
+        line-height: 1.2;
+        height: 85px; /* Hardcoded height stops vertical jumping */
       }
       .visually-hidden {
         position: absolute;
@@ -1204,6 +1206,7 @@
         }
         .header-text-wrapper {
           text-align: center;
+          width: 100%;
         }
         .timeline::before {
           left: 18px;
@@ -1224,6 +1227,9 @@
         .timeline-item::before {
           left: 18px;
           transform: translateX(-50%);
+        }
+        .typewriter {
+          height: 70px; /* Reduced for smaller text on mobile */
         }
       }
 
@@ -1913,7 +1919,7 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
               <!-- Interactive 3D Recipe Model Embed -->
               <div class="model-3d-wrapper">
                 <model-viewer 
-                  src="recipe_2.glb" 
+                  src="recipe_book.glb" 
                   alt="3D Recipe Model" 
                   auto-rotate 
                   autoplay
