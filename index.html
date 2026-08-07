@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Parth Samir Dalvi | Portfolio</title>
+    <title>Parth Dalvi | Portfolio</title>
     <link rel="icon" type="image/png" href="photo5.png">
     <link
       href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap"
@@ -14,6 +14,9 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    
+    <!-- 3D Model Viewer Library -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 
     <style>
       /* --- CSS Variables --- */
@@ -265,10 +268,10 @@
       }
       .header-content-wrapper {
         display: flex;
+        flex-direction: column; /* Stack vertically */
         align-items: center;
         justify-content: center;
-        gap: 2.5rem;
-        flex-wrap: wrap;
+        gap: 1.5rem; /* Adjusted for vertical layout */
       }
       .main-header-profile-img {
         width: 160px;
@@ -276,29 +279,32 @@
         border-radius: 50%;
         object-fit: cover;
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-        margin-bottom: 1.5rem;
+        margin-bottom: 0.5rem;
         border: 3px solid var(--border);
         transition: transform 0.3s;
         flex-shrink: 0;
-        position: sticky;
-        top: 100px;
       }
       .main-header-profile-img:hover {
         transform: scale(1.03);
       }
       .header-text-wrapper {
-        min-width: 260px;
-        max-width: 520px;
-        text-align: left;
+        width: 100%;
+        max-width: 600px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
       }
       .typewriter {
-        display: inline-block;
+        display: block;
         font-size: clamp(2rem, 5vw, 3rem);
         color: var(--white);
         font-weight: 600;
         letter-spacing: -0.02em;
         margin-bottom: 1rem;
-        min-height: 3.2rem;
+        line-height: 1.2;
+        min-height: 2.5em; /* Allows wrapping but holds space */
+        text-align: center;
       }
       .visually-hidden {
         position: absolute;
@@ -315,8 +321,8 @@
         color: var(--text-secondary);
         margin-bottom: 2rem;
         font-weight: 400;
-        max-width: 460px;
-        text-wrap: balance;
+        text-align: center;
+        line-height: 1.6;
       }
       .hero-cta {
         display: inline-flex;
@@ -722,6 +728,52 @@
       .project-card .description strong {
         color: var(--white);
       }
+      /* Iframe embed styling (Used for Fibucks AND Sketchfab embeds) */
+      .iframe-container {
+        margin-top: 1.2rem;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.1);
+        height: 250px;
+        position: relative;
+        background: #000;
+      }
+      .iframe-container iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        pointer-events: auto;
+      }
+      
+      /* --- Sketchfab Crop Hack --- */
+      .sketchfab-container {
+        height: 220px;
+      }
+      .sketchfab-container iframe {
+        height: calc(100% + 60px);
+        width: 100%;
+      }
+      
+      /* --- 3D Model Viewer Container --- */
+      .model-3d-wrapper {
+        margin-top: 1.5rem;
+        width: 100%;
+        height: 220px;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: radial-gradient(circle at center, rgba(0, 113, 227, 0.15) 0%, transparent 70%);
+        position: relative;
+        cursor: grab;
+      }
+      .model-3d-wrapper:active {
+        cursor: grabbing;
+      }
+      .model-3d-wrapper model-viewer {
+        width: 100%;
+        height: 100%;
+        --poster-color: transparent;
+      }
 
       /* --- Achievements Section Wrapper --- */
       .achievements-section-wrapper {
@@ -775,6 +827,7 @@
         align-items: center;
         justify-content: center;
         font-size: 1.2rem;
+        background: rgba(0, 113, 227, 0.12);
       }
       .achievement-card:hover .icon {
         background: rgba(0, 113, 227, 0.12);
@@ -879,10 +932,6 @@
         opacity: 0.85;
         transform: none;
         box-shadow: none;
-      }
-      .form-submit-btn:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
       }
 
       .form-message {
@@ -1098,6 +1147,7 @@
       }
       .chatbot-input-container input:focus {
         border-color: var(--accent);
+        padding: 0.9rem 1.1rem;
       }
       .chatbot-input-container button {
         background: var(--accent);
@@ -1158,6 +1208,7 @@
         }
         .header-text-wrapper {
           text-align: center;
+          width: 100%;
         }
         .timeline::before {
           left: 18px;
@@ -1178,6 +1229,50 @@
         .timeline-item::before {
           left: 18px;
           transform: translateX(-50%);
+        }
+      }
+
+      /* --- Print Styles --- */
+      @media print {
+        /* Hide interactive / non-essential elements */
+        .sidebar-wrapper, #particles-js, .menu-toggle, .chatbot-toggle, .chatbot-container, .hero-cta, .print-hide, .model-3d-wrapper { 
+          display: none !important; 
+        }
+        body { 
+          background: white !important; 
+          color: black !important; 
+          padding: 0 !important; 
+          margin: 0 !important; 
+        }
+        .main-content { 
+          padding: 0 !important; 
+        }
+        /* Reset colors and formats for printing */
+        * { 
+          color: black !important; 
+          text-shadow: none !important; 
+          background: transparent !important; 
+          box-shadow: none !important; 
+        }
+        h1, h2, h3, h4, h5, h6 { 
+          page-break-after: avoid; 
+        }
+        section { 
+          page-break-inside: avoid; 
+          padding: 20px 0 !important; 
+        }
+        .terminal-box, .project-card, .achievement-card, .timeline-content { 
+          border: 1px solid #ccc !important; 
+          color: black !important; 
+          background: white !important; 
+          page-break-inside: avoid; 
+          margin-bottom: 20px !important;
+        }
+        a { 
+          text-decoration: none !important; 
+        }
+        .iframe-container {
+          display: none !important; /* Hide iframe for print to avoid rendering issues */
         }
       }
     </style>
@@ -1246,18 +1341,21 @@
         <div class="header-content-wrapper">
           <img
             src="photo4.jpg"
-            alt="Parth Samir Dalvi"
+            alt="Parth Dalvi"
             class="main-header-profile-img"
             data-aos="zoom-in"
           />
           <div class="header-text-wrapper">
-            <h1 class="visually-hidden">Parth Samir Dalvi - Full Stack Developer & AI/ML Enthusiast</h1>
+            <h1 class="visually-hidden">Parth Dalvi - Full Stack Developer & AI/ML Enthusiast</h1>
             <div class="typewriter" id="typewriter"></div>
-            <p class="subtitle" data-aos="fade-up" data-aos-delay="200">
-              MS Computer Science, Purdue University | Open to Full-Time
-              Opportunities | Atlanta, GA — Open to Relocation
-            </p>
-            <a href="#projects" class="hero-cta" data-aos="fade-up" data-aos-delay="300">
+            <div class="subtitle" data-aos="fade-up" data-aos-delay="200">
+              <div style="margin-bottom: 0.4rem;">MS Computer Science, Purdue University</div>
+              <div style="display: inline-block; text-align: left;">
+                | Open to Full-Time Opportunities<br>
+                | Atlanta, GA — Open to Relocation
+              </div>
+            </div>
+            <a href="#projects" id="seeMyWorkBtn" class="hero-cta" data-aos="fade-up" data-aos-delay="300">
               See My Work <span class="hero-cta-arrow">↓</span>
             </a>
           </div>
@@ -1295,7 +1393,7 @@
               onclick="event.preventDefault();
                 const vcf = `BEGIN:VCARD
 VERSION:3.0
-FN:Parth Samir Dalvi
+FN:Parth Dalvi
 TEL:(260)-249-2495
 EMAIL:parth.dalvi.cs@gmail.com
 END:VCARD`;
@@ -1692,7 +1790,13 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
                   Chart.js reporting interfaces for cash flow metrics.
                 </p>
               </div>
+              
+              <!-- Fibucks Live Embed -->
+              <div class="iframe-container">
+                <iframe src="https://fibucks.com" loading="lazy" title="Fibucks Live Preview"></iframe>
+              </div>
             </div>
+            
             <div class="project-card" data-aos="fade-up" data-aos-delay="100">
               <h3>
                 <i class="fa-solid fa-drone"></i> Autonomous Drone Swarm Systems
@@ -1718,7 +1822,22 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
                   autonomous flight logic and fault-tolerant design.
                 </p>
               </div>
+
+              <!-- Interactive 3D Drone Model Embed -->
+              <div class="model-3d-wrapper">
+                <model-viewer 
+                  src="drone.glb" 
+                  alt="3D Drone Model" 
+                  auto-rotate 
+                  camera-controls 
+                  disable-zoom 
+                  shadow-intensity="1"
+                  environment-image="neutral"
+                  exposure="1">
+                </model-viewer>
+              </div>
             </div>
+            
             <div class="project-card" data-aos="fade-up" data-aos-delay="200">
               <h3>
                 <i class="fas fa-eye"></i> Real-Time Audio-Enabled Object
@@ -1742,7 +1861,13 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
                   speed, latency, and model precision under load.
                 </p>
               </div>
+
+              <!-- Sketchfab 3D Model Embed (Clean UI & Autostart) -->
+              <div class="iframe-container sketchfab-container" style="margin-bottom: 5px;">
+                <iframe title="Epson Moverio BT-300 smart glasses for drone" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/a4d81b71228b460eb3d2bcbdb7817922/embed?autostart=1&ui_theme=dark&ui_controls=0&ui_infos=0&ui_settings=0&ui_vr=0&ui_fullscreen=0&ui_animations=0&ui_stop=0&ui_help=0"> </iframe>
+              </div>
             </div>
+            
             <div class="project-card" data-aos="fade-up" data-aos-delay="300">
               <h3>
                 <i class="fa-solid fa-gopuram"></i> Temple Management System
@@ -1762,7 +1887,22 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
                   workflows, enhancing efficiency and data management by 30%.
                 </p>
               </div>
+              
+              <!-- Interactive 3D Temple Model Embed -->
+              <div class="model-3d-wrapper">
+                <model-viewer 
+                  src="temple.glb" 
+                  alt="3D Temple Model" 
+                  auto-rotate 
+                  camera-controls 
+                  disable-zoom 
+                  shadow-intensity="1"
+                  environment-image="neutral"
+                  exposure="1">
+                </model-viewer>
+              </div>
             </div>
+            
             <div class="project-card" data-aos="fade-up" data-aos-delay="400">
               <h3>
                 <i class="fa-solid fa-utensils"></i> 3Am Recipe Generator
@@ -1777,7 +1917,23 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
                   A cross-platform mobile application that allows users to search for recipes, save their favorites for offline access, and generate shopping lists from recipe ingredients. This project demonstrates API integration, local data persistence, and a clean user interface.
                 </p>
               </div>
+              
+              <!-- Interactive 3D Recipe Model Embed -->
+              <div class="model-3d-wrapper">
+                <model-viewer 
+                  src="recipe_book.glb" 
+                  alt="3D Recipe Model" 
+                  auto-rotate 
+                  autoplay
+                  camera-controls 
+                  disable-zoom 
+                  shadow-intensity="1"
+                  environment-image="neutral"
+                  exposure="1">
+                </model-viewer>
+              </div>
             </div>
+            
             <div class="project-card" data-aos="fade-up" data-aos-delay="500">
               <h3>
                 <i class="fa-solid fa-pager"></i> Resume Parsing & Candidate
@@ -1794,6 +1950,11 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
                   Designed to automate resume parsing and candidate-job matching to
                   remove biases and improve efficiency in recruitment.
                 </p>
+              </div>
+
+              <!-- Sketchfab 3D Model Embed (Clean UI & Autostart) -->
+              <div class="iframe-container sketchfab-container" style="margin-bottom: 5px;">
+                <iframe title="Office document binder mockup 01 open" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/e9e7b82f1cc6440ca03d20fa68646fe8/embed?autostart=1&ui_theme=dark&ui_controls=0&ui_infos=0&ui_settings=0&ui_vr=0&ui_fullscreen=0&ui_animations=0&ui_stop=0&ui_help=0&ui_watermark=0"> </iframe>
               </div>
             </div>
           </div>
@@ -1870,7 +2031,11 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
         </div>
         <div class="contact-section-content" data-aos="fade-up">
           <p class="availability-text">
-            I'm a graduate student at Purdue University, actively open to full-time roles and opportunities — based in Atlanta, GA, open to relocation. I'm always happy to discuss new projects, collaborations, or just talk tech talk!
+            I'm a graduate student at Purdue University, currently working as
+            an Application Developer at Gameplay Inc, and actively open to
+            new full-time roles and opportunities starting Summer 2026 —
+            based in Atlanta, GA, open to remote. I'm always happy to
+            discuss new projects, collaborations, or just talk tech!
             <br /><br />
             The best way to reach me is via email at
             <a href="mailto:parth.dalvi.cs@gmail.com"
@@ -1879,7 +2044,7 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
             or by filling out the form below.
           </p>
 
-          <form id="contactForm" class="contact-form" action="https://formspree.io/f/xvkpzggr" method="POST">
+          <form id="contactForm" class="contact-form">
             <div class="form-group">
               <label for="name">Your Name</label>
               <input type="text" id="name" name="name" required />
@@ -1892,8 +2057,6 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
               <label for="message">Your Message</label>
               <textarea id="message" name="message" required></textarea>
             </div>
-            <input type="hidden" name="_subject" value="New message from portfolio site" />
-            <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
             <button type="submit" class="form-submit-btn">Send Message</button>
             <p id="formMessage" class="form-message"></p>
           </form>
@@ -1928,7 +2091,7 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
 
     <footer style="text-align: center; padding: 4rem 0 3rem; color: var(--text-secondary)">
       <p>
-        © <span id="currentYear"></span> Parth Samir Dalvi. All rights reserved.
+        © <span id="currentYear"></span> Parth Dalvi. All rights reserved.
       </p>
     </footer>
 
@@ -1970,6 +2133,8 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- Included Canvas Confetti for the Easter Egg & Clicks -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <script>
       // --- Particles.js: subtle, slow, monochrome ---
@@ -2153,8 +2318,8 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
 
       if (hasVisited) {
         typewriterTexts = [
-          "Welcome back, glad to see you again!",
-          "Hi, I'm Parth Samir Dalvi.",
+          "Welcome back!",
+          "Hi, I'm Parth Dalvi.",
           "Full Stack Developer.",
           "AI/ML Enthusiast.",
           "Cloud & DevOps Explorer.",
@@ -2163,7 +2328,7 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
       } else {
         typewriterTexts = [
           "Hello there!",
-          "Hi, I'm Parth Samir Dalvi.",
+          "Hi, I'm Parth Dalvi.",
           "Full Stack Developer.",
           "AI/ML Enthusiast.",
           "Cloud & DevOps Explorer.",
@@ -2207,6 +2372,48 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
 
       // --- Footer Year Update ---
       document.getElementById("currentYear").textContent = new Date().getFullYear();
+
+      // --- Confetti on "See My Work" Button ---
+      const seeMyWorkBtn = document.getElementById("seeMyWorkBtn");
+      if (seeMyWorkBtn) {
+        seeMyWorkBtn.addEventListener("click", () => {
+          if (window.confetti) {
+            confetti({
+              particleCount: 150,
+              spread: 70,
+              origin: { y: 0.6 },
+              colors: ['#0071e3', '#f5f5f7', '#ffbd2e', '#27c93f']
+            });
+          }
+        });
+      }
+
+      // --- Easter Egg: Typing "hire me" ---
+      let typedKeys = '';
+      window.addEventListener('keydown', (e) => {
+        // Log alphabetic characters and spaces
+        if (e.key.length === 1 && e.key.match(/[a-zA-Z\s]/)) {
+          typedKeys += e.key.toLowerCase();
+          // Keep buffer limited to length of "hire me"
+          if (typedKeys.length > 7) {
+            typedKeys = typedKeys.slice(-7);
+          }
+          if (typedKeys === 'hire me') {
+            // Trigger Confetti
+            if (window.confetti) {
+              confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#0071e3', '#f5f5f7', '#ffbd2e', '#27c93f']
+              });
+            }
+            // Auto scroll to contact section
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+            typedKeys = ''; // Reset buffer
+          }
+        }
+      });
 
       // --- Chatbot Logic ---
       const chatbotToggle = document.getElementById("chatbotToggle");
@@ -2322,53 +2529,22 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
         addMessage(response, "bot");
       }
 
-      // --- Contact Form Logic (real submission via Formspree) ---
+      // --- Contact Form Logic ---
       const contactForm = document.getElementById("contactForm");
       const formMessage = document.getElementById("formMessage");
-      const formSubmitBtn = contactForm.querySelector(".form-submit-btn");
 
-      contactForm.addEventListener("submit", async function (e) {
+      contactForm.addEventListener("submit", function (e) {
         e.preventDefault();
 
-        const originalBtnText = formSubmitBtn.textContent;
-        formSubmitBtn.disabled = true;
-        formSubmitBtn.textContent = "Sending...";
+        formMessage.textContent =
+          "Thank you for your message! I'll get back to you soon.";
+        formMessage.style.color = "var(--accent)";
+        formMessage.classList.add("show");
+        contactForm.reset();
 
-        try {
-          const response = await fetch(contactForm.action, {
-            method: "POST",
-            body: new FormData(contactForm),
-            headers: { Accept: "application/json" },
-          });
-
-          if (response.ok) {
-            formMessage.textContent =
-              "Thank you for your message! I'll get back to you soon.";
-            formMessage.style.color = "var(--accent)";
-            formMessage.classList.add("show");
-            contactForm.reset();
-          } else {
-            const data = await response.json().catch(() => null);
-            const errMsg =
-              data && data.errors && data.errors.length
-                ? data.errors.map((err) => err.message).join(", ")
-                : "Something went wrong. Please try emailing me directly instead.";
-            formMessage.textContent = errMsg;
-            formMessage.style.color = "#ff5f56";
-            formMessage.classList.add("show");
-          }
-        } catch (err) {
-          formMessage.textContent =
-            "Couldn't send right now — please email me directly at parth.dalvi.cs@gmail.com.";
-          formMessage.style.color = "#ff5f56";
-          formMessage.classList.add("show");
-        } finally {
-          formSubmitBtn.disabled = false;
-          formSubmitBtn.textContent = originalBtnText;
-          setTimeout(() => {
-            formMessage.classList.remove("show");
-          }, 6000);
-        }
+        setTimeout(() => {
+          formMessage.classList.remove("show");
+        }, 5000);
       });
     </script>
   </body>
