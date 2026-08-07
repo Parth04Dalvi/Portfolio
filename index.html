@@ -2044,7 +2044,7 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
             or by filling out the form below.
           </p>
 
-          <form id="contactForm" class="contact-form">
+          <form id="contactForm" class="contact-form" action="https://formspree.io/f/xvkpzggr" method="POST">
             <div class="form-group">
               <label for="name">Your Name</label>
               <input type="text" id="name" name="name" required />
@@ -2533,14 +2533,42 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
       const contactForm = document.getElementById("contactForm");
       const formMessage = document.getElementById("formMessage");
 
-      contactForm.addEventListener("submit", function (e) {
+      contactForm.addEventListener("submit", async function (e) {
         e.preventDefault();
+        
+        // Store the original button text
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.textContent;
+        submitBtn.textContent = "Sending...";
+        submitBtn.disabled = true;
 
-        formMessage.textContent =
-          "Thank you for your message! I'll get back to you soon.";
-        formMessage.style.color = "var(--accent)";
-        formMessage.classList.add("show");
-        contactForm.reset();
+        try {
+          const response = await fetch(contactForm.action, {
+            method: contactForm.method,
+            body: new FormData(contactForm),
+            headers: {
+              'Accept': 'application/json'
+            }
+          });
+
+          if (response.ok) {
+            formMessage.textContent = "Thank you for your message! I'll get back to you soon.";
+            formMessage.style.color = "var(--accent)";
+            formMessage.classList.add("show");
+            contactForm.reset();
+          } else {
+            formMessage.textContent = "Oops! There was a problem submitting your form.";
+            formMessage.style.color = "#ff5f56";
+            formMessage.classList.add("show");
+          }
+        } catch (error) {
+          formMessage.textContent = "Oops! There was a network error.";
+          formMessage.style.color = "#ff5f56";
+          formMessage.classList.add("show");
+        }
+
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
 
         setTimeout(() => {
           formMessage.classList.remove("show");
