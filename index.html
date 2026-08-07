@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Parth Samir Dalvi | Portfolio</title>
+    <title>Parth Dalvi | Portfolio</title>
     <link rel="icon" type="image/png" href="photo5.png">
     <link
       href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap"
@@ -14,6 +14,9 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    
+    <!-- 3D Model Viewer Library -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 
     <style>
       /* --- CSS Variables --- */
@@ -738,6 +741,27 @@
         border: none;
         pointer-events: auto;
       }
+      
+      /* --- 3D Model Viewer Container --- */
+      .model-3d-wrapper {
+        margin-top: 1.5rem;
+        width: 100%;
+        height: 220px;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: radial-gradient(circle at center, rgba(0, 113, 227, 0.15) 0%, transparent 70%);
+        position: relative;
+        cursor: grab;
+      }
+      .model-3d-wrapper:active {
+        cursor: grabbing;
+      }
+      .model-3d-wrapper model-viewer {
+        width: 100%;
+        height: 100%;
+        --poster-color: transparent;
+      }
 
       /* --- Achievements Section Wrapper --- */
       .achievements-section-wrapper {
@@ -1196,7 +1220,7 @@
       /* --- Print Styles --- */
       @media print {
         /* Hide interactive / non-essential elements */
-        .sidebar-wrapper, #particles-js, .menu-toggle, .chatbot-toggle, .chatbot-container, .hero-cta, .print-hide { 
+        .sidebar-wrapper, #particles-js, .menu-toggle, .chatbot-toggle, .chatbot-container, .hero-cta, .print-hide, .model-3d-wrapper { 
           display: none !important; 
         }
         body { 
@@ -1302,12 +1326,12 @@
         <div class="header-content-wrapper">
           <img
             src="photo4.jpg"
-            alt="Parth Samir Dalvi"
+            alt="Parth Dalvi"
             class="main-header-profile-img"
             data-aos="zoom-in"
           />
           <div class="header-text-wrapper">
-            <h1 class="visually-hidden">Parth Samir Dalvi - Full Stack Developer & AI/ML Enthusiast</h1>
+            <h1 class="visually-hidden">Parth Dalvi - Full Stack Developer & AI/ML Enthusiast</h1>
             <div class="typewriter" id="typewriter"></div>
             <p class="subtitle" data-aos="fade-up" data-aos-delay="200">
               MS Computer Science, Purdue University | Open to Full-Time
@@ -1351,7 +1375,7 @@
               onclick="event.preventDefault();
                 const vcf = `BEGIN:VCARD
 VERSION:3.0
-FN:Parth Samir Dalvi
+FN:Parth Dalvi
 TEL:(260)-249-2495
 EMAIL:parth.dalvi.cs@gmail.com
 END:VCARD`;
@@ -1780,7 +1804,22 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
                   autonomous flight logic and fault-tolerant design.
                 </p>
               </div>
+
+              <!-- Interactive 3D Drone Model Embed -->
+              <div class="model-3d-wrapper">
+                <model-viewer 
+                  src="drone.glb" 
+                  alt="3D Drone Model" 
+                  auto-rotate 
+                  camera-controls 
+                  disable-zoom 
+                  shadow-intensity="1"
+                  environment-image="neutral"
+                  exposure="1">
+                </model-viewer>
+              </div>
             </div>
+            
             <div class="project-card" data-aos="fade-up" data-aos-delay="200">
               <h3>
                 <i class="fas fa-eye"></i> Real-Time Audio-Enabled Object
@@ -1992,7 +2031,7 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
 
     <footer style="text-align: center; padding: 4rem 0 3rem; color: var(--text-secondary)">
       <p>
-        © <span id="currentYear"></span> Parth Samir Dalvi. All rights reserved.
+        © <span id="currentYear"></span> Parth Dalvi. All rights reserved.
       </p>
     </footer>
 
@@ -2219,8 +2258,8 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
 
       if (hasVisited) {
         typewriterTexts = [
-          "Welcome back, glad to see you again!",
-          "Hi, I'm Parth Samir Dalvi.",
+          "Welcome back!",
+          "Hi, I'm Parth Dalvi.",
           "Full Stack Developer.",
           "AI/ML Enthusiast.",
           "Cloud & DevOps Explorer.",
@@ -2229,7 +2268,7 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
       } else {
         typewriterTexts = [
           "Hello there!",
-          "Hi, I'm Parth Samir Dalvi.",
+          "Hi, I'm Parth Dalvi.",
           "Full Stack Developer.",
           "AI/ML Enthusiast.",
           "Cloud & DevOps Explorer.",
