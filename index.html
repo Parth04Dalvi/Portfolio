@@ -741,6 +741,15 @@
         border: none;
         pointer-events: auto;
       }
+
+      /* --- Sketchfab Crop Hack --- */
+      .sketchfab-container {
+        height: 220px;
+      }
+      .sketchfab-container iframe {
+        height: calc(100% + 60px);
+        width: 100%;
+      }
       
       /* --- 3D Model Viewer Container --- */
       .model-3d-wrapper {
@@ -1842,6 +1851,11 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
                   and built evaluation benchmark suites to measure inference
                   speed, latency, and model precision under load.
                 </p>
+              </div>
+
+              <!-- Sketchfab 3D Model Embed (Clean UI & Autostart) -->
+              <div class="iframe-container sketchfab-container" style="margin-bottom: 5px;">
+                <iframe title="Epson Moverio BT-300 smart glasses for drone" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/a4d81b71228b460eb3d2bcbdb7817922/embed?autostart=1&ui_theme=dark&ui_controls=0&ui_infos=0&ui_settings=0&ui_vr=0&ui_fullscreen=0&ui_animations=0&ui_stop=0"> </iframe>
               </div>
             </div>
             <div class="project-card" data-aos="fade-up" data-aos-delay="300">
