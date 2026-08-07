@@ -268,10 +268,10 @@
       }
       .header-content-wrapper {
         display: flex;
+        flex-direction: column; /* Stack vertically */
         align-items: center;
         justify-content: center;
-        gap: 2.5rem;
-        flex-wrap: wrap;
+        gap: 1.5rem; /* Adjusted for vertical layout */
       }
       .main-header-profile-img {
         width: 160px;
@@ -279,20 +279,21 @@
         border-radius: 50%;
         object-fit: cover;
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-        margin-bottom: 1.5rem;
+        margin-bottom: 0.5rem;
         border: 3px solid var(--border);
         transition: transform 0.3s;
         flex-shrink: 0;
-        position: sticky;
-        top: 100px;
       }
       .main-header-profile-img:hover {
         transform: scale(1.03);
       }
       .header-text-wrapper {
-        width: 520px; 
-        max-width: 100%;
-        text-align: left;
+        width: 100%;
+        max-width: 600px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
       }
       .typewriter {
         display: block;
@@ -302,7 +303,8 @@
         letter-spacing: -0.02em;
         margin-bottom: 1rem;
         line-height: 1.2;
-        min-height: 2.5em; /* Dynamically holds space for exactly 2 lines of text */
+        min-height: 2.5em; /* Allows wrapping but holds space */
+        text-align: center;
       }
       .visually-hidden {
         position: absolute;
@@ -319,8 +321,8 @@
         color: var(--text-secondary);
         margin-bottom: 2rem;
         font-weight: 400;
-        max-width: 460px;
-        text-wrap: balance;
+        text-align: center;
+        line-height: 1.6;
       }
       .hero-cta {
         display: inline-flex;
@@ -1145,6 +1147,7 @@
       }
       .chatbot-input-container input:focus {
         border-color: var(--accent);
+        padding: 0.9rem 1.1rem;
       }
       .chatbot-input-container button {
         background: var(--accent);
@@ -1345,10 +1348,13 @@
           <div class="header-text-wrapper">
             <h1 class="visually-hidden">Parth Dalvi - Full Stack Developer & AI/ML Enthusiast</h1>
             <div class="typewriter" id="typewriter"></div>
-            <p class="subtitle" data-aos="fade-up" data-aos-delay="200">
-              MS Computer Science, Purdue University | Open to Full-Time
-              Opportunities | Atlanta, GA — Open to Relocation
-            </p>
+            <div class="subtitle" data-aos="fade-up" data-aos-delay="200">
+              <div style="margin-bottom: 0.4rem;">MS Computer Science, Purdue University</div>
+              <div style="display: inline-block; text-align: left;">
+                | Open to Full-Time Opportunities<br>
+                | Atlanta, GA — Open to Relocation
+              </div>
+            </div>
             <a href="#projects" id="seeMyWorkBtn" class="hero-cta" data-aos="fade-up" data-aos-delay="300">
               See My Work <span class="hero-cta-arrow">↓</span>
             </a>
