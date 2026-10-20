@@ -775,6 +775,16 @@
         --poster-color: transparent;
       }
 
+      @keyframes chatbot-bob {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-8px); }
+      }
+
+      @keyframes chatbot-ring {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(0, 190, 255, 0.25), 0 8px 24px rgba(0, 113, 227, 0.4); }
+        50% { box-shadow: 0 0 0 8px rgba(0, 190, 255, 0), 0 10px 28px rgba(0, 113, 227, 0.55); }
+      }
+
       /* --- Achievements Section Wrapper --- */
       .achievements-section-wrapper {
         background: transparent;
@@ -1011,31 +1021,45 @@
         position: fixed;
         bottom: 30px;
         right: 30px;
-        width: 56px;
-        height: 56px;
-        background: var(--accent);
+        width: 62px;
+        height: 62px;
+        background: linear-gradient(145deg, #19b9ff, #0071e3 68%, #0052b4);
         color: var(--white);
-        border: none;
+        border: 2px solid rgba(255, 255, 255, 0.8);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.6rem;
+        font-size: 1.7rem;
         cursor: pointer;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.22), 0 8px 24px rgba(0, 113, 227, 0.4);
         z-index: 1000;
-        transition: transform 0.2s ease, opacity 0.2s ease;
+        animation: chatbot-ring 2.4s ease-out infinite;
       }
       .chatbot-toggle:hover {
-        transform: scale(1.05);
-        opacity: 0.9;
+        animation-play-state: paused;
+        transform: scale(1.08);
+      }
+      .chatbot-toggle i {
+        filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.25));
+        animation: chatbot-bob 1.8s ease-in-out infinite;
+      }
+      .chatbot-toggle .chatbot-notification {
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        width: 12px;
+        height: 12px;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        background: #ff5f56;
       }
       .chatbot-container {
         position: fixed;
         bottom: 100px;
         right: 30px;
-        width: 350px;
-        height: 500px;
+        width: min(350px, calc(100vw - 32px));
+        height: min(500px, calc(100vh - 120px));
         background: var(--card-bg);
         border: 1px solid var(--border);
         border-radius: 18px;
@@ -1167,6 +1191,14 @@
       .chatbot-input-container button:hover {
         opacity: 0.85;
         transform: none;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .chatbot-toggle {
+          animation: none;
+        }
+        .chatbot-toggle i {
+          animation: none;
+        }
       }
 
       /* --- Mobile Responsiveness (Media Queries) --- */
@@ -1884,19 +1916,6 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
                 </p>
               </div>
               
-              <!-- Interactive 3D Temple Model Embed -->
-              <div class="model-3d-wrapper">
-                <model-viewer 
-                  src="temple.glb" 
-                  alt="3D Temple Model" 
-                  auto-rotate 
-                  camera-controls 
-                  disable-zoom 
-                  shadow-intensity="1"
-                  environment-image="neutral"
-                  exposure="1">
-                </model-viewer>
-              </div>
             </div>
             
             <div class="project-card" data-aos="fade-up" data-aos-delay="400">
@@ -1914,20 +1933,6 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
                 </p>
               </div>
               
-              <!-- Interactive 3D Recipe Model Embed -->
-              <div class="model-3d-wrapper">
-                <model-viewer 
-                  src="recipe_book.glb" 
-                  alt="3D Recipe Model" 
-                  auto-rotate 
-                  autoplay
-                  camera-controls 
-                  disable-zoom 
-                  shadow-intensity="1"
-                  environment-image="neutral"
-                  exposure="1">
-                </model-viewer>
-              </div>
             </div>
             
             <div class="project-card" data-aos="fade-up" data-aos-delay="500">
@@ -1948,10 +1953,6 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
                 </p>
               </div>
 
-              <!-- Sketchfab 3D Model Embed (Clean UI & Autostart) -->
-              <div class="iframe-container sketchfab-container" style="margin-bottom: 5px;">
-                <iframe title="Office document binder mockup 01 open" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/e9e7b82f1cc6440ca03d20fa68646fe8/embed?autostart=1&ui_theme=dark&ui_controls=0&ui_infos=0&ui_settings=0&ui_vr=0&ui_fullscreen=0&ui_animations=0&ui_stop=0&ui_help=0&ui_watermark=0"> </iframe>
-              </div>
             </div>
           </div>
         </div>
@@ -2096,6 +2097,7 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
       aria-label="Open chat with portfolio bot"
     >
       <i class="fas fa-robot"></i>
+      <span class="chatbot-notification" aria-hidden="true"></span>
     </button>
 
     <div class="chatbot-container" id="chatbotContainer">
@@ -2107,8 +2109,7 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
       </div>
       <div class="chatbot-messages" id="chatbotMessages">
         <div class="chatbot-message bot">
-          Hello! I'm your portfolio bot. Ask me anything about Parth's skills,
-          projects, or background! Try "skills" or "projects".
+          Hi, I’m Parth’s portfolio assistant. Ask about his work, education, projects, skills, or availability.
         </div>
         <div class="chatbot-typing-indicator" id="typingIndicator"></div>
       </div>
@@ -2475,50 +2476,47 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
       }
 
       function handleBotResponse(message) {
-        let response =
-          "I'm not sure how to answer that. Could you try asking about 'skills', 'projects', 'education', or 'experience'?";
+        const question = message.toLowerCase().replace(/[’']/g, "").trim();
+        let response;
 
-        if (message.includes("hello") || message.includes("hi")) {
-          response =
-            "Hello there! How can I help you learn more about Parth's portfolio?";
-        } else if (message.includes("your name")) {
-          response =
-            "I'm Parth's portfolio bot, designed to help you navigate his work and experience.";
-        } else if (message.includes("skills")) {
-          response =
-            "Parth's stack spans Languages (Python, C++, TypeScript, JavaScript, C#, SQL), AI/ML & Edge AI (PyTorch, ONNX Runtime, YOLOv8, OpenCV, RAG, NLP), Agentic AI & LLMOps (LangChain, LangGraph, Vector DBs, GPT-4, Gemini API), Frameworks & Web (Next.js, Node.js, Spring Boot, FastAPI, React, React Native), and Systems/MLOps (ETL Pipelines, Time-Series Forecasting, Azure, Docker).";
-        } else if (message.includes("projects")) {
-          response =
-            "Parth has worked on Fibucks (an AI-powered personal finance platform), Autonomous Drone Swarm Systems (an IAF-partnered defense initiative), a Real-Time Audio-Enabled Object Detection System with a published research paper, a Temple Management System, a 3Am Recipe Generator app, and a Resume Parsing and Candidate Matching system. Which one would you like to know more about?";
-        } else if (message.includes("fibucks")) {
-          response =
-            "Fibucks is a full-stack personal finance platform built with Next.js, Spring Boot, and Azure, featuring an AI advisor powered by RAG and pgvector semantic search. You can visit it at fibucks.com.";
-        } else if (message.includes("drone") || message.includes("swarm")) {
-          response =
-            "The Autonomous Drone Swarm Systems project built decentralized coordination logic across 50+ units with real-time computer vision on Raspberry Pi hardware. Parth co-led a defense extension with the Indian Air Force, ranking in the top 1% and earning an IAF Appreciation Letter.";
-        } else if (message.includes("object detection")) {
-          response =
-            "The Real-Time Audio-Enabled Object Detection System achieved 98% mAP accuracy using YOLOv8, integrated Gemini API voice NLP, and led to a peer-reviewed paper published in the IJSREM journal.";
-        } else if (message.includes("education")) {
-          response =
-            "Parth is currently pursuing a Master of Science in Computer Science at Purdue University (August 2024 - May 2026) and completed his Bachelor of Technology in Computer Science at the University of Pune (August 2020 - July 2024).";
-        } else if (message.includes("experience") || message.includes("work")) {
-          response =
-            "Parth has experience as an Application Developer at Gameplay Inc and a Data Analyst at Weagile Software Solutions.";
-        } else if (message.includes("achievements") || message.includes("honors")) {
-          response =
-            "Parth's honors include being a National Grand Finalist at the Smart India Hackathon, receiving a Formal Appreciation Letter from the Indian Air Force, and serving as Technical Team Volunteer Lead for Helping Hearts NGO.";
-        } else if (
-          message.includes("contact") ||
-          message.includes("email") ||
-          message.includes("linkedin") ||
-          message.includes("resume")
-        ) {
-          response =
-            "You can contact Parth via email at parth.dalvi.cs@gmail.com, connect on LinkedIn, check out his GitHub, or download his resume directly from the contact section.";
-        } else if (message.includes("thank")) {
-          response =
-            "You're welcome! Feel free to ask more questions if you have them.";
+        if (/\b(hi|hello|hey|good morning|good afternoon)\b/.test(question)) {
+          response = "Hi! I can share details about Parth’s background, projects, skills, work, research, achievements, or contact links. What would you like to know?";
+        } else if (/\b(thanks|thank you|thx)\b/.test(question)) {
+          response = "You’re welcome. Ask me about any part of Parth’s portfolio.";
+        } else if (/\b(who are you|your name|what can you do)\b/.test(question)) {
+          response = "I’m the portfolio assistant for Parth Dalvi. I can answer from the information on this page, including his projects, education, work experience, skills, honors, and contact details.";
+        } else if (/\b(name|who is parth|about parth|about him|about me|background|bio)\b/.test(question)) {
+          response = "Parth Dalvi is a Computer Science graduate student at Purdue University. He focuses on full-stack engineering, AI systems, edge computer vision, and distributed services.";
+        } else if (/\b(location|where.*(live|based|located)|atlanta|relocat|remote)\b/.test(question)) {
+          response = "Parth is based in Atlanta, Georgia, is open to relocation and remote work, and is seeking full-time opportunities.";
+        } else if (/\b(available|availability|hire|job|opportunit|full.?time|role)\b/.test(question)) {
+          response = "Parth is open to full-time opportunities and collaborations. He is based in Atlanta, Georgia, and open to remote work or relocation. You can reach him at parth.dalvi.cs@gmail.com.";
+        } else if (/\b(email|contact|reach|linkedin|github|resume|cv)\b/.test(question)) {
+          response = "Email Parth at parth.dalvi.cs@gmail.com. His LinkedIn is linkedin.com/in/parthdalvi04, his GitHub is github.com/Parth04Dalvi, and the Resume link on this page opens his PDF.";
+        } else if (/\b(education|degree|university|college|purdue|bachelor|masters|master|coursework)\b/.test(question)) {
+          response = "Parth is pursuing an MS in Computer Science at Purdue University (August 2024–May 2026). He earned a BTech in Computer Science from the University of Pune (August 2020–July 2024). His listed coursework includes distributed systems, cloud computing, algorithms, machine learning, databases, operating systems, and computer networks.";
+        } else if (/\b(experience|employment|career|worked|work history|gameplay|weagile|analyst|developer)\b/.test(question)) {
+          response = "Parth worked as an Application Developer at Gameplay Inc (May 2025–May 2026), using C#/.NET, Python, PostgreSQL, and automated tests. At Weagile Software Solutions (March 2022–July 2024), he worked as a Data Analyst on dashboards, ETL workflows, and reporting automation.";
+        } else if (/\b(skill|technology|tech stack|program|language|framework|tools)\b/.test(question)) {
+          response = "His listed skills include Python, C++, TypeScript, JavaScript, C#, SQL, React, Next.js, Node.js, Spring Boot, FastAPI, PyTorch, ONNX Runtime, YOLOv8, OpenCV, LangChain, LangGraph, Azure, Docker, PostgreSQL, and MongoDB.";
+        } else if (/\b(project|portfolio|built|work sample)\b/.test(question)) {
+          response = "Featured projects are Fibucks, an AI-assisted personal finance platform; Autonomous Drone Swarm Systems, using distributed coordination and edge vision; a real-time audio-enabled object detection system; Temple Management System; 3Am Recipe Generator; and Resume Parsing & Candidate Matching. Ask me about one by name for more detail.";
+        } else if (/\b(fibucks|finance|financial|money|budget|spending)\b/.test(question)) {
+          response = "Fibucks is a full-stack personal finance platform built with Next.js, TypeScript, Node.js, Spring Boot, and Azure. It includes OAuth/JWT authentication, reporting, and an AI advisor using RAG and pgvector semantic search. Visit fibucks.com.";
+        } else if (/\b(drone|swarm|air force|iaf|raspberry|collision|mesh)\b/.test(question)) {
+          response = "The drone swarm project developed decentralized coordination and mesh synchronization for 50+ units, collision avoidance, and real-time computer vision on Raspberry Pi hardware. The defense extension was partnered with the Indian Air Force; the work received an IAF appreciation letter and was a National Grand Finalist at a defense hackathon.";
+        } else if (/\b(object detection|yolo|audio|vision|assistive|paper|research|publication|ijsrem|accuracy)\b/.test(question)) {
+          response = "Parth’s real-time audio-enabled object detection project uses YOLOv8 and Gemini API voice feedback for assistive applications. The portfolio reports 98% mAP in field tests and notes a co-authored paper on edge inference optimization published in IJSREM.";
+        } else if (/\b(temple|donation|community management)\b/.test(question)) {
+          response = "The Temple Management System is a React application for administration, donations, events, and community engagement. Its description says it digitized paper workflows and improved efficiency and data management by 30%.";
+        } else if (/\b(recipe|3am|food|shopping list)\b/.test(question)) {
+          response = "The 3Am Recipe Generator is a React Native app that searches recipes, saves favorites for offline access, and creates shopping lists. It uses Spoonacular API, AsyncStorage, React Context, and Fetch.";
+        } else if (/\b(resume parsing|candidate|recruit|ner|resume project)\b/.test(question)) {
+          response = "The Resume Parsing & Candidate Matching research project uses FastAPI to accept PDF and DOCX resumes, extract details with named entity recognition, and store the results in MongoDB for candidate matching.";
+        } else if (/\b(award|achievement|honor|hackathon|helping hearts|volunteer|recognition)\b/.test(question)) {
+          response = "Parth’s listed honors include National Grand Finalist at the Smart India Hackathon, an appreciation letter from the Indian Air Force, and Technical Team Volunteer Lead at Helping Hearts NGO.";
+        } else {
+          response = "I can answer from the details in this portfolio, but I don’t see that specific fact listed. Try asking about Parth’s education, work experience, skills, projects, research, honors, location, or contact details.";
         }
 
         addMessage(response, "bot");
