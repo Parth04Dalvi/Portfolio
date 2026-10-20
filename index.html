@@ -528,19 +528,6 @@
         color: var(--text-secondary);
         font-size: 0.95rem;
       }
-      .timeline-item::before {
-        content: "";
-        position: absolute;
-        left: 50%;
-        top: 32px;
-        width: 12px;
-        height: 12px;
-        background: var(--accent);
-        border-radius: 50%;
-        border: 3px solid var(--bg);
-        transform: translateX(-50%);
-        z-index: 3;
-      }
 
       /* --- Skills Section --- */
       .skills-section {
@@ -1257,10 +1244,6 @@
           margin: 0 0 2rem 0;
           max-width: 100%;
           width: calc(100% - 36px);
-        }
-        .timeline-item::before {
-          left: 18px;
-          transform: translateX(-50%);
         }
         .typewriter {
           height: 70px; /* Reduced for smaller text on mobile */
