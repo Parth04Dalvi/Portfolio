@@ -1235,18 +1235,58 @@
         }
         .timeline-item {
           flex-direction: column !important;
-          align-items: center;
+          align-items: stretch;
         }
         .timeline-item:nth-child(even) {
           flex-direction: column !important;
         }
         .timeline-content {
-          margin: 0 0 2rem 0;
-          max-width: 100%;
+          min-width: 0;
+          max-width: none;
           width: calc(100% - 36px);
+          margin: 0 0 2rem 36px;
         }
         .typewriter {
           height: 70px; /* Reduced for smaller text on mobile */
+        }
+      }
+
+      @media (max-width: 600px) {
+        section {
+          padding-right: 16px;
+          padding-left: 16px;
+        }
+        .projects-grid {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 1.25rem;
+        }
+        .project-card {
+          min-width: 0;
+          padding: 1.4rem 1.2rem;
+        }
+        .project-card h3,
+        .project-card .duration,
+        .project-card .description {
+          overflow-wrap: anywhere;
+        }
+        .contact-info {
+          gap: 0.75rem 1rem;
+          padding: 1rem;
+        }
+        .contact-info span {
+          min-width: 0;
+          max-width: 100%;
+          overflow-wrap: anywhere;
+        }
+        .contact-info a {
+          overflow-wrap: anywhere;
+        }
+        .contact-section-content {
+          padding: 1.5rem 1rem;
+        }
+        .social-links-bottom {
+          column-gap: 1.25rem;
+          row-gap: 1rem;
         }
       }
 
@@ -1459,11 +1499,7 @@ END:VCARD`;
           </div>
           <p class="command">$ WHO AM I</p>
           <p>
-            I am a Computer Science graduate student at Purdue University with a strong focus on AI integration, REST APIs, and distributed systems. My work spans full-stack engineering, edge AI, and agentic LLM systems — from architecting scalable backend solutions to deploying real-time computer vision on autonomous drone swarms in partnership with the Indian Air Force.
-            <p>
-As someone who likes breaking things just to figure out how to fix them usually with code and snacks. I build web apps that try their best to work on the first try (no promises though). React and Tailwind are my daily tools, and I'm currently exploring the mysterious land of backend development where bugs go to multiply. Full-stack dreams, coffee-fueled nights, and lots of console.log. When I'm not coding, I'm either daydreaming startup ideas, lurking on GitHub, or explaining to my friends why 'it works on my machine' is totally valid. I love creating stuff that's fun, functional, and maybe a little chaotic.
-Outside of work, I'm usually exploring new ML architectures, contributing to open source, or explaining to my friends why "it works on my machine" is a totally valid excuse.
-            </p>
+            I am a Computer Science graduate student at Purdue University focused on full-stack engineering, AI systems, and distributed services. My work ranges from production APIs and data platforms to edge computer vision for autonomous drones, including a defense initiative developed with the Indian Air Force. I enjoy turning complex technical ideas into reliable, useful products.
           </p>
         </div>
       </section>
@@ -1473,7 +1509,7 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
           <i class="fas fa-graduation-cap"></i> Education
         </div>
         <div class="timeline">
-          <div class="timeline-item" data-aos="fade-right">
+          <div class="timeline-item" data-aos="fade-up">
             <div class="timeline-content">
               <h3>
                 <img
@@ -1493,7 +1529,7 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
               </div>
             </div>
           </div>
-          <div class="timeline-item" data-aos="fade-left">
+          <div class="timeline-item" data-aos="fade-up">
             <div class="timeline-content">
               <h3>
                 <img
@@ -1523,7 +1559,7 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
           <i class="fas fa-briefcase"></i> Professional Experience
         </div>
         <div class="timeline">
-          <div class="timeline-item" data-aos="fade-right">
+          <div class="timeline-item" data-aos="fade-up">
             <div class="timeline-content">
               <h3>
                 <img
@@ -1558,7 +1594,7 @@ Outside of work, I'm usually exploring new ML architectures, contributing to ope
               </div>
             </div>
           </div>
-          <div class="timeline-item" data-aos="fade-left">
+          <div class="timeline-item" data-aos="fade-up">
             <div class="timeline-content">
               <h3>
                 <img
