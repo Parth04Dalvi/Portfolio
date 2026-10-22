@@ -865,93 +865,15 @@
         border: 1px solid var(--border);
       }
 
-      .contact-form {
-        display: flex;
-        flex-direction: column;
-        gap: 1.2rem;
-        max-width: 600px;
-        margin: 0 auto;
-        width: 100%;
-      }
-
-      .contact-form .form-group {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .contact-form label {
-        margin-bottom: 0.5rem;
-        color: var(--white);
-        font-weight: 500;
-        font-size: 0.9rem;
-      }
-
-      .contact-form input,
-      .contact-form textarea {
-        padding: 0.9rem 1.1rem;
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        background-color: var(--bg);
-        color: var(--white);
-        font-family: -apple-system, BlinkMacSystemFont, "Montserrat", Arial, sans-serif;
-        font-size: 1rem;
-        outline: none;
-        transition: border-color 0.2s, box-shadow 0.2s;
-        width: 100%;
-      }
-
-      .contact-form input:focus,
-      .contact-form textarea:focus {
-        border-color: var(--accent);
-        box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.25);
-      }
-
-      .contact-form textarea {
-        min-height: 120px;
-        resize: vertical;
-      }
-
-      .form-submit-btn {
-        background: var(--accent);
-        color: var(--white);
-        border: none;
-        padding: 0.9rem 2rem;
-        border-radius: 980px;
-        font-size: 1rem;
-        font-weight: 500;
-        cursor: pointer;
-        transition: opacity 0.2s;
-        align-self: center;
-        width: fit-content;
-      }
-
-      .form-submit-btn:hover {
-        opacity: 0.85;
-        transform: none;
-        box-shadow: none;
-      }
-
-      .form-message {
-        text-align: center;
-        margin-top: 1rem;
-        font-size: 0.95rem;
-        color: var(--accent);
-        opacity: 0;
-        transform: translateY(10px);
-        transition: opacity 0.3s ease, transform 0.3s ease;
-      }
-
-      .form-message.show {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
       .availability-text {
         text-align: center;
         color: var(--text-secondary);
         font-size: 1.05rem;
         line-height: 1.6;
         margin-bottom: 1.5rem;
+      }
+      .contact-email-cta {
+        align-self: center;
       }
       .availability-text a {
         color: var(--accent);
@@ -1407,7 +1329,7 @@
             <h1 class="visually-hidden">Parth Dalvi - Full Stack Developer & AI/ML Enthusiast</h1>
             <div class="typewriter" id="typewriter"></div>
             <div class="subtitle" data-aos="fade-up" data-aos-delay="200">
-              <div style="margin-bottom: 0.4rem;">MS Computer Science, Purdue University</div>
+              <div style="margin-bottom: 0.4rem;">M.S. Computer Science Graduate, Purdue University</div>
               <div style="text-align: center;">
                 Open to Full-Time Opportunities<br>
                 Atlanta, GA — Open to Relocation
@@ -1499,13 +1421,7 @@ END:VCARD`;
           </div>
           <p class="command">$ WHO AM I</p>
           <p>
-            I am a Computer Science graduate student at Purdue University with a strong focus on AI integration, REST APIs, and distributed systems. My work spans full-stack engineering, edge AI, and agentic LLM systems — from architecting scalable backend solutions to deploying real-time computer vision on autonomous drone swarms in partnership with the Indian Air Force.
-          </p>
-          <p>
-            As someone who likes breaking things just to figure out how to fix them, usually with code and snacks, I build web apps that try their best to work on the first try (no promises though). React and Tailwind are my daily tools, and I'm currently exploring backend development. Full-stack dreams, coffee-fueled nights, and lots of console.log. When I'm not coding, I'm daydreaming startup ideas, lurking on GitHub, or explaining why "it works on my machine" is totally valid. I love creating stuff that's fun, functional, and maybe a little chaotic.
-          </p>
-          <p>
-            Outside of work, I'm usually exploring new ML architectures, contributing to open source, or explaining to my friends why "it works on my machine" is a totally valid excuse.
+            I’m a Computer Science graduate from Purdue University focused on building reliable software across AI/ML, backend systems, and full-stack products. I’ve developed REST APIs and distributed systems, shipped AI-powered applications, and deployed edge-computer-vision systems—including an autonomous drone-swarm project developed with the Indian Air Force. I enjoy turning complex technical problems into practical, measurable products.
           </p>
         </div>
       </section>
@@ -2053,34 +1969,12 @@ END:VCARD`;
         </div>
         <div class="contact-section-content" data-aos="fade-up">
           <p class="availability-text">
-            I'm a graduate student at Purdue University, actively open to
-            new full-time roles and opportunities —
-            based in Atlanta, GA, and open to remote work or relocation. I'm always happy to
-            discuss new projects, collaborations, or just talk tech!
-            <br /><br />
-            The best way to reach me is via email at
-            <a href="mailto:parth.dalvi.cs@gmail.com"
-              >parth.dalvi.cs@gmail.com</a
-            >
-            or by filling out the form below.
+            I earned my M.S. in Computer Science from Purdue University and am actively seeking full-time opportunities in software engineering and AI/ML. Based in Atlanta, GA, I’m open to remote work or relocation. I’d be glad to discuss roles, projects, or collaborations.
           </p>
 
-          <form id="contactForm" class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID_HERE" method="POST">
-            <div class="form-group">
-              <label for="name">Your Name</label>
-              <input type="text" id="name" name="name" required />
-            </div>
-            <div class="form-group">
-              <label for="email">Your Email</label>
-              <input type="email" id="email" name="email" required />
-            </div>
-            <div class="form-group">
-              <label for="message">Your Message</label>
-              <textarea id="message" name="message" required></textarea>
-            </div>
-            <button type="submit" class="form-submit-btn">Send Message</button>
-            <p id="formMessage" class="form-message"></p>
-          </form>
+          <a class="hero-cta contact-email-cta" href="mailto:parth.dalvi.cs@gmail.com">
+            <i class="fa-solid fa-envelope"></i> Email me
+          </a>
 
           <div class="social-links-bottom">
             <a
@@ -2511,7 +2405,7 @@ END:VCARD`;
         } else if (/\b(who are you|your name|what can you do)\b/.test(question)) {
           response = "I’m the portfolio assistant for Parth Dalvi. I can answer from the information on this page, including his projects, education, work experience, skills, honors, and contact details.";
         } else if (/\b(name|who is parth|about parth|about him|about me|background|bio)\b/.test(question)) {
-          response = "Parth Dalvi is a Computer Science graduate student at Purdue University. He focuses on full-stack engineering, AI systems, edge computer vision, and distributed services.";
+          response = "Parth Dalvi is a Computer Science graduate from Purdue University. He focuses on full-stack engineering, AI systems, edge computer vision, and distributed services.";
         } else if (/\b(location|where.*(live|based|located)|atlanta|relocat|remote)\b/.test(question)) {
           response = "Parth is based in Atlanta, Georgia, is open to relocation and remote work, and is seeking full-time opportunities.";
         } else if (/\b(available|availability|hire|job|opportunit|full.?time|role)\b/.test(question)) {
@@ -2547,51 +2441,6 @@ END:VCARD`;
         addMessage(response, "bot");
       }
 
-      // --- Contact Form Logic ---
-      const contactForm = document.getElementById("contactForm");
-      const formMessage = document.getElementById("formMessage");
-
-      contactForm.addEventListener("submit", async function (e) {
-        e.preventDefault();
-        
-        // Store the original button text
-        const submitBtn = contactForm.querySelector('button[type="submit"]');
-        const originalBtnText = submitBtn.textContent;
-        submitBtn.textContent = "Sending...";
-        submitBtn.disabled = true;
-
-        try {
-          const response = await fetch(contactForm.action, {
-            method: contactForm.method,
-            body: new FormData(contactForm),
-            headers: {
-              'Accept': 'application/json'
-            }
-          });
-
-          if (response.ok) {
-            formMessage.textContent = "Thank you for your message! I'll get back to you soon.";
-            formMessage.style.color = "var(--accent)";
-            formMessage.classList.add("show");
-            contactForm.reset();
-          } else {
-            formMessage.textContent = "Oops! There was a problem submitting your form.";
-            formMessage.style.color = "#ff5f56";
-            formMessage.classList.add("show");
-          }
-        } catch (error) {
-          formMessage.textContent = "Oops! There was a network error.";
-          formMessage.style.color = "#ff5f56";
-          formMessage.classList.add("show");
-        }
-
-        submitBtn.textContent = originalBtnText;
-        submitBtn.disabled = false;
-
-        setTimeout(() => {
-          formMessage.classList.remove("show");
-        }, 5000);
-      });
     </script>
   </body>
 </html>
