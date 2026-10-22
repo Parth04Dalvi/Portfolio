@@ -1805,177 +1805,168 @@ END:VCARD`;
         </div>
         <div class="projects-section-wrapper">
           <div class="projects-grid">
-            <div class="project-card" data-aos="fade-up">
+            <article class="project-card" data-aos="fade-up">
+              <div class="project-card-top">
+                <span class="project-icon"><i class="fas fa-chart-line" aria-hidden="true"></i></span>
+                <span class="project-category">Fintech · AI product</span>
+              </div>
               <h3>
-                <i class="fas fa-chart-line"></i>
-                <a
-                  href="https://fibucks.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >Fibucks</a
-                >
+                <a href="https://fibucks.com" target="_blank" rel="noopener noreferrer">
+                  Fibucks <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                </a>
               </h3>
-              <p class="duration">
-                Aug 2025 – Feb 2026 |
-                <a
-                  href="https://fibucks.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >fibucks.com</a
-                >
+              <p class="project-meta">
+                <span>Aug 2025 – Feb 2026</span>
+                <span aria-hidden="true">·</span>
+                <a href="https://fibucks.com" target="_blank" rel="noopener noreferrer">Visit fibucks.com</a>
               </p>
-              <div class="description">
-                <p>
-                  <strong>Technologies:</strong> Next.js, TypeScript, MongoDB,
-                  Node.js, Spring Boot, Azure, PyTorch, RAG, Vector DBs
-                </p>
-                <br />
-                <p>
-                  Built and deployed a full-stack personal finance platform
-                  with Node.js and Spring Boot microservices on Azure.
-                  Secured user sessions with OAuth 2.0/JWT authentication,
-                  achieving 100% data isolation and OWASP compliance. Shipped
-                  an AI advisor feature using RAG and pgvector semantic
-                  search to surface predictive spending alerts, with
-                  Chart.js reporting interfaces for cash flow metrics.
-                </p>
-              </div>
-              
-              <!-- Fibucks Live Embed -->
-              <div class="iframe-container">
-                <iframe src="https://fibucks.com" loading="lazy" title="Fibucks Live Preview"></iframe>
-              </div>
-            </div>
-            
-            <div class="project-card" data-aos="fade-up" data-aos-delay="100">
-              <h3>
-                <i class="fa-solid fa-drone"></i> Autonomous Drone Swarm Systems
-              </h3>
-              <p class="duration">
-                Jan 2024 – Dec 2024 | Independent Project & IAF-Partnered
-                Initiative
+              <p class="project-summary">
+                A full-stack personal finance platform combining cloud services, secure accounts, and AI-powered spending insights.
               </p>
-              <div class="description">
-                <p>
-                  <strong>Technologies:</strong> Python, ROS, OpenCV, C++,
-                  Edge AI, Distributed Systems
-                </p>
-                <br />
-                <p>
-                  Built decentralized swarm coordination logic across 50+
-                  units for mesh sync and collision avoidance, and deployed
-                  real-time computer vision models on Raspberry Pi hardware
-                  for localization and threat detection. Co-led a defense
-                  extension with the Indian Air Force, ranking in the top 1%
-                  and earning an IAF Appreciation Letter, and was named
-                  National Grand Finalist in a defense hackathon for
-                  autonomous flight logic and fault-tolerant design.
-                </p>
+              <ul class="project-highlights">
+                <li>Built Node.js and Spring Boot services and deployed them on Azure.</li>
+                <li>Added OAuth 2.0/JWT authentication, RAG-based advice, and cash-flow reporting.</li>
+              </ul>
+              <div class="tech-stack" aria-label="Technologies used">
+                <span>Next.js</span><span>TypeScript</span><span>MongoDB</span>
+                <span>Azure</span><span>RAG</span><span>pgvector</span>
               </div>
+              <details class="project-preview">
+                <summary>Open live preview</summary>
+                <div class="iframe-container">
+                  <iframe src="https://fibucks.com" loading="lazy" title="Fibucks live preview"></iframe>
+                </div>
+              </details>
+            </article>
 
-              <!-- Interactive 3D Drone Model Embed -->
-              <div class="model-3d-wrapper">
-                <model-viewer 
-                  src="drone.glb" 
-                  alt="3D Drone Model" 
-                  auto-rotate 
-                  camera-controls 
-                  disable-zoom 
-                  shadow-intensity="1"
-                  environment-image="neutral"
-                  exposure="1">
-                </model-viewer>
+            <article class="project-card" data-aos="fade-up" data-aos-delay="100">
+              <div class="project-card-top">
+                <span class="project-icon"><i class="fa-solid fa-drone" aria-hidden="true"></i></span>
+                <span class="project-category">Robotics · Edge AI</span>
               </div>
-            </div>
-            
-            <div class="project-card" data-aos="fade-up" data-aos-delay="200">
-              <h3>
-                <i class="fas fa-eye"></i> Real-Time Audio-Enabled Object
-                Detection System
-              </h3>
-              <p class="duration">Jan 2024 – Dec 2024 | Published Paper</p>
-              <div class="description">
-                <p>
-                  <strong>Technologies:</strong> Python, YOLOv8, NLP, Gemini
-                  API, PyTorch, Model Evaluation, Systems Testing
-                </p>
-                <br />
-                <p>
-                  Engineered a real-time computer vision pipeline with
-                  YOLOv8, reaching 98% mAP accuracy in field tests, and
-                  integrated voice NLP via the Gemini API to stream spoken
-                  object feedback for assistive-technology applications.
-                  Co-authored a peer-reviewed research paper on edge
-                  inference optimization, published in the IJSREM journal,
-                  and built evaluation benchmark suites to measure inference
-                  speed, latency, and model precision under load.
-                </p>
+              <h3>Autonomous Drone Swarm Systems</h3>
+              <p class="project-meta">
+                <span>Jan 2024 – Dec 2024</span>
+                <span aria-hidden="true">·</span>
+                <span>Independent &amp; IAF-partnered initiative</span>
+              </p>
+              <p class="project-summary">
+                Developed distributed swarm coordination and onboard computer vision for autonomous aerial systems.
+              </p>
+              <ul class="project-highlights">
+                <li>Designed mesh synchronization and collision avoidance for 50+ units.</li>
+                <li>Deployed real-time vision on Raspberry Pi; recognized with an IAF appreciation letter and national hackathon finalist honors.</li>
+              </ul>
+              <div class="tech-stack" aria-label="Technologies used">
+                <span>Python</span><span>ROS</span><span>OpenCV</span>
+                <span>C++</span><span>Edge AI</span><span>Distributed systems</span>
               </div>
+              <details class="project-preview">
+                <summary>Explore interactive 3D model</summary>
+                <div class="model-3d-wrapper">
+                  <model-viewer
+                    src="drone.glb"
+                    alt="Interactive 3D model of a drone"
+                    auto-rotate
+                    camera-controls
+                    disable-zoom
+                    shadow-intensity="1"
+                    environment-image="neutral"
+                    exposure="1">
+                  </model-viewer>
+                </div>
+              </details>
+            </article>
 
-              <!-- Sketchfab 3D Model Embed (Clean UI & Autostart) -->
-              <div class="iframe-container sketchfab-container" style="margin-bottom: 5px;">
-                <iframe title="Epson Moverio BT-300 smart glasses for drone" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/a4d81b71228b460eb3d2bcbdb7817922/embed?autostart=1&ui_theme=dark&ui_controls=0&ui_infos=0&ui_settings=0&ui_vr=0&ui_fullscreen=0&ui_animations=0&ui_stop=0&ui_help=0"> </iframe>
+            <article class="project-card" data-aos="fade-up" data-aos-delay="200">
+              <div class="project-card-top">
+                <span class="project-icon"><i class="fas fa-eye" aria-hidden="true"></i></span>
+                <span class="project-category">Computer vision · Research</span>
               </div>
-            </div>
-            
-            <div class="project-card" data-aos="fade-up" data-aos-delay="300">
-              <h3>
-                <i class="fa-solid fa-gopuram"></i> Temple Management System
-              </h3>
-              <p class="duration">React Application</p>
-              <div class="description">
-                <p>
-                  <strong>Description:</strong> Temple Management System is an
-                  integrated digital solution designed to streamline temple
-                  operations, including administration, donation management, event
-                  coordination, and community engagement. It leverages
-                  advanced software tools to provide a centralized, user friendly
-                  platform that enhances the efficiency of temple activities and
-                  improves communication with devotees. Built for small
-                  temple networks a like it can scale to meet the needs of any
-                  religious organization. Digitalized paper based
-                  workflows, enhancing efficiency and data management by 30%.
-                </p>
+              <h3>Real-Time Audio-Enabled Object Detection</h3>
+              <p class="project-meta">
+                <span>Jan 2024 – Dec 2024</span><span aria-hidden="true">·</span><span>Published research</span>
+              </p>
+              <p class="project-summary">
+                An assistive computer-vision system that identifies objects and delivers spoken feedback in real time.
+              </p>
+              <ul class="project-highlights">
+                <li>YOLOv8 achieved 98% mAP in field tests; Gemini API provides voice feedback.</li>
+                <li>Co-authored research on edge-inference optimization and built model-evaluation benchmarks.</li>
+              </ul>
+              <div class="tech-stack" aria-label="Technologies used">
+                <span>Python</span><span>YOLOv8</span><span>PyTorch</span>
+                <span>Gemini API</span><span>NLP</span>
               </div>
-              
-            </div>
-            
-            <div class="project-card" data-aos="fade-up" data-aos-delay="400">
-              <h3>
-                <i class="fa-solid fa-utensils"></i> 3Am Recipe Generator
-              </h3>
-              <p class="duration">Mobile Application | React Native</p>
-              <div class="description">
-                <p>
-                  <strong>Technologies:</strong> React Native, Spoonacular API, AsyncStorage, React Context API, Fetch API
-                </p>
-                <br />
-                <p>
-                  A cross-platform mobile application that allows users to search for recipes, save their favorites for offline access, and generate shopping lists from recipe ingredients. This project demonstrates API integration, local data persistence, and a clean user interface.
-                </p>
-              </div>
-              
-            </div>
-            
-            <div class="project-card" data-aos="fade-up" data-aos-delay="500">
-              <h3>
-                <i class="fa-solid fa-pager"></i> Resume Parsing & Candidate
-                Matching Project
-              </h3>
-              <p class="duration">Research Project | NLP</p>
-              <div class="description">
-                <p>
-                  <strong>Description:</strong> Successfully built the backend
-                  using FastAPI to upload resumes in PDF and DOCX formats.
-                  Extracted essential details such as name, contact information,
-                  skills, education, and experience using Named Entity
-                  Recognition (NER) and stored them in a MongoDB database.
-                  Designed to automate resume parsing and candidate-job matching to
-                  remove biases and improve efficiency in recruitment.
-                </p>
-              </div>
+              <details class="project-preview">
+                <summary>View interactive hardware model</summary>
+                <div class="iframe-container sketchfab-container">
+                  <iframe
+                    title="3D model of Epson Moverio BT-300 smart glasses"
+                    loading="lazy"
+                    allow="autoplay; xr-spatial-tracking; fullscreen"
+                    src="https://sketchfab.com/models/a4d81b71228b460eb3d2bcbdb7817922/embed?autostart=1&amp;ui_theme=dark&amp;ui_controls=0&amp;ui_infos=0&amp;ui_settings=0&amp;ui_vr=0&amp;ui_fullscreen=0&amp;ui_animations=0&amp;ui_stop=0&amp;ui_help=0">
+                  </iframe>
+                </div>
+              </details>
+            </article>
 
-            </div>
+            <article class="project-card" data-aos="fade-up" data-aos-delay="300">
+              <div class="project-card-top">
+                <span class="project-icon"><i class="fa-solid fa-gopuram" aria-hidden="true"></i></span>
+                <span class="project-category">Full stack · Community</span>
+              </div>
+              <h3>Temple Management System</h3>
+              <p class="project-meta"><span>React application</span></p>
+              <p class="project-summary">
+                A centralized platform for temple administration, donations, events, and communication with devotees.
+              </p>
+              <ul class="project-highlights">
+                <li>Digitized paper-based workflows and improved operational efficiency and data management by 30%.</li>
+                <li>Designed to support multiple temple networks and community needs.</li>
+              </ul>
+              <div class="tech-stack" aria-label="Technologies used">
+                <span>React</span><span>Web application</span>
+              </div>
+            </article>
+
+            <article class="project-card" data-aos="fade-up" data-aos-delay="400">
+              <div class="project-card-top">
+                <span class="project-icon"><i class="fa-solid fa-utensils" aria-hidden="true"></i></span>
+                <span class="project-category">Mobile · Consumer app</span>
+              </div>
+              <h3>3Am Recipe Generator</h3>
+              <p class="project-meta"><span>Cross-platform mobile application</span></p>
+              <p class="project-summary">
+                A recipe discovery app that helps users turn what they want to cook into an organized shopping list.
+              </p>
+              <ul class="project-highlights">
+                <li>Search recipes, save favorites for offline access, and build shopping lists from ingredients.</li>
+              </ul>
+              <div class="tech-stack" aria-label="Technologies used">
+                <span>React Native</span><span>Spoonacular API</span>
+                <span>AsyncStorage</span><span>React Context</span>
+              </div>
+            </article>
+
+            <article class="project-card" data-aos="fade-up" data-aos-delay="500">
+              <div class="project-card-top">
+                <span class="project-icon"><i class="fa-solid fa-file-lines" aria-hidden="true"></i></span>
+                <span class="project-category">NLP · Research</span>
+              </div>
+              <h3>Resume Parsing &amp; Candidate Matching</h3>
+              <p class="project-meta"><span>Research project</span></p>
+              <p class="project-summary">
+                An automated resume-processing backend designed to support candidate-to-role matching.
+              </p>
+              <ul class="project-highlights">
+                <li>Extracts contact, skills, education, and experience from PDF and DOCX resumes using named entity recognition.</li>
+                <li>Stores structured candidate details in MongoDB for matching and recruitment workflows.</li>
+              </ul>
+              <div class="tech-stack" aria-label="Technologies used">
+                <span>FastAPI</span><span>NLP</span><span>NER</span><span>MongoDB</span>
+              </div>
+            </article>
           </div>
         </div>
       </section>
